@@ -21,46 +21,32 @@
         .scan-line { position: absolute; left: 0; width: 100%; height: 2px; background: #008080; box-shadow: 0 0 15px #008080; animation: scan 3s infinite linear; z-index: 30; }
         .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 12px 0; outline: none; transition: border-color 0.3s; font-size: 16px; }
         .info-input:focus { border-color: #008080; }
-        
-        /* Mobile Menu Animation */
         #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .menu-open { transform: translateX(0) !important; }
+        .face-warning { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(220, 38, 38, 0.9); color: white; padding: 8px 20px; border-radius: 20px; font-size: 10px; font-weight: bold; z-index: 100; display: none; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body class="text-slate-900">
 
     <nav class="glass-nav px-6 py-5 flex justify-between items-center fixed w-full top-0 z-[100]">
         <div class="text-xl font-extrabold tracking-tighter uppercase italic">Cure <span class="text-teal">AI</span></div>
-        
         <div class="hidden lg:flex space-x-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-            <a href="#home" class="hover:text-teal transition">Home</a>
-            <a href="#process" class="hover:text-teal transition">Process</a>
-            <a href="#shop" class="hover:text-teal transition">Treatment Kits</a>
-            <a href="#team" class="hover:text-teal transition">Experts</a>
+            <a href="#home">Home</a> <a href="#process">Process</a> <a href="#shop">Treatment Kits</a> <a href="#team">Experts</a>
         </div>
-
         <div class="flex items-center gap-4">
             <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-teal transition-all">Free Scan</button>
-            
             <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-900 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
             </button>
         </div>
     </nav>
 
     <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full md:w-80 bg-white z-[200] shadow-2xl flex flex-col items-center justify-center space-y-10 transform translate-x-full">
-        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-slate-400 hover:text-black transition">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-        <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase hover:text-teal">Home</a>
-        <a href="#process" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase hover:text-teal">Process</a>
-        <a href="#shop" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase hover:text-teal">Shop</a>
-        <a href="#team" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase hover:text-teal">Experts</a>
-        <button onclick="toggleMobileMenu(); openInfoModal();" class="bg-black text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest">Start Free Scan</button>
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+        <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Home</a>
+        <a href="#process" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Process</a>
+        <a href="#shop" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Shop</a>
+        <button onclick="toggleMobileMenu(); openInfoModal();" class="bg-black text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase">Start Free Scan</button>
     </div>
 
     <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
@@ -72,64 +58,26 @@
         </div>
     </section>
 
-    <section id="process" class="py-32 px-6 bg-[#fafafa]">
-        <div class="max-w-6xl mx-auto space-y-16">
-            <h2 class="text-5xl font-black tracking-tighter text-center uppercase italic">The Process.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white p-12 rounded-[50px] shadow-sm space-y-4"><div class="text-teal font-black text-2xl">01</div><h4 class="text-xl font-bold">Image Mapping</h4><p class="text-sm text-slate-500">68-point neural face tracking to isolate skin zones.</p></div>
-                <div class="bg-white p-12 rounded-[50px] shadow-sm space-y-4"><div class="text-teal font-black text-2xl">02</div><h4 class="text-xl font-bold">Diagnostic Scan</h4><p class="text-sm text-slate-500">Scanning pixels for acne grade and oil intensity.</p></div>
-                <div class="bg-white p-12 rounded-[50px] shadow-sm space-y-4"><div class="text-teal font-black text-2xl">03</div><h4 class="text-xl font-bold">Clinical Kit</h4><p class="text-sm text-slate-500">Generating a professional regimen for your skin.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="shop" class="py-32 px-6 bg-white">
-        <div class="max-w-7xl mx-auto space-y-20">
-            <h2 class="text-6xl font-black tracking-tighter text-center italic">Treatment Kits.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="luxury-card p-10 group"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Active Acne Kit</h4><button class="mt-8 w-full bg-black text-white py-4 rounded-2xl text-[10px] font-bold uppercase hover:bg-teal transition-all">View Details</button></div>
-                <div class="luxury-card p-10 group"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Pore Control Kit</h4><button class="mt-8 w-full bg-black text-white py-4 rounded-2xl text-[10px] font-bold uppercase hover:bg-teal transition-all">View Details</button></div>
-                <div class="luxury-card p-10 group"><img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Oil Control Kit</h4><button class="mt-8 w-full bg-black text-white py-4 rounded-2xl text-[10px] font-bold uppercase hover:bg-teal transition-all">View Details</button></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="team" class="py-32 px-6 bg-slate-50">
-        <div class="max-w-4xl mx-auto text-center space-y-16">
-            <h2 class="text-5xl font-black tracking-tighter uppercase italic">The Experts.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <div class="space-y-4 text-center">
-                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&w=300" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-xl">
-                    <h4 class="font-bold text-xl">Dr. Aryan Shah</h4>
-                    <p class="text-[10px] text-teal font-bold uppercase tracking-widest">Medical Director (Male)</p>
+    <div id="info-modal" class="fixed inset-0 z-[105] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
+        <div class="max-w-md w-full space-y-8 py-10">
+            <div class="text-center"><h2 class="text-3xl font-black italic uppercase">Your Profile.</h2><p class="text-slate-400 text-xs">More details = More accurate results.</p></div>
+            <div class="space-y-5">
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Full Name</label><input type="text" id="user-name" placeholder="John Doe" class="info-input"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="text-[9px] font-bold uppercase text-slate-400">Age</label><input type="number" id="user-age-input" placeholder="18" class="info-input"></div>
+                    <div><label class="text-[9px] font-bold uppercase text-slate-400">Gender</label><select id="user-gender" class="info-input"><option>Male</option><option>Female</option><option>Other</option></select></div>
                 </div>
-                <div class="space-y-4 text-center">
-                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&w=300" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-xl">
-                    <h4 class="font-bold text-xl">Dr. Sarah Kapoor</h4>
-                    <p class="text-[10px] text-teal font-bold uppercase tracking-widest">Chief Dermatologist (Female)</p>
-                </div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Skin Type</label><select id="user-type" class="info-input"><option>Oily</option><option>Dry</option><option>Combination</option><option>Sensitive</option></select></div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Primary Goal</label><select id="user-goal" class="info-input"><option>Clear Active Acne</option><option>Reduce Pores & Oil</option><option>Remove Dark Spots</option><option>Anti-Aging & Glow</option></select></div>
             </div>
-        </div>
-    </section>
-
-    <div id="info-modal" class="fixed inset-0 z-[105] bg-white hidden flex-col items-center justify-center p-6">
-        <div class="max-w-md w-full space-y-10">
-            <div class="text-center space-y-2"><h2 class="text-4xl font-black italic uppercase">Your Profile.</h2><p class="text-slate-400 text-sm">Please provide details for a clinical-grade report.</p></div>
-            <div class="space-y-6">
-                <div><label class="text-[10px] font-bold uppercase text-slate-300">Full Name</label><input type="text" id="user-name" placeholder="Enter your name" class="info-input"></div>
-                <div><label class="text-[10px] font-bold uppercase text-slate-300">Skin Goal</label>
-                    <select id="user-goal" class="info-input">
-                        <option>Clear Active Acne</option><option>Reduce Pores & Oil</option><option>Remove Dark Circles</option><option>Anti-Aging & Glow</option>
-                    </select>
-                </div>
-            </div>
-            <button onclick="submitInfo()" class="w-full bg-black text-white py-6 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-xl">Proceed to Scan</button>
+            <button onclick="submitInfo()" class="w-full bg-black text-white py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-xl">Proceed to Scan</button>
         </div>
     </div>
 
     <div id="scan-screen" class="fixed inset-0 z-[110] bg-white hidden flex-col items-center justify-center p-10">
         <div class="w-80 h-80 md:w-[500px] md:h-[500px] relative rounded-full overflow-hidden border-8 border-slate-50 shadow-2xl">
             <video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video>
+            <div id="face-msg" class="face-warning">Align face in center</div>
             <div class="silhouette"></div>
             <div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div>
         </div>
@@ -140,119 +88,116 @@
     </div>
 
     <div id="result-modal" class="fixed inset-0 z-[200] hidden bg-white overflow-y-auto">
-        <div id="pdf-content" class="max-w-6xl mx-auto px-6 py-24 space-y-20 bg-white">
+        <div id="pdf-content" class="max-w-6xl mx-auto px-6 py-24 space-y-16 bg-white">
             <header class="flex justify-between items-end border-b pb-12">
                 <div class="space-y-4">
-                    <h4 class="text-teal font-bold uppercase tracking-widest text-[11px]" id="rep-name-header">PATIENT REPORT</h4>
-                    <h2 class="text-7xl font-black italic tracking-tighter uppercase">Regimen.</h2>
-                    <p class="text-slate-300 font-bold uppercase tracking-widest text-[10px]" id="rep-date"></p>
+                    <h4 class="text-teal font-bold uppercase tracking-widest text-[10px]" id="rep-name-header">PATIENT REPORT</h4>
+                    <h2 class="text-6xl font-black italic tracking-tighter uppercase">Regimen.</h2>
+                    <p class="text-slate-300 font-bold uppercase tracking-widest text-[9px]" id="rep-date"></p>
                 </div>
-                <div class="flex gap-4 no-print">
-                    <button onclick="downloadPDF()" class="bg-teal text-white px-10 py-4 rounded-2xl text-[10px] font-bold uppercase shadow-xl">Download Plan</button>
-                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-2xl text-[10px] font-bold uppercase">Done</button>
-                </div>
+                <div class="flex gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Download</button><button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Done</button></div>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-slate-50 p-10 rounded-[50px] text-center border border-slate-100"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Acne Grade</p><h4 id="res-acne" class="text-3xl font-black text-teal">...</h4></div>
-                <div class="bg-slate-50 p-10 rounded-[50px] text-center border border-slate-100"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Pigmentation</p><h4 id="res-pigment" class="text-3xl font-black text-teal">...</h4></div>
-                <div class="bg-slate-50 p-10 rounded-[50px] text-center border border-slate-100"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Dark Circles</p><h4 id="res-circles" class="text-3xl font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-10 rounded-[50px] text-center"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Acne Grade</p><h4 id="res-acne" class="text-3xl font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-10 rounded-[50px] text-center"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Pigmentation</p><h4 id="res-pigment" class="text-3xl font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-10 rounded-[50px] text-center"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Pores</p><h4 id="res-pores" class="text-3xl font-black text-teal">...</h4></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                <div class="bg-slate-50 p-12 rounded-[60px] shadow-inner"><canvas id="radarChart"></canvas></div>
-                <div class="space-y-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="bg-slate-50 p-12 rounded-[60px]"><canvas id="radarChart"></canvas></div>
+                <div class="space-y-8">
                     <div class="grid grid-cols-2 gap-6">
-                        <div class="bg-white p-10 rounded-[40px] border border-slate-100 text-center"><p class="text-[9px] font-bold text-slate-300 uppercase">Skin Age</p><h4 class="text-5xl font-black text-teal mt-2" id="res-age">18</h4></div>
-                        <div class="bg-black p-10 rounded-[40px] text-center text-white"><p class="text-[9px] font-bold text-slate-500 uppercase">Health Score</p><h4 class="text-5xl font-black mt-2" id="res-score">0</h4></div>
+                        <div class="bg-white p-8 rounded-[40px] border text-center"><p class="text-[9px] font-bold text-slate-300 uppercase">Skin Age</p><h4 class="text-4xl font-black text-teal mt-2" id="res-age">18</h4></div>
+                        <div class="bg-black p-8 rounded-[40px] text-center text-white"><p class="text-[9px] font-bold text-slate-500 uppercase">Health Score</p><h4 class="text-4xl font-black mt-2" id="res-score">0</h4></div>
                     </div>
-                    <div class="space-y-6">
-                        <div class="flex justify-between border-b pb-4"><span class="text-xs font-bold uppercase text-slate-400">Pore Index</span><span id="res-pores" class="font-bold">...</span></div>
-                        <div class="flex justify-between border-b pb-4"><span class="text-xs font-bold uppercase text-slate-400">Moisture Level</span><span id="res-moist" class="font-bold">...</span></div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between border-b pb-2"><span class="text-xs font-bold uppercase text-slate-400">Moisture Level</span><span id="res-moist" class="font-bold">...</span></div>
+                        <div class="flex justify-between border-b pb-2"><span class="text-xs font-bold uppercase text-slate-400">Oil Index</span><span id="res-oil" class="font-bold">...</span></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="p-10 bg-teal text-white rounded-[60px] text-center space-y-6">
+                <h3 class="text-xs font-bold uppercase tracking-widest opacity-70">Recommended Specialist Kit</h3>
+                <h4 id="res-kit-name" class="text-4xl md:text-5xl font-black italic uppercase">...</h4>
+                <button class="bg-white text-teal px-12 py-5 rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all no-print">Order Your Kit Now</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="bg-slate-900 text-white p-16 rounded-[60px] space-y-10">
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-teal">Daily Routine</h3>
-                    <div class="space-y-6 font-light">
-                        <div class="flex gap-6"><span>AM</span><p class="text-xl">BHA Cleanser + SPF 50 Screen</p></div>
-                        <div class="flex gap-6"><span>PM</span><p class="text-xl">Detox Wash + Acne Spot Fix</p></div>
-                    </div>
-                </div>
-                <div class="bg-teal text-white p-16 rounded-[60px] space-y-10">
-                    <h3 class="text-xs font-bold uppercase tracking-widest opacity-60">Inside-Out Advice</h3>
-                    <div class="space-y-4">
-                        <div><p class="text-[9px] font-bold uppercase opacity-50 mb-2">Nutrition</p><p id="res-diet" class="text-lg italic">...</p></div>
-                        <div><p class="text-[9px] font-bold uppercase opacity-50 mb-2">Lifestyle</p><p id="res-life" class="text-lg italic">...</p></div>
-                    </div>
+                <div class="bg-slate-900 text-white p-16 rounded-[60px] space-y-6">
+                    <h3 class="text-xs font-bold uppercase text-teal">Daily Routine</h3>
+                    <div class="space-y-4 font-light"><p id="res-diet" class="text-lg">...</p><p id="res-life" class="text-lg">...</p></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="py-24 px-6 bg-white border-t">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-12">
-            <div class="space-y-6"><h4 class="text-3xl font-black italic tracking-tighter uppercase">Stay Clinical.</h4><p class="text-xs text-slate-400 tracking-widest uppercase">2026 AI Derma Lab | support@cureai.com</p></div>
-            <div class="flex gap-10 grayscale opacity-30"><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" class="w-6 h-6"></a><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" class="w-6 h-6"></a></div>
-        </div>
-    </footer>
-
     <script>
         const video = document.getElementById('video');
         const status = document.getElementById('status');
         const overlay = document.getElementById('overlay');
+        const faceMsg = document.getElementById('face-msg');
         const mobileMenu = document.getElementById('mobile-menu');
         let radar;
-        let userData = { name: '', goal: '' };
+        let userData = {};
 
-        // Navigation Toggle Logic
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('menu-open');
-            if (mobileMenu.classList.contains('menu-open')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        }
-
+        function toggleMobileMenu() { mobileMenu.classList.toggle('menu-open'); }
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); document.getElementById('info-modal').classList.add('flex'); }
         
         function submitInfo() {
-            userData.name = document.getElementById('user-name').value || "Valued User";
-            userData.goal = document.getElementById('user-goal').value;
+            userData = {
+                name: document.getElementById('user-name').value || "Valued User",
+                age: document.getElementById('user-age-input').value || 18,
+                goal: document.getElementById('user-goal').value
+            };
             document.getElementById('info-modal').classList.add('hidden');
-            scrollToScanner();
+            document.getElementById('scan-screen').classList.remove('hidden');
+            document.getElementById('scan-screen').classList.add('flex');
+            initCam();
         }
 
-        function scrollToScanner() { document.getElementById('scan-screen').classList.remove('hidden'); document.getElementById('scan-screen').classList.add('flex'); initCam(); }
         async function initCam() { const s = await navigator.mediaDevices.getUserMedia({video:true}); video.srcObject = s; }
 
         async function runAnalysis() {
-            overlay.classList.remove('hidden');
-            const steps = ["MAPPING FACE...", "SCANNING PIXELS...", "FINALIZING REGIMEN..."];
-            let i = 0; const t = setInterval(() => { status.innerText = steps[i++]; if(i == steps.length) clearInterval(t); }, 800);
-            const c = document.createElement('canvas'); c.width = video.videoWidth; c.height = video.videoHeight;
+            const c = document.createElement('canvas');
+            c.width = video.videoWidth; c.height = video.videoHeight;
             c.getContext('2d').drawImage(video, 0, 0);
-            const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: c.toDataURL('image/jpeg')}) });
+            const frame = c.toDataURL('image/jpeg');
+
+            status.innerText = "VALIDATING ALIGNMENT...";
+            const check = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: frame, precheck: true}) });
+            const val = await check.json();
+
+            if (!val.face_detected || !val.is_centered) {
+                faceMsg.innerText = !val.face_detected ? "NO FACE DETECTED" : "CENTER YOUR FACE";
+                faceMsg.style.display = "block";
+                setTimeout(() => { faceMsg.style.display = "none"; }, 3000);
+                return;
+            }
+
+            overlay.classList.remove('hidden');
+            const steps = ["MAPPING TEXTURE...", "ANALYZING REDNESS...", "FINALIZING REPORT..."];
+            let i = 0; const t = setInterval(() => { status.innerText = steps[i++]; if(i == steps.length) clearInterval(t); }, 1000);
+
+            const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: frame}) });
             const data = await r.json();
-            setTimeout(() => { showDashboard(data); }, 3800);
+            setTimeout(() => { showDashboard(data); }, 3500);
         }
 
         function showDashboard(data) {
             document.getElementById('result-modal').classList.remove('hidden');
-            document.getElementById('rep-date').innerText = "Generated for: " + userData.name + " | " + new Date().toLocaleDateString();
-            document.getElementById('rep-name-header').innerText = "CLINICAL PLAN: " + userData.goal;
-            document.getElementById('res-age').innerText = data.age;
+            document.getElementById('rep-date').innerText = "PATIENT: " + userData.name + " | AGE: " + userData.age + " | " + new Date().toLocaleDateString();
+            document.getElementById('res-age').innerText = parseInt(userData.age) + data.age_offset;
             document.getElementById('res-score').innerText = data.score;
             document.getElementById('res-pores').innerText = data.pores;
             document.getElementById('res-moist').innerText = data.moisture + '%';
+            document.getElementById('res-oil').innerText = data.oil;
             document.getElementById('res-diet').innerText = data.diet;
             document.getElementById('res-life').innerText = data.lifestyle;
             document.getElementById('res-acne').innerText = data.acne_grade;
             document.getElementById('res-pigment').innerText = data.pigmentation;
-            document.getElementById('res-circles').innerText = data.dark_circles;
+            document.getElementById('res-kit-name').innerText = data.rec_kit;
 
             const ctx = document.getElementById('radarChart').getContext('2d');
             if(radar) radar.destroy();
@@ -260,7 +205,7 @@
                 type: 'radar',
                 data: {
                     labels: ['Hydration', 'Clarity', 'Oil Balance', 'Texture', 'Score'],
-                    datasets: [{ label: 'Profile', data: [data.moisture, 85, 90, data.score, data.score], backgroundColor: 'rgba(0, 128, 128, 0.2)', borderColor: '#008080' }]
+                    datasets: [{ data: [data.moisture, 85, 90, data.score, data.score], backgroundColor: 'rgba(0, 128, 128, 0.2)', borderColor: '#008080' }]
                 },
                 options: { scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { display: false } } }
             });
@@ -270,12 +215,7 @@
             const element = document.getElementById('pdf-content');
             const btns = document.querySelectorAll('.no-print');
             btns.forEach(b => b.style.display = 'none');
-            const opt = {
-                margin: 0.2, filename: 'Regimen-Report.pdf', image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, scrollY: 0, windowWidth: document.documentElement.offsetWidth },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save().then(() => { btns.forEach(b => b.style.display = 'flex'); });
+            html2pdf().set({ margin: 0.2, filename: 'CureAI-Report.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } }).from(element).save().then(() => { btns.forEach(b => b.style.display = 'flex'); });
         }
     </script>
 </body>
