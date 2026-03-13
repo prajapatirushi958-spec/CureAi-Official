@@ -6,7 +6,6 @@ import os
 
 app = Flask(__name__)
 
-# Face detection for cropping only
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 def cureskin_diagnostic_engine(img):
@@ -14,17 +13,14 @@ def cureskin_diagnostic_engine(img):
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # 1. True Redness Analysis (Acne Detection)
         mask1 = cv2.inRange(hsv, np.array([0, 50, 50]), np.array([10, 255, 255]))
         mask2 = cv2.inRange(hsv, np.array([170, 50, 50]), np.array([180, 255, 255]))
         red_pixels = cv2.countNonZero(mask1 + mask2)
         red_ratio = (red_pixels / (img.shape[0] * img.shape[1])) * 100
 
-        # 2. Texture Analysis (Pores & Marks)
         laplacian_var = cv2.Laplacian(gray, cv2.CV_64F).var()
         brightness = np.mean(hsv[:,:,2])
 
-        # 3. Dynamic Results Logic
         score = max(40, min(97, int(100 - (red_ratio * 15) - (laplacian_var / 50))))
         
         acne_grade = "Clear"
@@ -64,7 +60,6 @@ def analyze():
         nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         
-        # Face detect for ROI only
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, 1.1, 4)
         
@@ -72,7 +67,7 @@ def analyze():
             (x, y, w, h) = max(faces, key=lambda b: b[2] * b[3])
             roi = img[y:y+h, x:x+w]
         else:
-            roi = img # Fallback
+            roi = img
 
         return jsonify(cureskin_diagnostic_engine(roi))
     except:
