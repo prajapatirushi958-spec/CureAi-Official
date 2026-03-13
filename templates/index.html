@@ -20,10 +20,8 @@
         @keyframes scan { 0% { top: 15%; } 100% { top: 85%; } }
         .scan-line { position: absolute; left: 0; width: 100%; height: 2px; background: #008080; box-shadow: 0 0 15px #008080; animation: scan 3s infinite linear; z-index: 30; }
         .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 12px 0; outline: none; transition: border-color 0.3s; font-size: 16px; background: transparent; }
-        .info-input:focus { border-color: #008080; }
         #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .menu-open { transform: translateX(0) !important; }
-        .face-warning { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(220, 38, 38, 0.9); color: white; padding: 8px 20px; border-radius: 20px; font-size: 10px; font-weight: bold; z-index: 100; display: none; text-transform: uppercase; }
     </style>
 </head>
 <body class="text-slate-900">
@@ -34,15 +32,12 @@
             <a href="#home">Home</a> <a href="#process">Process</a> <a href="#shop">Treatment Kits</a> <a href="#team">Experts</a>
         </div>
         <div class="flex items-center gap-4">
-            <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-teal transition-all">Free Scan</button>
-            <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-900 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-            </button>
+            <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest">Free Scan</button>
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-900 p-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
         </div>
     </nav>
 
     <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full md:w-80 bg-white z-[200] shadow-2xl flex flex-col items-center justify-center space-y-10 transform translate-x-full">
-        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
         <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Home</a>
         <a href="#process" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Process</a>
         <a href="#shop" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Shop</a>
@@ -51,87 +46,49 @@
 
     <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
         <div class="space-y-8 max-w-3xl">
-            <div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[10px] font-bold uppercase tracking-widest rounded-full border border-teal/10">Clinical Intelligence</div>
-            <h1 class="text-7xl md:text-9xl font-black tracking-tighter leading-none italic">Heal. <br> <span class="text-teal">Correct.</span></h1>
+            <h1 class="text-7xl md:text-9xl font-black tracking-tighter italic">Heal. <br> <span class="text-teal">Correct.</span></h1>
             <p class="text-slate-400 text-lg md:text-xl font-light">India's advanced AI Advisor for oily & acne-prone skin.</p>
-            <button onclick="openInfoModal()" class="bg-teal text-white px-12 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl hover:scale-105 transition-all">Launch Diagnostic</button>
-        </div>
-    </section>
-
-    <section id="process" class="py-32 px-6 bg-[#fafafa]">
-        <div class="max-w-6xl mx-auto space-y-16">
-            <h2 class="text-5xl font-black tracking-tighter text-center uppercase italic">The Process.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">01</div><h4 class="text-xl font-bold">Image Mapping</h4><p class="text-sm text-slate-500">68-point neural face tracking.</p></div>
-                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">02</div><h4 class="text-xl font-bold">Diagnostic Scan</h4><p class="text-sm text-slate-500">Pixel analysis for acne grade.</p></div>
-                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">03</div><h4 class="text-xl font-bold">Clinical Kit</h4><p class="text-sm text-slate-500">Professional regimen generation.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="shop" class="py-32 px-6 bg-white text-center">
-        <div class="max-w-7xl mx-auto space-y-20">
-            <h2 class="text-6xl font-black tracking-tighter italic">Treatment Kits.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Active Acne Kit</h4></div>
-                <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Pore Control Kit</h4></div>
-                <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Oil Control Kit</h4></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="team" class="py-32 px-6 bg-slate-50">
-        <div class="max-w-4xl mx-auto text-center space-y-16">
-            <h2 class="text-5xl font-black tracking-tighter uppercase italic">The Experts.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <div class="space-y-4">
-                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&w=300" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-xl">
-                    <h4 class="font-bold text-xl">Dr. Aryan Shah</h4>
-                </div>
-                <div class="space-y-4">
-                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&w=300" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-xl">
-                    <h4 class="font-bold text-xl">Dr. Sarah Kapoor</h4>
-                </div>
-            </div>
+            <button onclick="openInfoModal()" class="bg-teal text-white px-12 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl">Launch Diagnostic</button>
         </div>
     </section>
 
     <div id="info-modal" class="fixed inset-0 z-[110] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
-        <div class="max-w-md w-full space-y-8 py-10">
-            <div class="text-center"><h2 class="text-3xl font-black italic uppercase">Skin Profile.</h2></div>
-            <div class="space-y-5">
-                <div><label class="text-[9px] font-bold uppercase text-slate-400">Full Name</label><input type="text" id="user-name" placeholder="Name" class="info-input"></div>
+        <div class="max-w-md w-full space-y-8 py-10 text-center">
+            <h2 class="text-3xl font-black italic uppercase">Skin Profile.</h2>
+            <div class="space-y-5 text-left">
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Name</label><input type="text" id="user-name" placeholder="Name" class="info-input"></div>
                 <div class="grid grid-cols-2 gap-4">
                     <div><label class="text-[9px] font-bold uppercase text-slate-400">Age</label><input type="number" id="user-age-input" placeholder="18" class="info-input"></div>
                     <div><label class="text-[9px] font-bold uppercase text-slate-400">Gender</label><select id="user-gender" class="info-input"><option>Male</option><option>Female</option></select></div>
                 </div>
-                <div><label class="text-[9px] font-bold uppercase text-slate-400">Primary Goal</label><select id="user-goal" class="info-input"><option>Clear Active Acne</option><option>Reduce Oil</option></select></div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Goal</label><select id="user-goal" class="info-input"><option>Clear Active Acne</option><option>Reduce Oil</option></select></div>
             </div>
-            <button onclick="submitInfo()" class="w-full bg-black text-white py-5 rounded-3xl text-[11px] font-bold uppercase shadow-xl">Proceed to Scan</button>
-            <button onclick="closeInfoModal()" class="w-full text-slate-300 text-[9px] uppercase font-bold">Cancel</button>
+            <button onclick="submitInfo()" class="w-full bg-black text-white py-5 rounded-3xl text-[11px] font-bold uppercase">Proceed to Scan</button>
         </div>
     </div>
 
     <div id="scan-screen" class="fixed inset-0 z-[120] bg-white hidden flex-col items-center justify-center p-10">
-        <div class="w-80 h-80 md:w-[500px] md:h-[500px] relative rounded-full overflow-hidden border-8 border-slate-50 shadow-2xl bg-black">
+        <div class="mb-6 bg-teal/10 text-teal px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">
+            Tip: Center your face & ensure good lighting
+        </div>
+        <div class="w-80 h-80 md:w-[500px] md:h-[500px] relative rounded-full overflow-hidden border-8 border-slate-50 shadow-2xl">
             <video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video>
-            <div id="face-msg" class="face-warning">Align face in center</div>
             <div class="silhouette"></div>
             <div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div>
         </div>
         <div class="mt-16 text-center space-y-6">
             <p id="status" class="text-[11px] font-bold uppercase tracking-[0.4em] text-teal">Ready for Diagnostic</p>
-            <button onclick="runAnalysis()" class="bg-black text-white px-16 py-6 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-2xl active:scale-95 transition-all">Capture & Diagnose</button>
+            <button onclick="runAnalysis()" class="bg-black text-white px-16 py-6 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-2xl">Capture & Diagnose</button>
         </div>
     </div>
 
     <div id="result-modal" class="fixed inset-0 z-[200] hidden bg-white overflow-y-auto">
-        <div id="pdf-content" class="max-w-6xl mx-auto px-6 py-24 space-y-16 bg-white">
+        <div id="pdf-content" class="max-w-6xl mx-auto px-6 py-24 space-y-16">
             <header class="flex justify-between items-end border-b pb-12">
                 <div class="space-y-4">
-                    <h4 class="text-teal font-bold uppercase tracking-widest text-[10px]" id="rep-name-header">PATIENT REPORT</h4>
-                    <h2 class="text-6xl font-black italic tracking-tighter uppercase">Regimen.</h2>
-                    <p class="text-slate-300 font-bold uppercase tracking-widest text-[9px]" id="rep-date"></p>
+                    <h4 class="text-teal font-bold uppercase text-[10px]" id="rep-name-header">PATIENT REPORT</h4>
+                    <h2 class="text-6xl font-black italic uppercase">Regimen.</h2>
+                    <p class="text-slate-300 font-bold text-[9px]" id="rep-date"></p>
                 </div>
                 <div class="flex gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Download</button><button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Done</button></div>
             </header>
@@ -159,13 +116,11 @@
         const video = document.getElementById('video');
         const status = document.getElementById('status');
         const overlay = document.getElementById('overlay');
-        const faceMsg = document.getElementById('face-msg');
         const mobileMenu = document.getElementById('mobile-menu');
         let userData = {};
 
         function toggleMobileMenu() { mobileMenu.classList.toggle('menu-open'); }
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); document.getElementById('info-modal').classList.add('flex'); }
-        function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
         
         function submitInfo() {
             userData = {
@@ -179,12 +134,7 @@
             initCam();
         }
 
-        async function initCam() { 
-            try {
-                const s = await navigator.mediaDevices.getUserMedia({video: { facingMode: 'user' }}); 
-                video.srcObject = s; 
-            } catch(e) { alert("Camera not accessible"); }
-        }
+        async function initCam() { const s = await navigator.mediaDevices.getUserMedia({video: true}); video.srcObject = s; }
 
         async function runAnalysis() {
             const c = document.createElement('canvas');
@@ -192,19 +142,8 @@
             c.getContext('2d').drawImage(video, 0, 0);
             const frame = c.toDataURL('image/jpeg');
 
-            status.innerText = "VALIDATING FACE...";
-            const check = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: frame, precheck: true}) });
-            const val = await check.json();
-
-            if (!val.face_detected || !val.is_centered) {
-                faceMsg.innerText = !val.face_detected ? "NO FACE DETECTED" : "CENTER YOUR FACE";
-                faceMsg.style.display = "block";
-                setTimeout(() => { faceMsg.style.display = "none"; }, 3000);
-                return;
-            }
-
             overlay.classList.remove('hidden');
-            const steps = ["MAPPING TEXTURE...", "ANALYZING REDNESS...", "FINALIZING REPORT..."];
+            const steps = ["MAPPING TEXTURE...", "ANALYZING REDNESS...", "CALCULATING SCORE..."];
             let i = 0; const t = setInterval(() => { status.innerText = steps[i++]; if(i == steps.length) clearInterval(t); }, 1000);
 
             const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: frame}) });
@@ -228,7 +167,7 @@
             const element = document.getElementById('pdf-content');
             const btns = document.querySelectorAll('.no-print');
             btns.forEach(b => b.style.display = 'none');
-            html2pdf().set({ margin: 0.2, filename: 'CureAI-Report.pdf', html2canvas: { scale: 2 }, jsPDF: { format: 'a4' } }).from(element).save().then(() => { btns.forEach(b => b.style.display = 'flex'); });
+            html2pdf().set({ margin: 0.2, filename: 'CureAI-Report.pdf', jsPDF: { format: 'a4' } }).from(element).save().then(() => { btns.forEach(b => b.style.display = 'flex'); });
         }
     </script>
 </body>
