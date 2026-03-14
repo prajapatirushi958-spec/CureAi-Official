@@ -25,13 +25,16 @@
 </head>
 <body class="text-slate-900">
 
-    <nav class="glass-nav px-6 py-5 flex justify-between items-center fixed w-full top-0 z-[100]">
-        <div class="text-xl font-extrabold tracking-tighter uppercase italic">Cure <span class="text-teal">AI</span></div>
+    <nav class="glass-nav px-6 py-4 flex justify-between items-center fixed w-full top-0 z-[100]">
+        <div class="flex items-center gap-3">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="CureAI Logo" class="h-10 w-auto">
+            <div class="text-xl font-extrabold tracking-tighter uppercase italic">Cure <span class="text-teal">AI</span></div>
+        </div>
         <div class="hidden lg:flex space-x-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
             <a href="#home">Home</a> <a href="#process">Process</a> <a href="#shop">Shop</a> <a href="#team">Experts</a>
         </div>
         <div class="flex items-center gap-4">
-            <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest">Free Scan</button>
+            <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">Free Scan</button>
             <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-900 p-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
         </div>
     </nav>
@@ -45,10 +48,12 @@
     </div>
 
     <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
-        <div class="space-y-8 max-w-3xl">
-            <h1 class="text-7xl md:text-9xl font-black tracking-tighter leading-none italic">Heal. <br> <span class="text-teal">Correct.</span></h1>
-            <p class="text-slate-400 text-lg md:text-xl font-light">India's advanced AI Advisor for oily & acne-prone skin.</p>
-            <button onclick="openInfoModal()" class="bg-teal text-white px-12 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl">Launch Diagnostic</button>
+        <div class="space-y-8 max-w-3xl flex flex-col items-center">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="CureAI Brand" class="w-48 md:w-64 drop-shadow-2xl mb-4">
+            <div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[10px] font-bold uppercase tracking-widest rounded-full border border-teal/10">Clinical Intelligence</div>
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none italic uppercase">Heal. <br> <span class="text-teal">Correct.</span></h1>
+            <p class="text-slate-400 text-lg md:text-xl font-light max-w-lg">India's advanced AI Advisor for oily & acne-prone skin. Stop guessing, start healing.</p>
+            <button onclick="openInfoModal()" class="bg-teal text-white px-12 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl hover:scale-110 transition-all">Launch Diagnostic</button>
         </div>
     </section>
 
