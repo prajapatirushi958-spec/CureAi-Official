@@ -162,7 +162,7 @@
             <div class="p-10 bg-teal text-white rounded-[60px] text-center space-y-6">
                 <h3 class="text-xs font-bold uppercase tracking-widest opacity-70">Recommended Specialist Kit</h3>
                 <h4 id="res-kit-name" class="text-4xl font-black italic uppercase">...</h4>
-                <button class="bg-white text-teal px-12 py-5 rounded-3xl text-[10px] font-bold uppercase no-print">Order My Kit Now</button>
+                <button id="whatsapp-order-btn" class="bg-white text-teal px-12 py-5 rounded-3xl text-[10px] font-bold uppercase no-print hover:scale-105 transition-all">Order My Kit Now</button>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -213,14 +213,27 @@
         function showDashboard(data) {
             document.getElementById('result-modal').classList.remove('hidden');
             document.getElementById('rep-date').innerText = "CLINICAL ANALYSIS | PATIENT: " + userData.name + " | " + new Date().toLocaleDateString();
-            document.getElementById('res-acne').innerText = data.acne_grade;
+            
+            const acne = data.acne_grade;
+            const score = data.score;
+            const kit = data.rec_kit;
+
+            document.getElementById('res-acne').innerText = acne;
             document.getElementById('res-pigment').innerText = data.pigmentation;
             document.getElementById('res-pores').innerText = data.pores;
-            document.getElementById('res-score').innerText = data.score;
-            document.getElementById('res-kit-name').innerText = data.rec_kit;
+            document.getElementById('res-score').innerText = score;
+            document.getElementById('res-kit-name').innerText = kit;
             document.getElementById('res-oil').innerText = data.oil;
             document.getElementById('res-diet').innerText = "NUTRITION: " + data.diet;
             document.getElementById('res-life').innerText = "REGIMEN: " + data.lifestyle;
+
+            // WhatsApp Order Logic
+            const orderBtn = document.getElementById('whatsapp-order-btn');
+            orderBtn.onclick = function() {
+                const phoneNumber = "919099764589";
+                const message = `Hi Cure AI! 🩺%0A%0AMy Name: ${userData.name}%0AMy Health Score: ${score}/100%0AAcne Grade: ${acne}%0ASuggested Kit: *${kit}*%0A%0AI want to order this kit. Please guide me with the next steps.`;
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+            };
 
             const ctx = document.getElementById('radarChart').getContext('2d');
             if(radar) radar.destroy();
