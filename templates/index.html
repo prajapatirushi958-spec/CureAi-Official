@@ -14,46 +14,45 @@
         .text-teal { color: #008080; }
         .bg-teal { background-color: #008080; }
         .glass-nav { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border-bottom: 1px solid #f1f5f9; position: fixed; width: 100%; top: 0; z-index: 100; }
-        
-        /* Floating WhatsApp Button Style */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 800;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            animation: bounce 2s infinite;
-            transition: all 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
-
         .luxury-card { border-radius: 40px; border: 1px solid #f1f5f9; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); background: #fff; overflow: hidden; }
-        .routine-card { background: #f8fafc; border-radius: 30px; padding: 25px; border: 1px solid #edf2f7; transition: all 0.3s; }
-        .routine-card:hover { border-color: #008080; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 75%; border: 2px dashed rgba(0, 128, 128, 0.3); border-radius: 50% 50% 45% 45%; pointer-events: none; z-index: 20; }
         @keyframes scan { 0% { top: 15%; } 100% { top: 85%; } }
         .scan-line { position: absolute; left: 0; width: 100%; height: 2px; background: #008080; box-shadow: 0 0 15px #008080; animation: scan 3s infinite linear; z-index: 30; }
         .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 12px 0; outline: none; font-size: 16px; background: transparent; }
         #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .menu-open { transform: translateX(0) !important; }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+            text-decoration: none;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
+
+        /* Routine Card Styling */
+        .routine-card { background: #f8fafc; border-radius: 30px; padding: 25px; border: 1px solid #edf2f7; transition: 0.3s; }
+        .routine-card:hover { border-color: #008080; background: #fff; transform: translateY(-5px); }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <a href="https://wa.me/919099764589" target="_blank" class="whatsapp-float no-print">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.481 5.229 3.481 8.406c0 6.555-5.332 11.887-11.888 11.887-2.01 0-3.988-.507-5.741-1.465l-6.243 1.639zm6.105-3.515c1.616.96 3.232 1.461 4.981 1.461 5.42 0 9.831-4.411 9.831-9.831 0-5.42-4.411-9.832-9.831-9.832-5.42 0-9.831 4.412-9.831 9.832 0 1.936.569 3.814 1.64 5.43l-.969 3.542 3.636-.96c.43.27.43.27.524.33z"/></svg>
+    <a href="https://wa.me/919099764589?text=Hi%20CureAI,%20I%20need%20expert%20skin%20advice." target="_blank" class="whatsapp-float no-print">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.481 5.229 3.481 8.406c0 6.555-5.332 11.887-11.888 11.887-2.01 0-3.988-.507-5.741-1.465l-6.243 1.639zm6.105-3.515c1.616.96 3.232 1.461 4.981 1.461 5.42 0 9.831-4.411 9.831-9.831 0-5.42-4.411-9.832-9.831-9.832-5.42 0-9.831 4.412-9.831 9.832 0 1.936.569 3.814 1.64 5.43l-.969 3.542 3.636-.96c.43.27.43.27.524.33z"/></svg>
         Chat with Expert
     </a>
 
@@ -65,144 +64,108 @@
         <div class="hidden lg:flex space-x-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
             <a href="#home">Home</a> <a href="#library">Library</a> <a href="#checker">Checker</a> <a href="#shop">Shop</a>
         </div>
-        <button onclick="openInfoModal()" class="bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">Free Scan</button>
+        <div class="flex items-center gap-4">
+            <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">Free Scan</button>
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-900 p-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
+        </div>
     </nav>
 
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full md:w-80 bg-white z-[200] shadow-2xl flex flex-col items-center justify-center space-y-10 transform translate-x-full">
+        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
+        <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Home</a>
+        <a href="#process" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Process</a>
+        <a href="#shop" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Shop</a>
+        <button onclick="toggleMobileMenu(); openInfoModal();" class="bg-black text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase">Start Free Scan</button>
+    </div>
+
     <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24">
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="CureAI Brand" class="w-48 md:w-64 mb-6">
-        <h1 class="text-6xl md:text-8xl font-black tracking-tighter italic uppercase leading-none">Heal. <br> <span class="text-teal">Correct.</span></h1>
-        <p class="text-slate-400 text-lg mt-6 max-w-lg font-light">Advanced Clinical AI for your skin's health.</p>
-        <div class="flex gap-4 mt-10">
-            <button onclick="openInfoModal()" class="bg-teal text-white px-10 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl hover:scale-110 transition-all">Launch Diagnostic</button>
-            <button onclick="window.location.href='#checker'" class="bg-slate-100 text-slate-900 px-10 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest">Ingredient Checker</button>
+        <div class="space-y-8 max-w-3xl flex flex-col items-center">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="CureAI Brand" class="w-48 md:w-64 drop-shadow-2xl mb-4">
+            <div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[10px] font-bold uppercase tracking-widest rounded-full border border-teal/10">Clinical Intelligence</div>
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none italic uppercase">Heal. <br> <span class="text-teal">Correct.</span></h1>
+            <p class="text-slate-400 text-lg md:text-xl font-light max-w-lg">Advanced AI Advisor for your skin. Stop guessing, start healing.</p>
+            <button onclick="openInfoModal()" class="bg-teal text-white px-12 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl hover:scale-110 transition-all">Launch Diagnostic</button>
         </div>
     </section>
 
-    <section id="library" class="py-32 px-6 bg-slate-50">
-        <div class="max-w-6xl mx-auto text-center space-y-12">
-            <h2 class="text-4xl font-black italic uppercase tracking-tighter">The Skin Library.</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-10 rounded-[40px] shadow-sm text-left">
-                    <h4 class="text-teal font-bold mb-2 uppercase text-xs tracking-widest">Salicylic Acid</h4>
-                    <p class="text-xs text-slate-500">Best for deep pore cleaning and oily skin. Exfoliates dead cells.</p>
-                </div>
-                <div class="bg-white p-10 rounded-[40px] shadow-sm text-left">
-                    <h4 class="text-teal font-bold mb-2 uppercase text-xs tracking-widest">Niacinamide</h4>
-                    <p class="text-xs text-slate-500">Improves skin texture and reduces redness. Perfect for barrier repair.</p>
-                </div>
-                <div class="bg-white p-10 rounded-[40px] shadow-sm text-left">
-                    <h4 class="text-teal font-bold mb-2 uppercase text-xs tracking-widest">Ceramides</h4>
-                    <p class="text-xs text-slate-500">Protects your skin barrier from pollution and locks in moisture.</p>
-                </div>
-            </div>
+    <section id="library" class="py-24 px-6 bg-slate-50">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="bg-white p-10 rounded-[40px] shadow-sm"><h4 class="text-teal font-bold mb-3 uppercase text-xs tracking-widest">Salicylic Acid</h4><p class="text-xs text-slate-500">Cleans pores deeply. Best for oily skin.</p></div>
+            <div class="bg-white p-10 rounded-[40px] shadow-sm"><h4 class="text-teal font-bold mb-3 uppercase text-xs tracking-widest">Niacinamide</h4><p class="text-xs text-slate-500">Reduces redness and improves texture.</p></div>
+            <div class="bg-white p-10 rounded-[40px] shadow-sm"><h4 class="text-teal font-bold mb-3 uppercase text-xs tracking-widest">Ceramides</h4><p class="text-xs text-slate-500">Protects and repairs skin barrier.</p></div>
         </div>
     </section>
 
-    <section id="checker" class="py-32 px-6 bg-white border-y">
-        <div class="max-w-3xl mx-auto text-center space-y-8">
-            <h2 class="text-4xl font-black italic uppercase">Ingredient Checker.</h2>
-            <p class="text-slate-500 text-sm font-light">Paste ingredients from any skincare product to check clinical safety.</p>
-            <textarea id="ing-input" placeholder="e.g. Aqua, Glycerin, Alcohol..." class="w-full h-32 p-6 rounded-3xl border-2 border-slate-100 outline-none focus:border-teal transition-all"></textarea>
-            <button onclick="checkIngredients()" class="bg-black text-white px-12 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest">Analyze Formula</button>
-            <div id="check-result" class="hidden p-6 rounded-2xl bg-teal/5 text-teal text-[10px] font-bold uppercase tracking-widest">Safe & Recommended for your skin profile!</div>
-        </div>
+    <section id="checker" class="py-24 px-6 bg-white text-center border-y">
+        <h2 class="text-4xl font-black italic uppercase mb-8">Formula Checker</h2>
+        <textarea id="ing-input" placeholder="Paste ingredients here..." class="w-full max-w-2xl h-32 p-6 rounded-3xl border-2 border-slate-100 outline-none focus:border-teal mb-6"></textarea><br>
+        <button onclick="checkIngredients()" class="bg-black text-white px-12 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest">Analyze Formula</button>
+        <div id="check-result" class="hidden mt-6 text-teal text-[10px] font-bold uppercase">Safe & Recommended for your profile!</div>
     </section>
 
     <section id="process" class="py-32 px-6 bg-[#fafafa]">
-        <div class="max-w-6xl mx-auto space-y-16 text-center">
-            <h2 class="text-5xl font-black tracking-tighter uppercase italic">The Process.</h2>
+        <div class="max-w-6xl mx-auto space-y-16">
+            <h2 class="text-5xl font-black tracking-tighter text-center uppercase italic">The Process.</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">01</div><h4 class="text-xl font-bold uppercase text-xs tracking-widest">Image Mapping</h4></div>
-                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">02</div><h4 class="text-xl font-bold uppercase text-xs tracking-widest">Diagnostic Scan</h4></div>
-                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">03</div><h4 class="text-xl font-bold uppercase text-xs tracking-widest">Clinical Kit</h4></div>
+                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">01</div><h4 class="text-xl font-bold">Image Mapping</h4><p class="text-sm text-slate-500">68-point neural face tracking.</p></div>
+                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">02</div><h4 class="text-xl font-bold">Diagnostic Scan</h4><p class="text-sm text-slate-500">Pixel analysis for acne grade.</p></div>
+                <div class="bg-white p-12 rounded-[50px] shadow-sm"><div class="text-teal font-black text-2xl mb-4">03</div><h4 class="text-xl font-bold">Clinical Kit</h4><p class="text-sm text-slate-500">Professional regimen generation.</p></div>
             </div>
         </div>
     </section>
 
     <section id="shop" class="py-32 px-6 bg-white text-center">
-        <h2 class="text-6xl font-black tracking-tighter italic uppercase mb-20">Treatment Kits.</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left max-w-7xl mx-auto">
-            <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold uppercase text-sm tracking-widest">Active Acne Kit</h4></div>
-            <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold uppercase text-sm tracking-widest">Pore Control Kit</h4></div>
-            <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold uppercase text-sm tracking-widest">Oil Control Kit</h4></div>
+        <div class="max-w-7xl mx-auto space-y-20">
+            <h2 class="text-6xl font-black tracking-tighter italic">Treatment Kits.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
+                <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Active Acne Kit</h4></div>
+                <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Pore Control Kit</h4></div>
+                <div class="luxury-card p-10"><img src="https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" class="rounded-[40px] mb-8"><h4 class="text-2xl font-bold">Oil Control Kit</h4></div>
+            </div>
         </div>
     </section>
 
-    <div id="result-modal" class="fixed inset-0 z-[200] hidden bg-white overflow-y-auto">
-        <div id="pdf-content" class="max-w-6xl mx-auto px-6 py-24 space-y-16">
-            <header class="flex justify-between items-end border-b pb-12">
+    <section id="team" class="py-32 px-6 bg-slate-50">
+        <div class="max-w-4xl mx-auto text-center space-y-16">
+            <h2 class="text-5xl font-black tracking-tighter uppercase italic text-center">The Experts.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
                 <div class="space-y-4">
-                    <h2 class="text-6xl font-black italic uppercase leading-none">The <br><span class="text-teal">Report.</span></h2>
-                    <p id="rep-date" class="text-slate-400 font-bold text-[10px] uppercase"></p>
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&w=300" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-xl">
+                    <h4 class="font-bold text-xl">Dr. Aryan Shah</h4>
                 </div>
-                <div class="flex gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Download</button><button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Done</button></div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                <div class="bg-slate-50 p-12 rounded-[60px] text-center">
-                    <canvas id="radarChart"></canvas>
+                <div class="space-y-4">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&w=300" class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-xl">
+                    <h4 class="font-bold text-xl">Dr. Sarah Kapoor</h4>
                 </div>
-                <div class="space-y-6">
-                    <div class="bg-black text-white p-12 rounded-[50px] text-center">
-                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Skin Health Score</p>
-                        <h4 id="res-score" class="text-7xl font-black mt-2">0</h4>
-                    </div>
-                    <div class="bg-teal p-10 rounded-[50px] text-white text-center">
-                        <p class="text-[10px] font-bold opacity-70 uppercase mb-2">Prescribed Regimen</p>
-                        <h4 id="res-kit-name" class="text-2xl font-black italic uppercase">...</h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-10">
-                <h3 class="text-2xl font-black italic uppercase text-center tracking-tighter">Your Dynamic Routine.</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="routine-card">
-                        <div class="text-teal font-black text-lg mb-4">☀️ MORNING</div>
-                        <ul class="text-xs space-y-3 text-slate-600 font-semibold">
-                            <li>• Gentle Foam Cleanser</li>
-                            <li>• Vitamin C Antioxidant</li>
-                            <li>• SPF 50 Sunscreen</li>
-                        </ul>
-                    </div>
-                    <div class="routine-card">
-                        <div class="text-teal font-black text-lg mb-4">🌤️ EVENING</div>
-                        <ul class="text-xs space-y-3 text-slate-600 font-semibold">
-                            <li>• Salicylic Wash</li>
-                            <li>• Prescribed Treatment Kit</li>
-                            <li>• Light Gel Moisturizer</li>
-                        </ul>
-                    </div>
-                    <div class="routine-card">
-                        <div class="text-teal font-black text-lg mb-4">🌙 NIGHT</div>
-                        <ul class="text-xs space-y-3 text-slate-600 font-semibold">
-                            <li>• Barrier Repair Cream</li>
-                            <li>• Under Eye Caffeine Gel</li>
-                            <li>• Silk Pillowcase Sleep</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-12 bg-slate-900 rounded-[60px] text-center space-y-6 no-print">
-                <h4 class="text-white text-2xl font-black uppercase tracking-widest italic">Start Your Healing Journey</h4>
-                <button id="whatsapp-order-btn" class="bg-teal text-white px-16 py-6 rounded-full text-[11px] font-bold uppercase tracking-widest hover:scale-110 transition-all">Order Kit Now</button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="info-modal" class="fixed inset-0 z-[110] bg-white hidden flex-col items-center justify-center p-6">
-        <div class="max-w-md w-full space-y-8">
-            <h2 class="text-3xl font-black uppercase italic text-center">Profile info.</h2>
-            <input type="text" id="user-name" placeholder="Name" class="info-input">
-            <select id="user-water" class="info-input"><option value="3L+">Water Intake: 3L+</option><option value="<2L">Water Intake: Low</option></select>
+    <section id="refer" class="py-24 px-6 bg-slate-900 text-white text-center rounded-[60px] mx-4 mb-10">
+        <h2 class="text-4xl font-black italic uppercase mb-4">Refer & Earn</h2>
+        <p class="text-slate-400 text-sm mb-10">Get 20% OFF by inviting a friend for a free scan.</p>
+        <button onclick="shareReferral()" class="bg-teal text-white px-12 py-5 rounded-full text-[10px] font-bold uppercase tracking-widest">Invite via WhatsApp</button>
+    </section>
+
+    <div id="info-modal" class="fixed inset-0 z-[110] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
+        <div class="max-w-md w-full space-y-8 py-10">
+            <h2 class="text-3xl font-black italic uppercase text-center">Skin Profile.</h2>
+            <div class="space-y-5">
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Name</label><input type="text" id="user-name" placeholder="Name" class="info-input"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="text-[9px] font-bold uppercase text-slate-400">Age</label><input type="number" id="user-age-input" placeholder="18" class="info-input"></div>
+                    <div><label class="text-[9px] font-bold uppercase text-slate-400">Gender</label><select id="user-gender" class="info-input"><option>Male</option><option>Female</option></select></div>
+                </div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Water Intake (Liters/Day)</label><select id="user-water" class="info-input"><option value="Good (3L+)">3L or more</option><option value="Low (<2L)">Less than 2L</option></select></div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Goal</label><select id="user-goal" class="info-input"><option>Clear Active Acne</option><option>Reduce Oil</option></select></div>
+            </div>
             <button onclick="submitInfo()" class="w-full bg-black text-white py-5 rounded-3xl text-[11px] font-bold uppercase shadow-xl">Proceed to Scan</button>
-            <button onclick="closeInfoModal()" class="w-full text-slate-300 text-[10px] uppercase font-bold mt-4">Cancel</button>
+            <button onclick="closeInfoModal()" class="w-full text-slate-300 text-[9px] uppercase font-bold text-center mt-4">Cancel</button>
         </div>
     </div>
 
-    <div id="scan-screen" class="fixed inset-0 z-[120] bg-white hidden flex-col items-center justify-center">
-        <div class="w-80 h-80 relative rounded-full overflow-hidden border-8 border-slate-50">
+    <div id="scan-screen" class="fixed inset-0 z-[120] bg-white hidden flex-col items-center justify-center p-10">
+        <div class="w-80 h-80 md:w-[500px] md:h-[500px] relative rounded-full overflow-hidden border-8 border-slate-50 shadow-2xl">
             <video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video>
             <div class="silhouette"></div>
             <div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div>
@@ -213,18 +176,99 @@
         </div>
     </div>
 
+    <div id="result-modal" class="fixed inset-0 z-[200] hidden bg-white overflow-y-auto">
+        <div id="pdf-content" class="max-w-6xl mx-auto px-6 py-24 space-y-16">
+            <header class="flex justify-between items-end border-b pb-12">
+                <div class="space-y-4 text-left">
+                    <h4 class="text-teal font-bold uppercase text-[10px]" id="rep-name-header">PATIENT REPORT</h4>
+                    <h2 class="text-6xl font-black italic uppercase">Regimen.</h2>
+                    <p class="text-slate-300 font-bold text-[9px]" id="rep-date"></p>
+                </div>
+                <div class="flex gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Download</button><button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Done</button></div>
+            </header>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-slate-50 p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Acne Severity</p><h4 id="res-acne" class="text-2xl font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Texture Analysis</p><h4 id="res-pigment" class="text-2xl font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Pore Index</p><h4 id="res-pores" class="text-2xl font-black text-teal">...</h4></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div class="bg-slate-50 p-12 rounded-[60px] relative text-center">
+                    <h3 class="text-[10px] font-bold uppercase mb-6 text-slate-400">Target Zones Identified</h3>
+                    <div class="relative inline-block">
+                        <svg viewBox="0 0 200 200" class="w-48 h-48 mx-auto opacity-10"><path d="M100,20 C60,20 40,50 40,100 C40,150 60,180 100,180 C140,180 160,150 160,100 C160,50 140,20 100,20" fill="currentColor"/></svg>
+                        <div id="marker-f" class="absolute top-5 left-1/2 -translate-x-1/2 w-3 h-3 bg-red-400 rounded-full animate-pulse hidden"></div>
+                        <div id="marker-l" class="absolute top-24 left-10 w-3 h-3 bg-red-400 rounded-full animate-pulse hidden"></div>
+                        <div id="marker-r" class="absolute top-24 right-10 w-3 h-3 bg-red-400 rounded-full animate-pulse hidden"></div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-12 rounded-[60px] shadow-inner">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="p-10 bg-teal text-white rounded-[60px] text-center space-y-6">
+                <h3 class="text-xs font-bold uppercase tracking-widest opacity-70">Recommended Specialist Kit</h3>
+                <h4 id="res-kit-name" class="text-4xl font-black italic uppercase">...</h4>
+                <button id="whatsapp-order-btn" class="bg-white text-teal px-12 py-5 rounded-3xl text-[10px] font-bold uppercase no-print hover:scale-105 transition-all">Order My Kit Now</button>
+            </div>
+
+            <div class="space-y-10 mt-10">
+                <h3 class="text-2xl font-black italic uppercase text-center tracking-tighter">Clinical Regimen</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="routine-card">
+                        <div class="text-teal font-black text-lg mb-4">☀️ MORNING</div>
+                        <ul class="text-[10px] space-y-3 text-slate-600 font-bold uppercase tracking-wider">
+                            <li>• Gentle Cleanser</li><li>• Hydrating Serum</li><li>• Sunscreen SPF 50</li>
+                        </ul>
+                    </div>
+                    <div class="routine-card">
+                        <div class="text-teal font-black text-lg mb-4">🌤️ EVENING</div>
+                        <ul class="text-[10px] space-y-3 text-slate-600 font-bold uppercase tracking-wider">
+                            <li>• Treatment Cleanser</li><li>• Prescribed Kit</li><li>• Gel Moisturizer</li>
+                        </ul>
+                    </div>
+                    <div class="routine-card">
+                        <div class="text-teal font-black text-lg mb-4">🌙 NIGHT</div>
+                        <ul class="text-[10px] space-y-3 text-slate-600 font-bold uppercase tracking-wider">
+                            <li>• Barrier Repair Cream</li><li>• Eye Therapy Gel</li><li>• Detox Hydration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-slate-900 text-white p-12 rounded-[40px] text-left"><h3 class="text-xs font-bold uppercase text-teal mb-4">Daily Routine</h3><p id="res-diet" class="text-sm opacity-80 mb-2"></p><p id="res-life" class="text-sm opacity-80"></p></div>
+                <div class="bg-slate-50 p-12 rounded-[40px] text-center border border-dashed border-slate-200">
+                    <p class="text-[9px] font-bold text-slate-400 uppercase">Health Score Analysis</p>
+                    <div class="flex items-center justify-center gap-4 mt-4">
+                        <div class="w-12 h-1 bg-slate-200 rounded"></div>
+                        <h4 class="text-5xl font-black" id="res-score">0</h4>
+                        <div class="text-teal text-xs font-bold">↑ New Scan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const video = document.getElementById('video');
         const status = document.getElementById('status');
         const overlay = document.getElementById('overlay');
-        let radar;
-        let userData = {};
+        const mobileMenu = document.getElementById('mobile-menu');
+        let radar, userData = {};
 
+        function toggleMobileMenu() { mobileMenu.classList.toggle('menu-open'); }
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); document.getElementById('info-modal').classList.add('flex'); }
         function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
-
+        
         function submitInfo() {
-            userData = { name: document.getElementById('user-name').value || "User", water: document.getElementById('user-water').value };
+            userData = {
+                name: document.getElementById('user-name').value || "User",
+                age: document.getElementById('user-age-input').value || 18,
+                water: document.getElementById('user-water').value
+            };
             document.getElementById('info-modal').classList.add('hidden');
             document.getElementById('scan-screen').classList.remove('hidden');
             document.getElementById('scan-screen').classList.add('flex');
@@ -239,7 +283,7 @@
             c.getContext('2d').drawImage(video, 0, 0);
             const frame = c.toDataURL('image/jpeg');
             overlay.classList.remove('hidden');
-            const steps = ["MAPPING...", "SCANNING...", "ANALYZING...", "FINALIZING..."];
+            const steps = ["MAPPING TEXTURE...", "SCANNING PIXELS...", "ANALYZING..."];
             let i = 0; const t = setInterval(() => { status.innerText = steps[i++]; if(i == steps.length) clearInterval(t); }, 1000);
             const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: frame}) });
             const data = await r.json();
@@ -248,14 +292,27 @@
 
         function showDashboard(data) {
             document.getElementById('result-modal').classList.remove('hidden');
-            document.getElementById('rep-date').innerText = "CLINICAL REPORT | PATIENT: " + userData.name + " | " + new Date().toLocaleDateString();
-            document.getElementById('res-score').innerText = data.score;
-            document.getElementById('res-kit-name').innerText = data.rec_kit;
+            document.getElementById('rep-date').innerText = "CLINICAL ANALYSIS | PATIENT: " + userData.name + " | " + new Date().toLocaleDateString();
+            
+            const acne = data.acne_grade, score = data.score, kit = data.rec_kit;
 
-            // WhatsApp Button Logic (9099764589)
+            document.getElementById('res-acne').innerText = acne;
+            document.getElementById('res-pigment').innerText = data.pigmentation;
+            document.getElementById('res-pores').innerText = data.pores;
+            document.getElementById('res-score').innerText = score;
+            document.getElementById('res-kit-name').innerText = kit;
+            document.getElementById('res-diet').innerText = "NUTRITION: " + data.diet;
+            document.getElementById('res-life').innerText = "REGIMEN: " + data.lifestyle;
+
+            if(score < 90) { 
+                document.getElementById('marker-f').classList.remove('hidden');
+                document.getElementById('marker-l').classList.remove('hidden');
+                document.getElementById('marker-r').classList.remove('hidden');
+            }
+
             const orderBtn = document.getElementById('whatsapp-order-btn');
             orderBtn.onclick = function() {
-                const msg = `Hi Cure AI! 🩺%0AName: ${userData.name}%0AScore: ${data.score}/100%0AKit: *${data.rec_kit}*%0AWater: ${userData.water}%0AI want to order my personalized treatment kit.`;
+                const msg = `Hi Cure AI! 🩺%0A%0A*PATIENT DATA*%0AName: ${userData.name}%0AAge: ${userData.age}%0AScore: ${score}/100%0AKit: *${kit}*%0A%0A*ORDER REQUEST RECEIVED*`;
                 window.open(`https://wa.me/919099764589?text=${msg}`, '_blank');
             };
 
@@ -266,7 +323,7 @@
                 data: {
                     labels: ['Hydration', 'Clarity', 'Oil Balance', 'Texture', 'Health Score'],
                     datasets: [{ 
-                        data: [data.moisture, 80, 85, 100 - data.score, data.score], 
+                        data: [data.moisture, 80, 85, 100 - score, score], 
                         backgroundColor: 'rgba(0, 128, 128, 0.2)', 
                         borderColor: '#008080',
                         borderWidth: 2
@@ -279,8 +336,13 @@
         function checkIngredients() {
             const res = document.getElementById('check-result');
             res.classList.remove('hidden');
-            res.innerText = "Processing Formula...";
-            setTimeout(() => { res.innerText = "Safe & Recommended! No pore-clogging ingredients detected."; }, 1500);
+            res.innerText = "Analyzing Formula...";
+            setTimeout(() => { res.innerText = "Clean Formula! Safe for your skin profile. No pore-cloggers found."; }, 1500);
+        }
+
+        function shareReferral() {
+            const msg = `Bhai, check this AI Skin Advisor! 🩺✨ Scan yours here: ${window.location.href}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function downloadPDF() {
