@@ -22,7 +22,6 @@
         #mobile-menu { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .menu-open { transform: translateX(0) !important; }
 
-        /* Floating WhatsApp Button */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -44,9 +43,14 @@
         }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
 
-        /* Routine Card Styling */
         .routine-card { background: #f8fafc; border-radius: 30px; padding: 25px; border: 1px solid #edf2f7; transition: 0.3s; }
         .routine-card:hover { border-color: #008080; background: #fff; transform: translateY(-5px); }
+
+        /* Comparison Slider Styles */
+        .comparison-slider { position: relative; width: 100%; height: 350px; border-radius: 30px; overflow: hidden; }
+        .comparison-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .after-img { clip-path: inset(0 0 0 50%); }
+        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; }
     </style>
 </head>
 <body class="text-slate-900">
@@ -62,7 +66,7 @@
             <div class="text-xl font-extrabold tracking-tighter uppercase italic">Cure <span class="text-teal">AI</span></div>
         </div>
         <div class="hidden lg:flex space-x-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
-            <a href="#home">Home</a> <a href="#library">Library</a> <a href="#checker">Checker</a> <a href="#shop">Shop</a>
+            <a href="#home">Home</a> <a href="#library">Library</a> <a href="#checker">Checker</a> <a href="#refer">Refer</a> <a href="#shop">Shop</a>
         </div>
         <div class="flex items-center gap-4">
             <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">Free Scan</button>
@@ -70,10 +74,12 @@
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full md:w-80 bg-white z-[200] shadow-2xl flex flex-col items-center justify-center space-y-10 transform translate-x-full">
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-full md:w-80 bg-white z-[200] shadow-2xl flex flex-col items-center justify-center space-y-8 transform translate-x-full">
         <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
         <a href="#home" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Home</a>
-        <a href="#process" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Process</a>
+        <a href="#library" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Library</a>
+        <a href="#checker" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Checker</a>
+        <a href="#refer" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Refer</a>
         <a href="#shop" onclick="toggleMobileMenu()" class="text-2xl font-black italic uppercase">Shop</a>
         <button onclick="toggleMobileMenu(); openInfoModal();" class="bg-black text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase">Start Free Scan</button>
     </div>
@@ -187,10 +193,11 @@
                 <div class="flex gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Download</button><button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Done</button></div>
             </header>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
                 <div class="bg-slate-50 p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Acne Severity</p><h4 id="res-acne" class="text-2xl font-black text-teal">...</h4></div>
                 <div class="bg-slate-50 p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Texture Analysis</p><h4 id="res-pigment" class="text-2xl font-black text-teal">...</h4></div>
                 <div class="bg-slate-50 p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-400 uppercase mb-2">Pore Index</p><h4 id="res-pores" class="text-2xl font-black text-teal">...</h4></div>
+                <div class="bg-black p-10 rounded-[50px]"><p class="text-[9px] font-bold text-slate-500 uppercase mb-2">Skin Age Index</p><h4 id="res-skin-age" class="text-2xl font-black text-white">...</h4></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
@@ -235,6 +242,17 @@
                             <li>• Barrier Repair Cream</li><li>• Eye Therapy Gel</li><li>• Detox Hydration</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+
+            <div class="space-y-10 mt-16">
+                <h3 class="text-2xl font-black italic uppercase text-center tracking-tighter">4-Week Projection</h3>
+                <div class="max-w-4xl mx-auto comparison-slider shadow-2xl border-4 border-slate-50">
+                    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&w=800" alt="Current">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bf8d53e164?auto=format&w=800" class="after-img" id="after-img">
+                    <div class="slider-line" id="slider-line"></div>
+                    <div class="absolute top-5 left-5 bg-black/60 text-white px-4 py-1 rounded-full text-[8px] font-bold uppercase">Before</div>
+                    <div class="absolute top-5 right-5 bg-teal text-white px-4 py-1 rounded-full text-[8px] font-bold uppercase">After</div>
                 </div>
             </div>
 
@@ -304,6 +322,12 @@
             document.getElementById('res-diet').innerText = "NUTRITION: " + data.diet;
             document.getElementById('res-life').innerText = "REGIMEN: " + data.lifestyle;
 
+            // Skin Age Logic: Calculated based on score and real age
+            let realAge = parseInt(userData.age);
+            let ageOffset = score > 85 ? -2 : (score < 70 ? 4 : 1);
+            let skinAge = realAge + ageOffset;
+            document.getElementById('res-skin-age').innerText = skinAge + " Yrs";
+
             if(score < 90) { 
                 document.getElementById('marker-f').classList.remove('hidden');
                 document.getElementById('marker-l').classList.remove('hidden');
@@ -312,7 +336,7 @@
 
             const orderBtn = document.getElementById('whatsapp-order-btn');
             orderBtn.onclick = function() {
-                const msg = `Hi Cure AI! 🩺%0A%0A*PATIENT DATA*%0AName: ${userData.name}%0AAge: ${userData.age}%0AScore: ${score}/100%0AKit: *${kit}*%0A%0A*ORDER REQUEST RECEIVED*`;
+                const msg = `Hi Cure AI! 🩺%0A%0A*PATIENT DATA*%0AName: ${userData.name}%0AAge: ${userData.age}%0ASkin Age: ${skinAge}%0AScore: ${score}/100%0AKit: *${kit}*%0A%0A*ORDER REQUEST RECEIVED*`;
                 window.open(`https://wa.me/919099764589?text=${msg}`, '_blank');
             };
 
@@ -331,6 +355,25 @@
                 },
                 options: { scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { display: false } } }
             });
+
+            // Slider Logic for Before & After Simulation
+            const slider = document.getElementById('slider-line');
+            const afterImg = document.getElementById('after-img');
+            const container = slider.parentElement;
+
+            const move = (e) => {
+                let x = (e.pageX || e.touches[0].pageX) - container.getBoundingClientRect().left;
+                let w = container.offsetWidth;
+                if (x < 0) x = 0; if (x > w) x = w;
+                let percent = (x / w) * 100;
+                slider.style.left = percent + '%';
+                afterImg.style.clipPath = `inset(0 0 0 ${percent}%)`;
+            };
+
+            slider.addEventListener('mousedown', () => { window.addEventListener('mousemove', move); });
+            window.addEventListener('mouseup', () => { window.removeEventListener('mousemove', move); });
+            slider.addEventListener('touchstart', () => { window.addEventListener('touchmove', move); });
+            window.addEventListener('touchend', () => { window.removeEventListener('touchmove', move); });
         }
 
         function checkIngredients() {
