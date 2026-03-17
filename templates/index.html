@@ -13,225 +13,263 @@
         h1, h2, h3, h4, nav { font-family: 'Montserrat', sans-serif; }
         .text-teal { color: #008080; }
         .bg-teal { background-color: #008080; }
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; position: fixed; width: 100%; top: 0; z-index: 100; }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid #f1f5f9; position: fixed; width: 100%; top: 0; z-index: 100; }
         
-        /* Mobile Optimized Cards */
-        .luxury-card { border-radius: 30px; border: 1px solid #f1f5f9; transition: all 0.3s ease; background: #fff; overflow: hidden; position: relative; }
-        @media (min-width: 768px) { .luxury-card { border-radius: 40px; } }
+        /* Luxury Components */
+        .luxury-card { border-radius: 30px; border: 1px solid #f1f5f9; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); background: #fff; overflow: hidden; position: relative; }
+        .luxury-card:hover { transform: translateY(-10px); border-color: #008080; box-shadow: 0 20px 40px rgba(0,128,128,0.1); }
         
+        /* Side Panels Logic */
         .panel-transition { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .panel-open { transform: translateX(0) !important; }
+        #cart-panel, #wishlist-panel, #mobile-menu { width: 100%; max-width: 400px; }
 
-        /* Scanner silhouette for mobile */
-        .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; height: 70%; border: 2px dashed rgba(0, 128, 128, 0.3); border-radius: 50%; pointer-events: none; z-index: 20; }
+        /* Scanner Silhouette */
+        .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65%; height: 75%; border: 2px dashed rgba(0, 128, 128, 0.3); border-radius: 50% 50% 45% 45%; pointer-events: none; z-index: 20; }
         @keyframes scan { 0% { top: 15%; } 100% { top: 85%; } }
         .scan-line { position: absolute; left: 0; width: 100%; height: 2px; background: #008080; box-shadow: 0 0 15px #008080; animation: scan 3s infinite linear; z-index: 30; }
 
-        /* Side Panels width for mobile */
-        #cart-panel, #wishlist-panel, #mobile-menu { width: 100%; max-width: 400px; }
-        
+        /* Comparison Slider */
+        .comparison-slider { position: relative; width: 100%; height: 350px; border-radius: 30px; overflow: hidden; }
+        .comparison-slider img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .after-img { clip-path: inset(0 0 0 50%); }
+        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; }
+
+        .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 12px 0; outline: none; font-size: 16px; background: transparent; transition: 0.3s; }
+        .info-input:focus { border-color: #008080; }
         .filter-btn.active { background: #008080; color: white; border-color: #008080; }
         .heart-active { fill: #ff4d4d; stroke: #ff4d4d; }
     </style>
 </head>
 <body class="text-slate-900">
 
-    <nav class="glass-nav px-4 md:px-10 py-4 flex justify-between items-center fixed w-full top-0 z-[100]">
-        <div class="flex items-center gap-2">
-            <div class="text-lg md:text-xl font-extrabold tracking-tighter uppercase italic">Cure <span class="text-teal">AI</span></div>
+    <nav class="glass-nav px-6 py-4 flex justify-between items-center fixed w-full top-0 z-[100]">
+        <div class="flex items-center gap-3">
+            <div class="text-xl font-extrabold tracking-tighter uppercase italic">Cure <span class="text-teal">AI</span></div>
         </div>
-        
-        <div class="flex items-center gap-4 md:gap-7">
-            <button onclick="togglePanel('wishlist-panel')" class="relative p-1">
+        <div class="hidden lg:flex space-x-10 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <a href="#home">Home</a> <a href="#library">Library</a> <a href="#checker">Checker</a> <a href="#shop">Shop</a>
+        </div>
+        <div class="flex items-center gap-5">
+            <button onclick="togglePanel('wishlist-panel')" class="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                <span id="wish-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-bold px-1.5 rounded-full">0</span>
+                <span id="wish-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-[8px] font-bold px-1.5 rounded-full">0</span>
             </button>
-            <button onclick="togglePanel('cart-panel')" class="relative p-1">
+            <button onclick="togglePanel('cart-panel')" class="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-teal text-white text-[9px] font-bold px-1.5 rounded-full">0</span>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-teal text-white text-[8px] font-bold px-1.5 rounded-full">0</span>
             </button>
-            <button onclick="togglePanel('mobile-menu')" class="p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-            </button>
+            <button onclick="togglePanel('mobile-menu')" class="lg:hidden p-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-y-0 right-0 bg-white z-[300] shadow-2xl translate-x-full panel-transition flex flex-col items-center justify-center space-y-8 p-10 text-center">
-        <button onclick="togglePanel('mobile-menu')" class="absolute top-6 right-6 text-slate-400 uppercase text-xs font-bold">Close</button>
-        <a href="#home" onclick="togglePanel('mobile-menu')" class="text-2xl font-black uppercase italic">Home</a>
-        <a href="#checker" onclick="togglePanel('mobile-menu')" class="text-2xl font-black uppercase italic">Formula Checker</a>
-        <a href="#shop" onclick="togglePanel('mobile-menu')" class="text-2xl font-black uppercase italic">Shop</a>
-        <button onclick="togglePanel('mobile-menu'); openInfoModal();" class="bg-black text-white px-10 py-4 rounded-full text-xs font-bold uppercase">Start Free Scan</button>
-    </div>
-
-    <div id="cart-panel" class="fixed inset-y-0 right-0 bg-white z-[300] shadow-2xl translate-x-full panel-transition flex flex-col p-6 md:p-10">
-        <div class="flex justify-between items-center mb-8">
-            <h3 class="text-2xl font-black italic uppercase">My Cart.</h3>
-            <button onclick="togglePanel('cart-panel')" class="text-slate-400 font-bold uppercase text-[10px]">Close</button>
+    <div id="cart-panel" class="fixed inset-y-0 right-0 bg-white z-[300] shadow-2xl translate-x-full panel-transition flex flex-col p-8">
+        <div class="flex justify-between items-center mb-8 border-b pb-4">
+            <h3 class="text-xl font-black uppercase italic">My Cart.</h3>
+            <button onclick="togglePanel('cart-panel')" class="text-slate-400 uppercase text-[10px] font-bold">Close</button>
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto space-y-4"></div>
         <div class="pt-6 border-t mt-6">
-            <div class="flex justify-between mb-6 font-bold uppercase"><span>Total</span><span id="cart-total" class="text-teal text-xl">₹0</span></div>
-            <button onclick="checkoutCart()" class="w-full bg-black text-white py-5 rounded-2xl text-xs font-bold uppercase tracking-widest">Order via WhatsApp</button>
+            <div class="flex justify-between mb-6"><span class="font-bold">TOTAL</span><span id="cart-total" class="font-black text-teal text-xl">₹0</span></div>
+            <button onclick="checkoutCart()" class="w-full bg-black text-white py-5 rounded-2xl text-[10px] font-bold uppercase tracking-widest">Buy on WhatsApp</button>
         </div>
     </div>
 
-    <div id="wishlist-panel" class="fixed inset-y-0 right-0 bg-white z-[300] shadow-2xl translate-x-full panel-transition flex flex-col p-6 md:p-10">
-        <div class="flex justify-between items-center mb-8">
-            <h3 class="text-2xl font-black italic uppercase">Wishlist.</h3>
-            <button onclick="togglePanel('wishlist-panel')" class="text-slate-400 font-bold uppercase text-[10px]">Close</button>
+    <div id="wishlist-panel" class="fixed inset-y-0 right-0 bg-white z-[300] shadow-2xl translate-x-full panel-transition flex flex-col p-8">
+        <div class="flex justify-between items-center mb-8 border-b pb-4">
+            <h3 class="text-xl font-black uppercase italic">Wishlist.</h3>
+            <button onclick="togglePanel('wishlist-panel')" class="text-slate-400 uppercase text-[10px] font-bold">Close</button>
         </div>
         <div id="wishlist-items" class="flex-1 overflow-y-auto space-y-4"></div>
     </div>
 
-    <main class="pt-20">
-        <section id="home" class="min-h-[80vh] flex flex-col items-center justify-center text-center px-6">
-            <div class="space-y-6 max-w-2xl">
-                <div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[9px] font-bold uppercase tracking-widest rounded-full border border-teal/10">AI Dermatologist 2026</div>
-                <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none italic uppercase">Heal.<br><span class="text-teal">Correct.</span></h1>
-                <p class="text-slate-400 text-sm md:text-base font-light px-4">Advanced diagnostic for oily and acne-prone skin. Stop guessing, start healing with clinical intelligence.</p>
-                <button onclick="openInfoModal()" class="bg-teal text-white px-10 py-5 rounded-3xl text-xs font-bold uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Launch Diagnostic</button>
-            </div>
-        </section>
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 bg-white z-[300] shadow-2xl translate-x-full panel-transition flex flex-col items-center justify-center space-y-8 p-10">
+        <a href="#home" onclick="togglePanel('mobile-menu')" class="text-2xl font-black italic uppercase">Home</a>
+        <a href="#library" onclick="togglePanel('mobile-menu')" class="text-2xl font-black italic uppercase">Library</a>
+        <a href="#shop" onclick="togglePanel('mobile-menu')" class="text-2xl font-black italic uppercase">Shop</a>
+        <button onclick="togglePanel('mobile-menu'); openInfoModal();" class="bg-teal text-white px-10 py-4 rounded-full font-bold uppercase text-xs">Start Scan</button>
+    </div>
 
-        <section id="shop" class="py-20 px-4 bg-slate-50">
-            <div class="max-w-7xl mx-auto space-y-10">
-                <div class="text-center">
-                    <h2 class="text-4xl md:text-6xl font-black italic uppercase text-teal">The Store.</h2>
-                </div>
-                <div class="flex overflow-x-auto gap-3 pb-4 no-scrollbar justify-start md:justify-center">
-                    <button onclick="filterShop('all')" class="filter-btn active whitespace-nowrap px-6 py-3 rounded-full border text-[9px] font-bold uppercase">All Products</button>
-                    <button onclick="filterShop('kit')" class="filter-btn whitespace-nowrap px-6 py-3 rounded-full border text-[9px] font-bold uppercase">Kits</button>
-                    <button onclick="filterShop('individual')" class="filter-btn whitespace-nowrap px-6 py-3 rounded-full border text-[9px] font-bold uppercase">Single Items</button>
-                </div>
-                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+        <div class="max-w-3xl space-y-8">
+            <div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[10px] font-bold uppercase tracking-widest rounded-full border border-teal/10">Clinical Intelligence</div>
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-none italic uppercase">Heal. <br> <span class="text-teal">Correct.</span></h1>
+            <p class="text-slate-400 text-lg md:text-xl font-light">The Advanced AI Skin Advisor for Gujarat.</p>
+            <button onclick="openInfoModal()" class="bg-black text-white px-12 py-5 rounded-3xl text-[11px] font-bold uppercase tracking-widest shadow-2xl hover:scale-110 transition-all">Launch Diagnostic</button>
+        </div>
+    </section>
+
+    <section id="library" class="py-24 px-6 bg-slate-50">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-10 rounded-[40px] shadow-sm text-center">
+                <h4 class="text-teal font-bold mb-3 uppercase text-xs tracking-widest">Salicylic Acid</h4>
+                <p class="text-xs text-slate-500">Unclogs pores and treats active acne.</p>
             </div>
-        </section>
-    </main>
+            <div class="bg-white p-10 rounded-[40px] shadow-sm text-center">
+                <h4 class="text-teal font-bold mb-3 uppercase text-xs tracking-widest">Niacinamide</h4>
+                <p class="text-xs text-slate-500">Reduces pigmentation and redness.</p>
+            </div>
+            <div class="bg-white p-10 rounded-[40px] shadow-sm text-center">
+                <h4 class="text-teal font-bold mb-3 uppercase text-xs tracking-widest">Ceramides</h4>
+                <p class="text-xs text-slate-500">Repairs and protects skin barrier.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="checker" class="py-24 px-6 bg-white text-center border-y">
+        <h2 class="text-4xl font-black italic uppercase mb-8">Formula Checker</h2>
+        <textarea id="ing-input" placeholder="Paste ingredients here..." class="w-full max-w-2xl h-32 p-6 rounded-3xl border-2 border-slate-100 outline-none focus:border-teal mb-6"></textarea><br>
+        <button onclick="checkIngredients()" class="bg-black text-white px-12 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest">Analyze Formula</button>
+        <div id="check-result" class="hidden mt-6 text-teal text-[10px] font-bold uppercase">Safe & Recommended!</div>
+    </section>
+
+    <section id="shop" class="py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <div class="text-center">
+                <h2 class="text-6xl font-black italic text-teal uppercase tracking-tighter">AI Store.</h2>
+                <div class="flex flex-wrap justify-center gap-4 mt-10">
+                    <button onclick="filterShop('all')" class="filter-btn active px-6 py-3 rounded-full border border-slate-200 text-[9px] font-bold uppercase tracking-widest">All</button>
+                    <button onclick="filterShop('kit')" class="filter-btn px-6 py-3 rounded-full border border-slate-200 text-[9px] font-bold uppercase tracking-widest">Kits</button>
+                    <button onclick="filterShop('individual')" class="filter-btn px-6 py-3 rounded-full border border-slate-200 text-[9px] font-bold uppercase tracking-widest">Essentials</button>
+                </div>
+            </div>
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
+        </div>
+    </section>
 
     <div id="info-modal" class="fixed inset-0 z-[400] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
         <div class="max-w-md w-full space-y-8">
-            <h2 class="text-3xl font-black italic uppercase text-center">Skin Profile.</h2>
+            <h2 class="text-3xl font-black italic uppercase text-center text-teal">Profile.</h2>
             <div class="space-y-4">
                 <input type="text" id="user-name" placeholder="Full Name" class="info-input">
                 <input type="number" id="user-age-input" placeholder="Age" class="info-input">
-                <select id="user-water" class="info-input">
-                    <option value="" disabled selected>Water Intake/Day</option>
-                    <option value="Good (3L+)">3L or more</option>
-                    <option value="Low (<2L)">Less than 2L</option>
-                </select>
+                <select id="user-water" class="info-input"><option value="Good (3L+)">3L or more water</option><option value="Low (<2L)">Low water intake</option></select>
             </div>
-            <button onclick="submitInfo()" class="w-full bg-black text-white py-5 rounded-2xl text-xs font-bold uppercase shadow-xl">Next Step</button>
-            <button onclick="closeInfoModal()" class="w-full text-slate-300 text-[10px] font-bold uppercase mt-4">Cancel Scan</button>
+            <button onclick="submitInfo()" class="w-full bg-black text-white py-5 rounded-2xl text-[10px] font-bold uppercase shadow-xl">Next Step</button>
+            <button onclick="closeInfoModal()" class="w-full text-slate-300 text-[10px] font-bold uppercase mt-4">Cancel</button>
         </div>
     </div>
 
     <div id="quiz-modal" class="fixed inset-0 z-[410] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
-        <div class="max-w-md w-full space-y-6">
-            <h2 class="text-2xl font-black italic uppercase text-center">History.</h2>
-            <div class="space-y-4">
-                <div><label class="text-[8px] font-bold text-slate-400 uppercase">Main Concern</label><select id="q-problem" class="info-input"><option>Active Acne</option><option>Dark Spots</option><option>Extreme Oil</option></select></div>
-                <div><label class="text-[8px] font-bold text-slate-400 uppercase">Duration</label><input type="text" id="q-start" placeholder="e.g. 1 month" class="info-input"></div>
-                <div><label class="text-[8px] font-bold text-slate-400 uppercase">Symptoms</label><select id="q-symptoms" class="info-input"><option>None</option><option>Itching</option><option>Burning</option></select></div>
-                <div><label class="text-[8px] font-bold text-slate-400 uppercase">Allergies</label><input type="text" id="q-meds" placeholder="e.g. None" class="info-input"></div>
+        <div class="max-w-md w-full space-y-8">
+            <div class="text-center">
+                <div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[9px] font-bold uppercase tracking-widest rounded-full border border-teal/10 mb-4">Phase 02: Assessment</div>
+                <h2 class="text-3xl font-black italic uppercase">History.</h2>
             </div>
-            <button onclick="submitQuiz()" class="w-full bg-black text-white py-5 rounded-2xl text-xs font-bold uppercase">Proceed to Scan</button>
+            <div class="space-y-6">
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">What skin problem do you have?</label><select id="q-problem" class="info-input"><option>Active Acne</option><option>Dark Spots</option><option>Extreme Oiliness</option><option>Redness</option></select></div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Since When?</label><input type="text" id="q-start" placeholder="e.g. 2 months" class="info-input"></div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Any Symptoms?</label><select id="q-symptoms" class="info-input"><option>None</option><option>Itching</option><option>Pain/Burning</option></select></div>
+                <div><label class="text-[9px] font-bold uppercase text-slate-400">Allergies or Meds?</label><input type="text" id="q-meds" placeholder="e.g. No allergies" class="info-input"></div>
+            </div>
+            <button onclick="submitQuiz()" class="w-full bg-black text-white py-5 rounded-2xl text-[10px] font-bold uppercase shadow-xl">Proceed to Scan</button>
         </div>
     </div>
 
-    <div id="scan-screen" class="fixed inset-0 z-[420] bg-white hidden flex-col items-center justify-center p-6 text-center">
+    <div id="scan-screen" class="fixed inset-0 z-[420] bg-white hidden flex-col items-center justify-center p-6">
         <div class="w-full max-w-sm aspect-square relative rounded-full overflow-hidden border-8 border-slate-50 shadow-2xl">
             <video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video>
             <div class="silhouette"></div>
             <div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div>
         </div>
-        <div class="mt-10 space-y-6">
-            <p id="status" class="text-[10px] font-bold uppercase tracking-widest text-teal">Align face in the circle</p>
-            <button onclick="runAnalysis()" class="bg-black text-white px-12 py-5 rounded-full text-xs font-bold uppercase">Diagnose Now</button>
+        <div class="mt-12 text-center space-y-6">
+            <p id="status" class="text-[10px] font-bold uppercase tracking-widest text-teal">Ready for Diagnostic</p>
+            <button onclick="runAnalysis()" class="bg-black text-white px-16 py-6 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-2xl">Capture & Diagnose</button>
         </div>
     </div>
 
     <div id="result-modal" class="fixed inset-0 z-[500] hidden bg-white overflow-y-auto p-6">
-        <div id="pdf-content" class="max-w-4xl mx-auto py-10 space-y-10">
-            <div class="border-b pb-8 flex justify-between items-start">
-                <div>
-                    <h4 class="text-teal font-bold text-[9px] uppercase tracking-widest">Diagnostic Report</h4>
-                    <h2 class="text-4xl font-black italic uppercase" id="rep-name">Analysis.</h2>
+        <div id="pdf-content" class="max-w-4xl mx-auto py-10 space-y-12">
+            <header class="border-b pb-8 flex justify-between items-end">
+                <div class="space-y-2">
+                    <h4 class="text-teal font-bold text-[9px] uppercase tracking-widest">Analysis Report</h4>
+                    <h2 class="text-5xl font-black italic uppercase" id="rep-name-header">Result.</h2>
+                    <p class="text-slate-300 font-bold text-[9px]" id="rep-date"></p>
                 </div>
-                <button onclick="location.reload()" class="bg-slate-100 p-2 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg></button>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-slate-50 p-6 rounded-3xl text-center"><p class="text-[8px] font-bold text-slate-400 uppercase">Acne</p><h4 id="res-acne" class="text-lg font-black text-teal uppercase">...</h4></div>
-                <div class="bg-slate-50 p-6 rounded-3xl text-center"><p class="text-[8px] font-bold text-slate-400 uppercase">Score</p><h4 id="res-score" class="text-lg font-black text-teal">...</h4></div>
-                <div class="bg-slate-50 p-6 rounded-3xl text-center"><p class="text-[8px] font-bold text-slate-400 uppercase">Skin Age</p><h4 id="res-skin-age" class="text-lg font-black text-teal">...</h4></div>
-                <div class="bg-black p-6 rounded-3xl text-center"><p class="text-[8px] font-bold text-slate-500 uppercase">Kit</p><h4 id="res-kit-name" class="text-xs font-black text-white uppercase">...</h4></div>
+                <div class="flex gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Save PDF</button><button onclick="location.reload()" class="bg-black text-white px-8 py-3 rounded-xl text-[9px] font-bold uppercase">Done</button></div>
+            </header>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="bg-slate-50 p-8 rounded-[40px]"><p class="text-[8px] font-bold text-slate-400 uppercase">Acne</p><h4 id="res-acne" class="text-lg font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-8 rounded-[40px]"><p class="text-[8px] font-bold text-slate-400 uppercase">Score</p><h4 id="res-score" class="text-lg font-black text-teal">...</h4></div>
+                <div class="bg-slate-50 p-8 rounded-[40px]"><p class="text-[8px] font-bold text-slate-400 uppercase">Skin Age</p><h4 id="res-skin-age" class="text-lg font-black text-teal">...</h4></div>
+                <div class="bg-black p-8 rounded-[40px]"><p class="text-[8px] font-bold text-slate-500 uppercase">Goal</p><h4 id="res-kit-name" class="text-[10px] font-black text-white uppercase">...</h4></div>
             </div>
 
-            <button onclick="addToCartKit()" class="w-full bg-teal text-white py-5 rounded-3xl text-xs font-bold uppercase shadow-xl">Add My Clinical Kit to Cart</button>
+            <div class="space-y-8">
+                <h3 class="text-2xl font-black italic uppercase text-center tracking-tighter">4-Week Projection</h3>
+                <div class="max-w-2xl mx-auto comparison-slider shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&w=800" alt="Before">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bf8d53e164?auto=format&w=800" class="after-img" id="after-img">
+                    <div class="slider-line" id="slider-line"></div>
+                </div>
+            </div>
+
+            <div class="p-10 bg-teal text-white rounded-[60px] text-center">
+                <button onclick="addToCartKit()" class="bg-white text-teal px-12 py-5 rounded-3xl text-[10px] font-bold uppercase shadow-xl hover:scale-105 transition-all">Order Recommended Kit Now</button>
+            </div>
         </div>
     </div>
 
+    <section id="refer" class="py-24 px-6 bg-slate-900 text-white text-center rounded-[60px] mx-4 mb-10 mt-20">
+        <h2 class="text-4xl font-black italic uppercase mb-4">Refer & Earn</h2>
+        <p class="text-slate-400 text-sm mb-10">Invite friends and get extra 20% OFF.</p>
+        <button onclick="shareReferral()" class="bg-teal text-white px-12 py-5 rounded-full text-[10px] font-bold uppercase tracking-widest">Share on WhatsApp</button>
+    </section>
+
     <script>
-        // Global variables
-        let userData = {}, quizData = {}, currentKit = "", cart = [], wishlist = [];
         const video = document.getElementById('video'), status = document.getElementById('status'), overlay = document.getElementById('overlay');
+        let userData = {}, quizData = {}, currentKit = "", cart = [], wishlist = [];
 
         const products = [
-            { id: 1, name: "Active Acne Kit", type: "kit", purpose: "Severe Acne", originalPrice: 2999, finalPrice: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 2, name: "Advanced Healing Kit", type: "kit", purpose: "Scar Repair", originalPrice: 2799, finalPrice: 2199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
-            { id: 3, name: "Pore Control Kit", type: "kit", purpose: "Open Pores", originalPrice: 2499, finalPrice: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
-            { id: 4, name: "Salicylic Cleanser", type: "individual", purpose: "Daily Wash", originalPrice: 899, finalPrice: 599, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
-            { id: 5, name: "Niacinamide Serum", type: "individual", purpose: "Brightening", originalPrice: 1299, finalPrice: 899, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
-            { id: 6, name: "Clinical Sunscreen", type: "individual", purpose: "SPF 50", originalPrice: 999, finalPrice: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" }
+            { id: 1, name: "Active Acne Kit", type: "kit", purpose: "Severe Pimple Control", originalPrice: 2999, finalPrice: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
+            { id: 2, name: "Advanced Healing Kit", type: "kit", purpose: "Scar & Mark Repair", originalPrice: 2799, finalPrice: 2199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
+            { id: 3, name: "Pore Control Kit", type: "kit", purpose: "Open Pores & Texture", originalPrice: 2499, finalPrice: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
+            { id: 4, name: "Salicylic Cleanser", type: "individual", purpose: "Daily Oil Control", originalPrice: 899, finalPrice: 599, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
+            { id: 5, name: "Niacinamide Serum", type: "individual", purpose: "Reduces Redness", originalPrice: 1299, finalPrice: 899, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
+            { id: 6, name: "Clinical Sunscreen", type: "individual", purpose: "Non-Comedogenic SPF", originalPrice: 999, finalPrice: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" }
         ];
 
-        // Core UI Functions
+        // Panel Management
         function togglePanel(id) { document.getElementById(id).classList.toggle('panel-open'); }
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); document.getElementById('info-modal').classList.add('flex'); }
         function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
 
-        // Diagnostic Flow
+        // Diagnostic Steps
         function submitInfo() {
             userData = { name: document.getElementById('user-name').value || "User", age: document.getElementById('user-age-input').value || 18 };
             document.getElementById('info-modal').classList.add('hidden');
-            document.getElementById('quiz-modal').classList.remove('hidden');
-            document.getElementById('quiz-modal').classList.add('flex');
+            document.getElementById('quiz-modal').classList.remove('hidden'); document.getElementById('quiz-modal').classList.add('flex');
         }
 
         function submitQuiz() {
-            quizData = { problem: document.getElementById('q-problem').value, symptoms: document.getElementById('q-symptoms').value };
+            quizData = { problem: document.getElementById('q-problem').value, symptoms: document.getElementById('q-symptoms').value, start: document.getElementById('q-start').value, meds: document.getElementById('q-meds').value };
             document.getElementById('quiz-modal').classList.add('hidden');
-            document.getElementById('scan-screen').classList.remove('hidden');
-            document.getElementById('scan-screen').classList.add('flex');
+            document.getElementById('scan-screen').classList.remove('hidden'); document.getElementById('scan-screen').classList.add('flex');
             initCam();
         }
 
-        async function initCam() { 
-            try {
-                const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } }); 
-                video.srcObject = s; 
-            } catch (err) { alert("Camera access denied. Please enable it in settings."); }
-        }
+        async function initCam() { const s = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}}); video.srcObject = s; }
 
         async function runAnalysis() {
-            overlay.classList.remove('hidden');
-            status.innerText = "Scanning Pixels...";
-            // Simulated API Call
-            setTimeout(() => {
-                showDashboard({ score: 78, acne_grade: "Mild", rec_kit: "Pore Control Kit" });
-            }, 3000);
+            overlay.classList.remove('hidden'); status.innerText = "Scanning Pixels...";
+            const c = document.createElement('canvas'); c.width = video.videoWidth; c.height = video.videoHeight;
+            c.getContext('2d').drawImage(video, 0, 0);
+            const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: c.toDataURL('image/jpeg'), quiz: quizData}) });
+            const d = await r.json(); setTimeout(() => showDashboard(d), 3000);
         }
 
-        function showDashboard(data) {
+        function showDashboard(d) {
             document.getElementById('scan-screen').classList.add('hidden');
             document.getElementById('result-modal').classList.remove('hidden');
-            currentKit = data.rec_kit;
-            document.getElementById('res-acne').innerText = data.acne_grade;
-            document.getElementById('res-score').innerText = data.score;
-            document.getElementById('res-kit-name').innerText = data.rec_kit;
-            document.getElementById('res-skin-age').innerText = (parseInt(userData.age) + 2) + " Yrs";
+            currentKit = d.rec_kit;
+            document.getElementById('res-acne').innerText = d.acne_grade;
+            document.getElementById('res-score').innerText = d.score;
+            document.getElementById('res-kit-name').innerText = d.rec_kit;
+            document.getElementById('res-skin-age').innerText = (parseInt(userData.age) + (d.score > 80 ? -2 : 3)) + " Yrs";
+            document.getElementById('rep-date').innerText = "PATIENT: " + userData.name.toUpperCase() + " | " + new Date().toLocaleDateString();
             renderProducts();
+            initSlider();
         }
 
         // Shop Logic
@@ -242,62 +280,45 @@
                 const inWish = wishlist.some(i => i.id === p.id);
                 const isMatch = (p.name === currentKit);
                 grid.innerHTML += `
-                    <div class="luxury-card p-6 flex flex-col items-center">
-                        ${isMatch ? '<div class="absolute top-3 right-3 bg-teal text-white text-[7px] px-2 py-1 rounded-full font-bold uppercase z-10">AI Match</div>' : ''}
-                        <button onclick="toggleWishlist(${p.id})" class="absolute top-3 left-3 z-10">
+                    <div class="luxury-card p-8 flex flex-col items-center text-center">
+                        ${isMatch ? '<div class="absolute top-4 right-4 bg-teal text-white text-[7px] px-3 py-1 rounded-full font-bold uppercase animate-pulse z-10">AI Recommended</div>' : ''}
+                        <button onclick="toggleWishlist(${p.id})" class="absolute top-4 left-4 z-20">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${inWish ? 'heart-active' : 'text-slate-300'}" fill="${inWish ? 'currentColor' : 'none'}" viewBox="0 0 24 24" stroke="currentColor"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                         </button>
-                        <img src="${p.img}" class="w-full h-40 object-cover rounded-2xl mb-4">
-                        <h4 class="text-base font-bold mb-1">${p.name}</h4>
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="text-slate-300 line-through text-xs">₹${p.originalPrice}</span>
-                            <span class="text-teal font-black">₹${p.finalPrice}</span>
+                        <img src="${p.img}" class="w-full h-48 object-cover rounded-[30px] mb-6">
+                        <div class="text-[8px] font-bold text-slate-400 uppercase mb-2">${p.purpose}</div>
+                        <h4 class="text-xl font-bold mb-2">${p.name}</h4>
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="text-slate-300 line-through text-sm">₹${p.originalPrice}</span>
+                            <span class="text-teal font-black text-xl">₹${p.finalPrice}</span>
                         </div>
-                        <button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-3 rounded-xl text-[9px] font-bold uppercase tracking-widest">Add to Cart</button>
+                        <button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-4 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-teal transition-all">Add to Cart</button>
                     </div>`;
             });
         }
 
-        function filterShop(type) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts(type);
-        }
+        function filterShop(type) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); renderProducts(type); }
 
         // Cart & Wishlist Logic
-        function addToCart(id) {
-            const p = products.find(x => x.id === id);
-            cart.push(p);
-            updateCartUI();
-            togglePanel('cart-panel');
-        }
-
-        function addToCartKit() {
-            const kit = products.find(p => p.name === currentKit);
-            if(kit) addToCart(kit.id);
-        }
-
+        function addToCart(id) { cart.push(products.find(p => p.id === id)); updateCartUI(); togglePanel('cart-panel'); }
+        function addToCartKit() { const k = products.find(p => p.name === currentKit); if(k) addToCart(k.id); }
         function toggleWishlist(id) {
-            const idx = wishlist.findIndex(x => x.id === id);
-            if(idx > -1) wishlist.splice(idx, 1);
-            else wishlist.push(products.find(x => x.id === id));
-            updateWishlistUI();
-            renderProducts();
+            const idx = wishlist.findIndex(i => i.id === id);
+            if(idx > -1) wishlist.splice(idx, 1); else wishlist.push(products.find(p => p.id === id));
+            updateWishlistUI(); renderProducts();
         }
 
         function updateCartUI() {
             document.getElementById('cart-count').innerText = cart.length;
             const container = document.getElementById('cart-items');
-            if(cart.length === 0) { container.innerHTML = '<p class="text-slate-400 text-sm italic">Empty cart</p>'; return; }
+            if(cart.length === 0) { container.innerHTML = '<p class="text-slate-400 text-sm">Cart is empty</p>'; return; }
             let total = 0;
-            container.innerHTML = cart.map((p, i) => {
-                total += p.finalPrice;
-                return `<div class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl">
-                    <img src="${p.img}" class="w-10 h-10 rounded-lg object-cover">
+            container.innerHTML = cart.map((p, i) => { total += p.finalPrice; return `
+                <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl">
+                    <img src="${p.img}" class="w-12 h-12 rounded-xl object-cover">
                     <div class="flex-1 text-[10px] font-bold uppercase">${p.name}<br><span class="text-teal">₹${p.finalPrice}</span></div>
-                    <button onclick="removeFromCart(${i})" class="text-red-400 text-[8px] font-bold">Remove</button>
-                </div>`;
-            }).join('');
+                    <button onclick="removeFromCart(${i})" class="text-red-400 text-[10px] font-bold uppercase">Remove</button>
+                </div>`; }).join('');
             document.getElementById('cart-total').innerText = '₹' + total;
         }
 
@@ -306,22 +327,53 @@
         function updateWishlistUI() {
             document.getElementById('wish-count').innerText = wishlist.length;
             const container = document.getElementById('wishlist-items');
-            if(wishlist.length === 0) { container.innerHTML = '<p class="text-slate-400 text-sm italic">Nothing saved</p>'; return; }
+            if(wishlist.length === 0) { container.innerHTML = '<p class="text-slate-400 text-sm">Nothing saved</p>'; return; }
             container.innerHTML = wishlist.map(p => `
-                <div class="flex items-center gap-3 bg-slate-50 p-3 rounded-xl">
-                    <img src="${p.img}" class="w-10 h-10 rounded-lg object-cover">
+                <div class="flex items-center gap-4 bg-slate-50 p-4 rounded-2xl">
+                    <img src="${p.img}" class="w-12 h-12 rounded-xl object-cover">
                     <div class="flex-1 text-[10px] font-bold uppercase">${p.name}</div>
-                    <button onclick="addToCart(${p.id})" class="bg-black text-white px-3 py-2 rounded-lg text-[8px] font-bold">Buy</button>
+                    <button onclick="addToCart(${p.id})" class="bg-black text-white px-4 py-2 rounded-lg text-[8px] font-bold">Buy</button>
                 </div>`).join('');
         }
 
         function checkoutCart() {
             const items = cart.map(p => p.name).join(', ');
             const total = cart.reduce((acc, p) => acc + p.finalPrice, 0);
-            window.open(`https://wa.me/919099764589?text=Hi%20CureAI,%20I%20order:%20${items}%20(Total:%20₹${total})`, '_blank');
+            const msg = `Hi Cure AI! 🩺%0A%0A*ORDER REQUEST*%0AItems: ${items}%0ATotal: ₹${total}%0A%0A*Patient History:* ${quizData.problem}`;
+            window.open(`https://wa.me/919099764589?text=${msg}`, '_blank');
         }
 
-        // Init
+        // Helpers
+        function checkIngredients() {
+            const input = document.getElementById('ing-input').value.toLowerCase(), res = document.getElementById('check-result');
+            const harmful = ["paraben", "sulfate", "sls", "alcohol denat", "fragrance"];
+            res.classList.remove('hidden'); res.innerText = "Analyzing...";
+            setTimeout(() => {
+                let found = harmful.filter(i => input.includes(i));
+                if(found.length > 0) { res.innerHTML = `⚠️ Contains: ${found.join(", ")}`; res.className = "mt-6 text-red-500 font-bold uppercase text-[10px]"; }
+                else { res.innerText = "✅ Clean Formula!"; res.className = "mt-6 text-teal font-bold uppercase text-[10px]"; }
+            }, 1500);
+        }
+
+        function initSlider() {
+            const slider = document.getElementById('slider-line'), afterImg = document.getElementById('after-img'), container = slider.parentElement;
+            const move = (e) => {
+                let x = (e.pageX || e.touches[0].pageX) - container.getBoundingClientRect().left;
+                let w = container.offsetWidth;
+                if (x < 0) x = 0; if (x > w) x = w;
+                let percent = (x / w) * 100;
+                slider.style.left = percent + '%';
+                afterImg.style.clipPath = `inset(0 0 0 ${percent}%)`;
+            };
+            slider.addEventListener('mousedown', () => window.addEventListener('mousemove', move));
+            window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move));
+            slider.addEventListener('touchstart', () => window.addEventListener('touchmove', move));
+            window.addEventListener('touchend', () => window.removeEventListener('touchmove', move));
+        }
+
+        function shareReferral() { window.open(`https://wa.me/?text=Check this AI Skin Advisor! 🩺 Scan yours here: ${window.location.href}`, '_blank'); }
+        function downloadPDF() { html2pdf().set({ margin: 0.2, filename: 'CureAI-Report.pdf' }).from(document.getElementById('pdf-content')).save(); }
+
         renderProducts();
     </script>
 </body>
