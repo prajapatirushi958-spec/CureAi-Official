@@ -385,10 +385,22 @@
             const input = document.getElementById('ing-input').value.toLowerCase(), res = document.getElementById('check-result');
             res.classList.remove('hidden');
             res.innerHTML = "Neural Pattern Analysis In Progress...";
-            const cloggers = ["isopropyl myristate", "coconut oil", "palm oil", "lanolin"];
-            const harsh = ["sls", "sles", "paraben", "sodium lauryl sulfate"];
-            const drying = ["alcohol denat", "isopropyl alcohol", "ethanol"];
-            
+            const cloggers = [
+  "coconut oil", "palm oil", "lanolin", "mineral oil",
+  "cocoa butter", "shea butter", "olive oil", "soybean oil",
+  "wheat germ oil", "isopropyl palmitate"
+];
+
+const harsh = [
+  "sls", "sles", "paraben", "dea", "mea", "tea",
+  "fragrance", "formaldehyde releasers", "triclosan", "phenoxyethanol"
+];
+
+const drying = [
+  "alcohol denat", "isopropyl alcohol", "ethanol",
+  "sd alcohol", "methanol", "benzyl alcohol", "propyl alcohol",
+  "acetone", "witch hazel (alcohol-based)"
+];
             setTimeout(() => {
                 let foundC = cloggers.filter(i => input.includes(i));
                 let foundH = harsh.filter(i => input.includes(i));
