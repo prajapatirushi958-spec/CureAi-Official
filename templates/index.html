@@ -14,41 +14,38 @@
         .text-teal { color: #008080; }
         .bg-teal { background-color: #008080; }
         
-        /* Premium UI Elements */
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 128, 128, 0.05); position: fixed; width: 100%; top: 0; z-index: 1000; height: 90px; display: flex; align-items: center; }
-        button { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        button:active { transform: scale(0.95); }
-
-        /* Side Panels */
-        .side-panel { position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; background: white; z-index: 2000; box-shadow: -30px 0 60px rgba(0,0,0,0.08); transform: translateX(105%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+        /* Interaction UX */
+        button { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); outline: none !important; }
+        button:active { transform: scale(0.94); }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(25px); border-bottom: 1px solid rgba(0, 128, 128, 0.05); position: fixed; width: 100%; top: 0; z-index: 1000; height: 90px; display: flex; align-items: center; }
+        
+        /* Panels slide animation */
+        .side-panel { position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; background: #fff; z-index: 2000; box-shadow: -30px 0 60px rgba(0,0,0,0.08); transform: translateX(105%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
         .panel-open { transform: translateX(0) !important; }
 
-        /* Scanner System */
-        .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65%; height: 75%; border: 2px dashed rgba(0, 128, 128, 0.25); border-radius: 50% 50% 45% 45%; pointer-events: none; z-index: 20; animation: breathe 3s infinite ease-in-out; }
-        @keyframes breathe { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); } }
+        /* Laser Scan & Breathe */
+        .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65%; height: 75%; border: 2px dashed rgba(0, 128, 128, 0.25); border-radius: 50% 50% 45% 45%; pointer-events: none; z-index: 20; animation: breathe 4s infinite ease-in-out; }
+        @keyframes breathe { 0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.03); } }
         @keyframes scan { 0% { top: 15%; opacity: 0; } 50% { opacity: 1; } 100% { top: 85%; opacity: 0; } }
-        .scan-line { position: absolute; left: 0; width: 100%; height: 3px; background: #008080; box-shadow: 0 0 25px #008080; animation: scan 2.5s infinite linear; z-index: 30; }
+        .scan-line { position: absolute; left: 0; width: 100%; height: 3px; background: #008080; box-shadow: 0 0 25px #008080; animation: scan 2s infinite linear; z-index: 30; }
 
-        /* Product Cards */
+        /* Luxury Cards */
         .luxury-card { border-radius: 45px; border: 1px solid #f1f5f9; background: #fff; transition: 0.5s ease; overflow: hidden; position: relative; }
-        .luxury-card:hover { transform: translateY(-12px); border-color: #008080; box-shadow: 0 30px 60px rgba(0,128,128,0.08); }
+        .luxury-card:hover { transform: translateY(-12px); border-color: #008080; box-shadow: 0 25px 50px rgba(0,128,128,0.08); }
         
         .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 14px 0; outline: none; font-size: 16px; background: transparent; transition: 0.3s; }
         .info-input:focus { border-color: #008080; }
 
-        /* Report Projection */
-        .comparison-slider { position: relative; width: 100%; height: 380px; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 6px solid #fff; }
+        .comparison-slider { position: relative; width: 100%; height: 380px; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 4px solid #fff; }
         .after-img { clip-path: inset(0 0 0 50%); }
-        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; }
 
-        .wa-float { position: fixed; bottom: 35px; right: 35px; z-index: 999; display: flex; align-items: center; gap: 12px; background: #25D366; color: white; padding: 16px 26px; border-radius: 50px; font-weight: 800; font-size: 10px; text-transform: uppercase; box-shadow: 0 15px 35px rgba(37,211,102,0.3); text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
-        .journey-dot { width: 12px; height: 12px; border-radius: 50%; background: #008080; position: relative; z-index: 5; }
-        .journey-line { position: absolute; top: 0; bottom: 0; left: 5px; width: 2px; background: #f1f5f9; z-index: 1; }
+        .wa-float { position: fixed; bottom: 35px; right: 35px; z-index: 999; display: flex; align-items: center; gap: 12px; background: #25D366; color: white; padding: 16px 26px; border-radius: 50px; font-weight: 800; font-size: 11px; text-transform: uppercase; box-shadow: 0 15px 35px rgba(37,211,102,0.3); text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/919099764589?text=Hi%20CureAI,%20I%20need%20clinical%20consultation." target="_blank" class="wa-float no-print">
+    <a href="https://wa.me/919099764589?text=Hi%20CureAI,%20I%20need%20expert%20help." target="_blank" class="wa-float no-print">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.481 5.229 3.481 8.406c0 6.555-5.332 11.887-11.888 11.887-2.01 0-3.988-.507-5.741-1.465l-6.243 1.639zm6.105-3.515c1.616.96 3.232 1.461 4.981 1.461 5.42 0 9.831-4.411 9.831-9.831 0-5.42-4.411-9.832-9.831-9.832-5.42 0-9.831 4.412-9.831 9.832 0 1.936.569 3.814 1.64 5.43l-.969 3.542 3.636-.96c.43.27.43.27.524.33z"/></svg>
         <span>Expert Support</span>
     </a>
@@ -56,7 +53,7 @@
     <nav class="glass-nav px-8 md:px-16">
         <div class="flex justify-between items-center w-full">
             <div class="flex items-center gap-4">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-10 w-auto hover:scale-110 transition-transform">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-10 w-auto">
                 <div class="text-2xl font-black uppercase italic tracking-tighter">Cure <span class="text-teal">AI</span></div>
             </div>
 
@@ -70,9 +67,9 @@
                 </select>
                 <button onclick="togglePanel('account-panel')" class="text-slate-600 hover:text-teal flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    <span id="user-display-name" class="text-[10px] font-black uppercase hidden ml-1">Profile</span>
+                    <span id="user-display-name" class="text-[10px] font-black uppercase hidden">Profile</span>
                 </button>
-                <button onclick="togglePanel('cart-panel')" class="relative text-slate-600 hover:text-teal"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2"/></svg><span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-lg border-2 border-white">0</span></button>
+                <button onclick="togglePanel('cart-panel')" class="relative text-slate-600 hover:text-teal"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2"/></svg><span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-lg">0</span></button>
                 <button onclick="togglePanel('mobile-menu')" class="lg:hidden p-1 text-slate-900"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
                 <button onclick="openInfoModal()" id="btn-top-scan" class="hidden md:block bg-black text-white px-10 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-xl">Free Scan</button>
             </div>
@@ -80,7 +77,7 @@
     </nav>
 
     <div id="account-panel" class="side-panel">
-        <div class="p-10 border-b flex justify-between items-center"><h3 class="font-black uppercase italic text-2xl">Account.</h3><button onclick="togglePanel('account-panel')" class="text-xs font-bold text-slate-300 uppercase">Close</button></div>
+        <div class="p-10 border-b flex justify-between items-center"><h3 class="font-black uppercase italic text-2xl">Account.</h3><button onclick="togglePanel('account-panel')" class="text-xs font-bold text-slate-300">CLOSE</button></div>
         
         <div id="login-view" class="flex-1 flex flex-col justify-center p-12 space-y-10 text-center">
             <div class="space-y-3"><h4 class="font-black text-3xl uppercase italic leading-none" id="login-label">Login.</h4><p class="text-xs text-slate-400 font-medium" id="login-desc">Start your skincare journey today.</p></div>
@@ -88,7 +85,7 @@
                 <input type="tel" id="user-mobile" placeholder="+91 00000 00000" class="info-input text-center text-2xl tracking-widest">
                 <div id="password-container" class="hidden space-y-4">
                     <input type="password" id="user-password" placeholder="Password" class="info-input text-center text-2xl">
-                    <button onclick="triggerResetMode()" id="btn-forget" class="text-[10px] font-black text-slate-300 uppercase tracking-widest hover:text-teal">Forgot Password?</button>
+                    <button onclick="triggerResetMode()" id="btn-forget" class="text-[9px] font-black text-slate-300 uppercase tracking-widest hover:text-teal">Forgot Password?</button>
                 </div>
                 <button onclick="handleAuthFlow()" id="btn-auth-main" class="w-full bg-black text-white py-6 rounded-[30px] text-[12px] font-bold uppercase shadow-2xl tracking-[0.2em]">Continue</button>
             </div>
@@ -97,8 +94,11 @@
         <div id="profile-view" class="hidden flex-1 overflow-y-auto">
             <div class="p-10 bg-slate-50 border-b relative">
                 <button onclick="openEditProfile()" class="absolute top-6 right-6 p-3 bg-white rounded-full shadow-lg hover:scale-110"><svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
-                <div class="w-24 h-24 bg-teal rounded-full mx-auto flex items-center justify-center text-white font-black text-4xl shadow-2xl mb-6" id="profile-initial">U</div>
-                <div class="text-center"><h4 id="profile-name-display" class="font-black text-3xl uppercase italic tracking-tighter">User Name</h4><p id="profile-phone-display" class="text-xs text-slate-400 font-bold mt-4">+91 00000 00000</p></div>
+                <div class="w-24 h-24 bg-teal rounded-full mx-auto flex items-center justify-center text-white font-black text-4xl shadow-2xl shadow-teal/20 mb-6" id="profile-initial">U</div>
+                <div class="text-center">
+                    <h4 id="profile-name-display" class="font-black text-3xl uppercase italic tracking-tighter leading-none">User Name</h4>
+                    <p id="profile-phone-display" class="text-xs text-slate-400 font-bold mt-4">+91 00000 00000</p>
+                </div>
             </div>
             <div class="p-8 space-y-10">
                 <h4 class="font-black text-[10px] uppercase tracking-[0.4em] text-slate-300 border-b pb-4">Diagnostic Journey</h4>
@@ -107,73 +107,63 @@
             <div class="p-8 mt-auto"><button onclick="handleLogout()" class="w-full py-5 border-2 border-slate-100 rounded-[30px] text-[10px] font-black text-red-400 uppercase tracking-widest">Logout Account</button></div>
         </div>
 
-        <div id="edit-profile-view" class="hidden flex-1 p-12 space-y-10">
+        <div id="edit-profile-view" class="hidden flex-1 p-10 space-y-10">
             <h4 class="font-black text-2xl uppercase italic">Edit Profile.</h4>
             <div class="space-y-8">
-                <input type="text" id="edit-name" placeholder="Full Name" class="info-input text-lg font-black">
-                <div class="grid grid-cols-2 gap-8"><input type="number" id="edit-age" placeholder="Age" class="info-input text-lg font-black"><select id="edit-gender" class="info-input"><option>Male</option><option>Female</option></select></div>
-                <div class="space-y-2 pt-6 border-t"><label class="text-[9px] font-black text-teal uppercase tracking-widest">Update Password</label><input type="password" id="edit-pass" placeholder="New Password" class="info-input"></div>
+                <div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Full Name</label><input type="text" id="edit-name" class="info-input text-lg font-black"></div>
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Age</label><input type="number" id="edit-age" class="info-input text-lg font-black"></div>
+                    <div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Gender</label><select id="edit-gender" class="info-input"><option>Male</option><option>Female</option></select></div>
+                </div>
+                <div class="space-y-2 pt-6 border-t"><label class="text-[9px] font-black text-teal uppercase tracking-widest">Change Password</label><input type="password" id="edit-pass" placeholder="New Password" class="info-input"></div>
             </div>
-            <div class="flex flex-col gap-4 pt-6"><button onclick="saveProfileEdits()" class="w-full bg-black text-white py-5 rounded-[30px] font-bold uppercase shadow-2xl">Save Changes</button><button onclick="closeEditProfile()" class="w-full text-slate-300 text-[10px] font-black uppercase">Cancel</button></div>
+            <div class="flex flex-col gap-4">
+                <button onclick="saveProfileEdits()" class="w-full bg-black text-white py-5 rounded-[30px] text-[11px] font-bold uppercase shadow-2xl">Save Changes</button>
+                <button onclick="closeEditProfile()" class="w-full text-slate-300 text-[10px] font-black uppercase">Cancel</button>
+            </div>
         </div>
     </div>
 
     <div id="cart-panel" class="side-panel">
-        <div class="p-8 border-b flex justify-between items-center"><h3 class="font-black uppercase italic text-xl">My Bag.</h3><button onclick="togglePanel('cart-panel')" class="text-xs font-bold text-slate-300 uppercase">Close</button></div>
-        <div id="cart-items" class="flex-1 overflow-y-auto p-10 space-y-4"></div>
-        <div class="p-10 border-t bg-slate-50"><div class="flex justify-between items-center mb-10 uppercase text-xs font-black"><span>Subtotal</span><span id="cart-total" class="text-teal text-3xl tracking-tighter">₹0</span></div><button onclick="checkoutCart()" class="w-full bg-black text-white py-6 rounded-[35px] text-[12px] font-bold uppercase tracking-widest shadow-xl">WhatsApp Checkout</button></div>
-    </div>
-
-    <div id="mobile-menu" class="side-panel">
-        <div class="flex flex-col items-center justify-center flex-1 space-y-10 p-12 text-center">
-            <a href="#home" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic">Home</a>
-            <a href="#library" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic">Library</a>
-            <a href="#checker" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic">Checker</a>
-            <a href="#shop" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic text-teal">Our Collections</a>
-            <button onclick="togglePanel('mobile-menu'); openInfoModal();" class="bg-black text-white px-14 py-6 rounded-full font-bold uppercase text-[12px] shadow-2xl">Start Scan</button>
-        </div>
+        <div class="p-8 border-b flex justify-between items-center"><h3 class="font-black uppercase italic text-xl">My Bag.</h3><button onclick="togglePanel('cart-panel')" class="text-xs font-bold text-slate-300">CLOSE</button></div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-4"></div>
+        <div class="p-8 border-t bg-slate-50"><div class="flex justify-between font-bold mb-8 uppercase text-[10px]"><span>Subtotal</span><span id="cart-total" class="text-teal text-3xl tracking-tighter">₹0</span></div><button onclick="checkoutCart()" class="w-full bg-black text-white py-6 rounded-[35px] text-[11px] font-bold uppercase tracking-widest shadow-xl">Confirm Order</button></div>
     </div>
 
     <main class="pt-24">
         <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
-            <img src="{{ url_for('static', filename='logo.png') }}" class="w-52 md:w-72 mb-14 drop-shadow-2xl hover:scale-105 transition-transform duration-700">
-            <div class="max-w-5xl space-y-10">
-                <div class="inline-block px-6 py-2 bg-teal/5 text-teal text-[11px] font-black uppercase tracking-[0.4em] rounded-full border border-teal/10">Clinical Intelligence 2026</div>
+            <img src="{{ url_for('static', filename='logo.png') }}" class="w-52 md:w-72 mb-14 drop-shadow-2xl">
+            <div class="max-w-4xl space-y-12">
+                <div class="inline-block px-6 py-2 bg-teal/5 text-teal text-[11px] font-black uppercase tracking-[0.4em] rounded-full border border-teal/10">Diagnostic Engine 2.0</div>
                 <h1 class="text-8xl md:text-[11rem] font-black tracking-tighter leading-[0.8] italic uppercase" id="hero-text">Analyze<br><span class="text-teal">Correct</span></h1>
-                <p class="text-slate-400 text-lg md:text-2xl font-light max-w-2xl mx-auto leading-relaxed" id="hero-p">Hyper-personalized AI clinical protocols for acne-prone skin.</p>
+                <p class="text-slate-400 text-lg md:text-2xl font-light max-w-2xl mx-auto" id="hero-p">Hyper-personalized AI clinical protocols for oily and acne-prone skin.</p>
                 <button onclick="openInfoModal()" id="btn-launch" class="bg-teal text-white px-16 py-7 rounded-[45px] text-[14px] font-bold uppercase tracking-widest shadow-2xl hover:scale-110">Launch Diagnosis</button>
             </div>
         </section>
 
-        <section id="library" class="py-40 px-6 bg-slate-50/50">
+        <section id="library" class="py-48 px-6 bg-slate-50/50">
             <div class="max-w-7xl mx-auto space-y-24">
-                <div class="text-center space-y-6"><h2 class="text-6xl font-black italic uppercase tracking-tighter" id="lib-title">Clinical Library.</h2><p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">Expert-Grade Ingredients Database</p></div>
+                <div class="text-center space-y-4"><h2 class="text-6xl font-black italic uppercase tracking-tighter" id="lib-title">Ingredient Library.</h2></div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12" id="lib-grid"></div>
             </div>
         </section>
 
-        <section id="checker" class="py-40 px-6 bg-white border-y text-center">
-            <div class="max-w-5xl mx-auto space-y-12">
+        <section id="checker" class="py-48 px-6 bg-white border-y text-center">
+            <div class="max-w-4xl mx-auto space-y-12">
                 <h2 class="text-7xl font-black italic uppercase tracking-tighter" id="check-title">Formula Checker</h2>
                 <textarea id="ing-input" placeholder="Paste ingredients list here..." class="w-full h-56 p-12 rounded-[65px] border-2 border-slate-100 outline-none focus:border-teal text-base leading-relaxed shadow-inner"></textarea>
-                <button onclick="checkIngredients()" id="btn-check" class="bg-black text-white px-24 py-7 rounded-full text-[12px] font-bold uppercase tracking-widest shadow-2xl">Analyze Formula Safety</button>
-                <div id="check-result" class="hidden mt-12 p-12 rounded-[55px] bg-slate-50 text-left border border-slate-100"></div>
+                <button onclick="checkIngredients()" id="btn-check" class="bg-black text-white px-24 py-7 rounded-full text-[12px] font-bold uppercase tracking-widest shadow-2xl hover:bg-teal">Analyze Safety</button>
+                <div id="check-result" class="hidden mt-12 p-10 rounded-[45px] bg-slate-50 text-left border border-slate-100"></div>
             </div>
         </section>
 
-        <section id="refer" class="py-24 px-6 bg-slate-900 text-white text-center mx-4 my-20 rounded-[80px]">
-            <h2 class="text-4xl font-black italic uppercase mb-4 tracking-tighter" id="refer-h">Refer & Earn.</h2>
-            <p class="text-slate-400 text-sm mb-12 uppercase font-bold tracking-widest" id="refer-p">Invite a friend to unlock 20% OFF.</p>
-            <button onclick="shareReferral()" class="bg-teal text-white px-16 py-6 rounded-full text-[11px] font-bold uppercase shadow-xl">Invite on WhatsApp</button>
-        </section>
-
-        <section id="shop" class="py-40 px-6 bg-white">
+        <section id="shop" class="py-48 px-6 bg-white">
             <div class="max-w-7xl mx-auto space-y-28">
                 <div class="text-center space-y-10">
                     <h2 class="text-8xl font-black italic text-teal uppercase tracking-tighter leading-none" id="shop-title">OUR COLLECTIONS</h2>
                     <div class="flex flex-wrap justify-center gap-5">
-                        <button onclick="filterShop('all')" class="filter-btn active px-12 py-5 rounded-full border border-slate-200 text-[11px] font-black uppercase tracking-widest">Discover All</button>
-                        <button onclick="filterShop('kit')" class="filter-btn px-12 py-5 rounded-full border border-slate-200 text-[11px] font-black uppercase tracking-widest">Treatment Kits</button>
+                        <button onclick="filterShop('all')" class="filter-btn active px-12 py-5 rounded-full border border-slate-200 text-[11px] font-black uppercase">Discover All</button>
+                        <button onclick="filterShop('kit')" class="filter-btn px-12 py-5 rounded-full border border-slate-200 text-[11px] font-black uppercase">Clinical Kits</button>
                     </div>
                 </div>
                 <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 text-center"></div>
@@ -181,141 +171,181 @@
         </section>
     </main>
 
-    <div id="info-modal" class="fixed inset-0 z-[4000] bg-white/95 backdrop-blur-2xl hidden flex-col items-center justify-center p-6">
-        <div class="max-w-md w-full space-y-14"><h2 class="text-6xl font-black italic uppercase text-center tracking-tighter">Profile.</h2>
+    <div id="info-modal" class="fixed inset-0 z-[4000] bg-white hidden flex-col items-center justify-center p-6">
+        <div class="max-w-md w-full space-y-14">
+            <h2 class="text-6xl font-black italic uppercase text-center tracking-tighter">Profile.</h2>
             <div class="space-y-12"><input type="text" id="user-name" placeholder="Full Name" class="info-input"><input type="number" id="user-age-input" placeholder="Age" class="info-input"></div>
-            <button onclick="submitInfo()" class="w-full bg-black text-white py-7 rounded-[45px] text-[14px] font-bold uppercase shadow-2xl">Confirm Profile</button>
+            <button onclick="submitInfo()" class="w-full bg-black text-white py-7 rounded-[45px] text-[14px] font-bold uppercase tracking-widest shadow-2xl">Confirm Profile</button>
         </div>
     </div>
 
     <div id="quiz-modal" class="fixed inset-0 z-[4100] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
-        <div class="max-w-md w-full space-y-14 py-16 text-center"><h2 class="text-5xl font-black italic uppercase tracking-tighter">History.</h2>
+        <div class="max-w-md w-full space-y-14 py-16 text-center">
+            <h2 class="text-5xl font-black italic uppercase tracking-tighter">History.</h2>
             <div class="space-y-10"><select id="q-problem" class="info-input"><option>Active Acne</option><option>Dark Spots</option></select><input type="text" id="q-start" placeholder="Since when?" class="info-input"></div>
-            <button onclick="submitQuiz()" class="w-full bg-black text-white py-6 rounded-[40px] text-[13px] font-bold uppercase">Proceed to Scan</button>
+            <button onclick="submitQuiz()" class="w-full bg-black text-white py-7 rounded-[45px] text-[14px] font-bold uppercase shadow-xl">Initialize Scan</button>
         </div>
     </div>
 
     <div id="scan-screen" class="fixed inset-0 z-[4200] bg-white hidden flex-col items-center justify-center p-6 text-center">
-        <div class="w-full max-w-sm aspect-square relative rounded-[90px] overflow-hidden border-[15px] border-slate-50 shadow-2xl"><video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video><div class="silhouette"></div><div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div></div>
-        <button onclick="runAnalysis()" id="capture-btn" class="mt-20 bg-black text-white px-24 py-7 rounded-full text-[13px] font-bold uppercase shadow-2xl">Capture & Diagnose</button>
+        <div class="w-full max-w-sm aspect-square relative rounded-[90px] overflow-hidden border-[15px] border-slate-50 shadow-2xl">
+            <video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video>
+            <div class="silhouette"></div>
+            <div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div>
+        </div>
+        <button onclick="runAnalysis()" id="capture-btn" class="mt-20 bg-black text-white px-24 py-7 rounded-full text-[13px] font-bold uppercase shadow-2xl tracking-widest">Initiate Capture</button>
     </div>
 
     <div id="result-modal" class="fixed inset-0 z-[5000] hidden bg-white overflow-y-auto">
-        <div id="pdf-content" class="max-w-4xl mx-auto px-10 py-24 space-y-20 text-left">
+        <div id="pdf-content" class="max-w-4xl mx-auto px-10 py-24 space-y-20">
             <header class="border-b-8 border-teal pb-12 flex justify-between items-start">
-                <div><h4 class="text-teal font-black text-[11px] uppercase tracking-widest mb-3">clinical Digital Pass</h4><h2 class="text-7xl font-black italic uppercase leading-[0.85]">Analysis<br>Results.</h2><p class="text-slate-400 font-bold text-[10px] mt-8" id="rep-date"></p></div>
-                <div class="flex flex-col gap-5 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-10 py-5 rounded-3xl text-[11px] font-bold uppercase shadow-xl">Download PDF</button><button onclick="location.reload()" class="bg-slate-100 text-slate-400 px-10 py-3 rounded-3xl text-[11px] font-bold uppercase">Close</button></div>
+                <h2 class="text-7xl font-black italic uppercase leading-[0.85]">Diagnostic<br>Report.</h2>
+                <div class="flex flex-col gap-5 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-10 py-5 rounded-3xl text-[11px] font-black uppercase shadow-xl">Download PDF</button><button onclick="location.reload()" class="bg-slate-100 text-slate-400 px-10 py-4 rounded-3xl text-[11px] font-black uppercase">Close</button></div>
             </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="space-y-12">
-                    <div class="p-10 bg-slate-50 rounded-[50px] border-l-[12px] border-teal shadow-inner">
-                        <div class="flex justify-between items-center mb-6"><span class="text-[13px] font-black uppercase text-slate-400 tracking-widest">Health Score</span><span id="score-val" class="font-black text-teal text-3xl tracking-tighter">...</span></div>
-                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner"><div id="score-bar" class="bg-teal h-full transition-all duration-[2s] ease-out"></div></div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-8 text-center">
-                        <div class="p-10 bg-slate-50 rounded-[50px] flex flex-col"><span class="text-[10px] font-bold uppercase">Acne Grade</span><span id="res-acne" class="font-black text-teal text-2xl mt-4">...</span></div>
-                        <div class="p-10 bg-slate-50 rounded-[50px] flex flex-col"><span class="text-[10px] font-bold uppercase">Relative Age</span><span id="res-skin-age" class="font-black text-teal text-2xl mt-4">...</span></div>
-                    </div>
-                </div>
-                <div class="bg-slate-900 text-white p-12 rounded-[60px] space-y-8 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-teal/20 blur-[50px]"></div>
-                    <h4 class="text-[11px] font-black text-teal uppercase tracking-[0.4em]">Neural Analysis</h4>
-                    <div class="space-y-6"><div class="flex justify-between border-b border-white/10 pb-4"><span>Sensitivity</span><span id="badge-acne" class="text-[10px] font-black uppercase px-4 py-1.5 rounded-full">...</span></div><div class="flex justify-between border-b border-white/10 pb-4"><span>Pore Index</span><span id="badge-pore" class="text-[10px] font-black uppercase px-4 py-1.5 rounded-full">...</span></div><div class="flex justify-between"><span>Marks risk</span><span id="badge-pig" class="text-[10px] font-black uppercase px-4 py-1.5 rounded-full">...</span></div></div>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 text-center">
+                <div class="p-12 bg-slate-50 rounded-[60px] border-l-[12px] border-teal shadow-inner"><span class="text-[13px] font-black uppercase text-slate-400">Score</span><h4 id="score-val" class="font-black text-teal text-5xl mt-4">...</h4><div class="w-full bg-slate-200 h-2.5 rounded-full mt-6 overflow-hidden"><div id="score-bar" class="bg-teal h-full transition-all duration-[2s]"></div></div></div>
+                <div class="p-12 bg-slate-50 rounded-[60px] flex flex-col"><span class="text-[11px] font-bold uppercase">Acne Grade</span><span id="res-acne" class="font-black text-teal text-3xl mt-4">...</span><span class="mt-8 text-[11px] font-bold uppercase opacity-30 tracking-[0.3em]">Skin Age: <span id="res-skin-age">...</span></span></div>
             </div>
-
-            <div class="space-y-16 text-center">
-                <h3 class="text-5xl font-black italic uppercase tracking-tighter">4-Week Projection Simulation</h3>
-                <div class="max-w-3xl mx-auto comparison-slider"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&w=800" alt="Now"><img src="https://images.unsplash.com/photo-1596462502278-27bf8d53e164?auto=format&w=800" class="after-img" id="after-img"><div class="slider-line" id="slider-line"></div></div>
-                <p class="text-[11px] text-slate-400 font-black uppercase tracking-widest italic">*Neural simulation based on regimen usage</p>
-            </div>
-
-            <div class="p-16 bg-teal text-white rounded-[90px] text-center space-y-10 shadow-2xl transform hover:scale-[1.01] transition-all">
-                <h4 class="text-[12px] font-bold uppercase tracking-[0.5em] opacity-80">Recommended Protocol</h4>
-                <h2 id="res-kit-name" class="text-5xl md:text-[5.5rem] font-black italic uppercase leading-none tracking-tighter">...</h2>
-                <button onclick="addToCartKit()" class="bg-white text-teal px-20 py-8 rounded-[50px] text-[14px] font-black uppercase shadow-2xl hover:bg-slate-50 mt-8">Add Regimen to Bag</button>
-            </div>
+            <div class="space-y-16 text-center"><h3 class="text-5xl font-black italic uppercase tracking-tighter">Clinical Projection</h3><div class="max-w-3xl mx-auto comparison-slider"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&w=800" alt="Now"><img src="https://images.unsplash.com/photo-1596462502278-27bf8d53e164?auto=format&w=800" class="after-img" id="after-img"><div class="slider-line" id="slider-line"></div></div></div>
+            <div class="p-16 bg-teal text-white rounded-[90px] text-center space-y-10"><h2 id="res-kit-name" class="text-5xl md:text-8xl font-black italic uppercase leading-none tracking-tighter">...</h2><button onclick="addToCartKit()" class="bg-white text-teal px-20 py-8 rounded-[50px] text-[14px] font-black uppercase shadow-2xl mt-8">Add Regimen to Bag</button></div>
         </div>
     </div>
 
     <script>
-        // CORE LOGIC RE-VERIFIED
+        // CORE DATA & LOGIC
         let userData = {}, quizData = {}, currentKit = "", cart = [], isLoggedIn = false, currentLang = 'en', isResetMode = false;
         const video = document.getElementById('video'), status = document.getElementById('status'), overlay = document.getElementById('overlay');
 
-        // Verify Data Arrays
         const products = [
-            { id: 1, name: "Active Acne Kit", type: "kit", op: 2999, fp: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 2, name: "Pore Control Kit", type: "kit", op: 2499, fp: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
-            { id: 3, name: "Scar Repair Kit", type: "kit", op: 2799, fp: 2199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
-            { id: 4, name: "Advanced Healing Kit", type: "kit", op: 3299, fp: 2599, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" },
-            { id: 5, name: "Oil Control Kit", type: "kit", op: 2199, fp: 1699, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 6, name: "Salicylic Cleanser", type: "individual", op: 899, fp: 599, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
-            { id: 7, name: "Niacinamide Serum", type: "individual", op: 1299, fp: 899, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
-            { id: 8, name: "Clinical Sunscreen", type: "individual", op: 999, fp: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
-            { id: 9, name: "Retinol Therapy", type: "individual", op: 1899, fp: 1449, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 10, name: "Vitamin C Glow", type: "individual", op: 1499, fp: 1099, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
-            { id: 11, name: "Barrier Cream", type: "individual", op: 1199, fp: 849, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
-            { id: 12, name: "Gel Moisturizer", type: "individual", op: 799, fp: 499, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
-            { id: 13, name: "Azelaic Treatment", type: "individual", op: 1599, fp: 1199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
-            { id: 14, name: "Zinc Face Mist", type: "individual", op: 699, fp: 449, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
-            { id: 15, name: "Detox Night Gel", type: "individual", op: 1399, fp: 999, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" }
+            { id: 1, name: "Active Acne Kit", type: "kit", purpose: "Severe Acne Control", op: 2999, fp: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
+            { id: 2, name: "Pore Control Kit", type: "kit", purpose: "Open Pores & Texture", op: 2499, fp: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
+            { id: 3, name: "Scar Repair Kit", type: "kit", purpose: "Post-Acne Marks", op: 2799, fp: 2199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
+            { id: 4, name: "Advanced Healing Kit", type: "kit", purpose: "Barrier Repair", op: 3299, fp: 2599, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" },
+            { id: 5, name: "Oil Control Kit", type: "kit", purpose: "Sebum Regulation", op: 2199, fp: 1699, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
+            { id: 6, name: "Salicylic Cleanser", type: "individual", purpose: "Daily Deep Wash", op: 899, fp: 599, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
+            { id: 7, name: "Niacinamide Serum", type: "individual", purpose: "Spot Correction", op: 1299, fp: 899, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
+            { id: 8, name: "Clinical Sunscreen", type: "individual", purpose: "Zero-Whitecast SPF", op: 999, fp: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
+            { id: 9, name: "Retinol Therapy", type: "individual", purpose: "Anti-Aging Serum", op: 1899, fp: 1449, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
+            { id: 10, name: "Vitamin C Glow", type: "individual", purpose: "Brightening Therapy", op: 1499, fp: 1099, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
+            { id: 11, name: "Barrier Cream", type: "individual", purpose: "Ceramide Support", op: 1199, fp: 849, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
+            { id: 12, name: "Gel Moisturizer", type: "individual", purpose: "Hydration", op: 799, fp: 499, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
+            { id: 13, name: "Azelaic Treatment", type: "individual", purpose: "Bacterial Control", op: 1599, fp: 1199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
+            { id: 14, name: "Zinc Face Mist", type: "individual", purpose: "Instant Matte", op: 699, fp: 449, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
+            { id: 15, name: "Detox Night Gel", type: "individual", purpose: "Overnight Repair", op: 1399, fp: 999, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" }
         ];
 
         const library = [
             { name: "Salicylic Acid", desc: "BHA that dissolves pore debris.", hi: "सलिसीलिक एसिड", gu: "સેલિસિલિક એસિડ" },
             { name: "Niacinamide", desc: "Vitamin B3 balances oil.", hi: "नियासिनमाइड", gu: "નિયાસિનામાઇડ" },
-            { name: "Retinol", desc: "Speeds up cell turnover.", hi: "रेटिनॉल", gu: "રેટિનોલ" },
-            { name: "Vitamin C", desc: "Antioxidant for glow.", hi: "विटामिन सी", gu: "વિટામિન સી" },
-            { name: "Ceramides", desc: "Repairs skin barrier.", hi: "सेरामाइड्स", gu: "સેરામાઇડ્સ" },
-            { name: "Hyaluronic Acid", desc: "Deep hydration molecule.", hi: "हयालूरोनिक एसिड", gu: "હાયલ્યુરોનિક એસિડ" },
-            { name: "Azelaic Acid", desc: "Fights acne bacteria.", hi: "एज़ेलिक एसिड", gu: "એઝેલિક એસિડ" },
-            { name: "Zinc PCA", desc: "Targets greasiness.", hi: "जिंक पीसीए", gu: "ઝિંક પીસીએ" },
-            { name: "Panthenol", desc: "Soothes irritated skin.", hi: "पेंथेनॉल", gu: "પેન્થેનોલ" }
+            { name: "Retinol", desc: "Powerful cell turnover.", hi: "रेटिनॉल", gu: "રેટિનોલ" },
+            { name: "Vitamin C", desc: "Antioxidant glow.", hi: "विटामिन सी", gu: "વિટામિન સી" },
+            { name: "Ceramides", desc: "Repairs barrier.", hi: "सेरामाइड्स", gu: "સેરામાઇડ્સ" },
+            { name: "Hyaluronic Acid", desc: "Deep hydration.", hi: "हयालूरोनिक एसिड", gu: "હાયલ્યુરોનિક એસિડ" },
+            { name: "Azelaic Acid", desc: "Anti-bacterial.", hi: "एज़ेलिक एसिड", gu: "એઝેલિક એસિડ" },
+            { name: "Zinc PCA", desc: "Oil reduction.", hi: "जिंक पीसीए", gu: "ઝિંક પીસીએ" },
+            { name: "Panthenol", desc: "Soothing B5.", hi: "पेंथेनॉल", gu: "પેન્થેનોલ" }
         ];
 
-        window.onload = () => { const s = JSON.parse(localStorage.getItem('cureAI_session')); if(s) activateLoggedInState(s); renderLibrary(); renderProducts(); };
+        // SESSION MANAGEMENT
+        window.onload = function() {
+            const s = JSON.parse(localStorage.getItem('cureAI_session'));
+            if(s) activateLoggedInState(s);
+            renderLibrary(); renderProducts();
+        };
 
-        // AUTH & EDIT PROFILE SYSTEM
+        // REAL AUTH + FORGOT PW
         function handleAuthFlow() {
             const phone = document.getElementById('user-mobile').value, pass = document.getElementById('user-password').value;
-            const btn = document.getElementById('btn-auth-main'), pc = document.getElementById('password-container'), fl = document.getElementById('login-label'), fd = document.getElementById('login-desc'), fb = document.getElementById('btn-forget');
+            const btn = document.getElementById('btn-auth-main'), passContainer = document.getElementById('password-container');
+            const label = document.getElementById('login-label'), desc = document.getElementById('login-desc'), forgetBtn = document.getElementById('btn-forget');
+
             if (phone.length < 10) return alert("Enter valid number!");
             let users = JSON.parse(localStorage.getItem('cureAI_users') || '{}');
-            if(pc.classList.contains('hidden')) {
-                pc.classList.remove('hidden');
-                if(users[phone]) { fl.innerText = "Welcome Back."; fd.innerText = "Verify password to enter."; btn.innerText = "LOGIN"; fb.classList.remove('hidden'); }
-                else { fl.innerText = "Set Password."; fd.innerText = "Secure your future reports."; btn.innerText = "CREATE ACCOUNT"; fb.classList.add('hidden'); }
+
+            if(passContainer.classList.contains('hidden')) {
+                passContainer.classList.remove('hidden');
+                if(users[phone]) { label.innerText = "Welcome Back."; desc.innerText = "Verify password."; btn.innerText = "LOGIN"; forgetBtn.classList.remove('hidden'); }
+                else { label.innerText = "Set Password."; desc.innerText = "Create secure access."; btn.innerText = "REGISTER"; forgetBtn.classList.add('hidden'); }
             } else {
                 if(pass.length < 4) return alert("Min 4 chars.");
-                if(isResetMode) { users[phone].password = pass; localStorage.setItem('cureAI_users', JSON.stringify(users)); alert("Reset Success!"); isResetMode = false; finalizeAuth(users[phone]); }
-                else if(users[phone]) { if(users[phone].password === pass) finalizeAuth(users[phone]); else alert("Access Denied."); }
+                if(isResetMode) { users[phone].password = pass; localStorage.setItem('cureAI_users', JSON.stringify(users)); alert("Reset Successful!"); isResetMode = false; finalizeAuth(users[phone]); }
+                else if(users[phone]) { if(users[phone].password === pass) finalizeAuth(users[phone]); else alert("Wrong Password!"); }
                 else { const newUser = { phone, password: pass, name: "User " + phone.slice(-4), age: 18, gender: 'Male', reports: [] }; users[phone] = newUser; localStorage.setItem('cureAI_users', JSON.stringify(users)); finalizeAuth(newUser); }
             }
         }
-        function triggerResetMode() { isResetMode = true; document.getElementById('login-label').innerText = "Reset Password."; document.getElementById('btn-auth-main').innerText = "UPDATE PASSWORD"; document.getElementById('btn-forget').classList.add('hidden'); }
+
+        function triggerResetMode() { isResetMode = true; document.getElementById('login-label').innerText = "Reset Password."; document.getElementById('btn-auth-main').innerText = "UPDATE & LOGIN"; document.getElementById('btn-forget').classList.add('hidden'); }
         function finalizeAuth(user) { localStorage.setItem('cureAI_session', JSON.stringify(user)); activateLoggedInState(user); }
-        function activateLoggedInState(user) { document.getElementById('login-view').classList.add('hidden'); document.getElementById('profile-view').classList.remove('hidden'); document.getElementById('user-display-name').innerText = user.name.split(' ')[0]; document.getElementById('user-display-name').classList.remove('hidden'); document.getElementById('profile-name-display').innerText = user.name; document.getElementById('profile-phone-display').innerText = user.phone; document.getElementById('profile-initial').innerText = user.name.charAt(0); document.getElementById('user-name').value = user.name; loadJourneyUI(); }
-        
-        function openEditProfile() { const s = JSON.parse(localStorage.getItem('cureAI_session')); document.getElementById('profile-view').classList.add('hidden'); document.getElementById('edit-profile-view').classList.remove('hidden'); document.getElementById('edit-name').value = s.name; document.getElementById('edit-age').value = s.age; document.getElementById('edit-gender').value = s.gender; }
+        function activateLoggedInState(user) {
+            document.getElementById('login-view').classList.add('hidden'); document.getElementById('profile-view').classList.remove('hidden');
+            document.getElementById('user-display-name').innerText = user.name.split(' ')[0]; document.getElementById('user-display-name').classList.remove('hidden');
+            document.getElementById('profile-name-display').innerText = user.name; document.getElementById('profile-phone-display').innerText = user.phone;
+            document.getElementById('profile-initial').innerText = user.name.charAt(0); document.getElementById('user-name').value = user.name;
+            loadJourneyUI();
+        }
+
+        // EDIT PROFILE LOGIC
+        function openEditProfile() {
+            const s = JSON.parse(localStorage.getItem('cureAI_session'));
+            document.getElementById('profile-view').classList.add('hidden'); document.getElementById('edit-profile-view').classList.remove('hidden');
+            document.getElementById('edit-name').value = s.name; document.getElementById('edit-age').value = s.age || 18; document.getElementById('edit-gender').value = s.gender || 'Male';
+        }
         function closeEditProfile() { document.getElementById('edit-profile-view').classList.add('hidden'); document.getElementById('profile-view').classList.remove('hidden'); }
-        function saveProfileEdits() { 
+        function saveProfileEdits() {
             let s = JSON.parse(localStorage.getItem('cureAI_session')), u = JSON.parse(localStorage.getItem('cureAI_users'));
             s.name = document.getElementById('edit-name').value; s.age = document.getElementById('edit-age').value; s.gender = document.getElementById('edit-gender').value;
             if(document.getElementById('edit-pass').value) s.password = document.getElementById('edit-pass').value;
             localStorage.setItem('cureAI_session', JSON.stringify(s)); u[s.phone] = s; localStorage.setItem('cureAI_users', JSON.stringify(u));
-            alert("Updated!"); closeEditProfile(); activateLoggedInState(s); 
+            alert("Profile Updated!"); closeEditProfile(); activateLoggedInState(s);
         }
-        function handleLogout() { localStorage.removeItem('cureAI_session'); location.reload(); }
 
-        // SCAN RE-VERIFICATION
+        function handleLogout() { localStorage.removeItem('cureAI_session'); location.reload(); }
+        function loadJourneyUI() {
+            const list = document.getElementById('journey-list'), h = JSON.parse(localStorage.getItem('cureAI_session')).reports || [];
+            if(h.length === 0) { list.innerHTML = '<p class="text-slate-300 text-[10px] italic text-center uppercase font-black tracking-widest pt-10">No diagnostic data</p>'; return; }
+            list.innerHTML = h.map(j => `<div class="journey-item flex gap-10 relative"><div class="flex flex-col items-center"><div class="journey-dot shadow-2xl"></div></div><div class="pb-10"><p class="text-[10px] font-black text-slate-300 uppercase tracking-widest">${j.date}</p><h5 class="font-black text-2xl">Score: ${j.score}/100</h5><span class="text-[9px] font-black px-4 py-1.5 bg-teal/5 text-teal border border-teal/10 rounded-full uppercase mt-4 inline-block">${j.status}</span></div></div>`).join('');
+        }
+
+        // --- Standard Clinical Tools (Unchanged) ---
+        function checkIngredients() {
+            const res = document.getElementById('check-result'); res.classList.remove('hidden'); res.innerHTML = "Processing Neural Data...";
+            setTimeout(() => { res.innerHTML = document.getElementById('ing-input').value.toLowerCase().includes('paraben') ? "<span class='text-red-500 font-black uppercase'>❌ Harmful Chemicals Detected</span>" : "<span class='text-teal font-black uppercase'>✅ Safe Clinical Formula</span>"; }, 1200);
+        }
+        function renderLibrary() {
+            const grid = document.getElementById('lib-grid'); grid.innerHTML = '';
+            library.forEach(i => grid.innerHTML += `<div class="luxury-card p-14"><h4 class="text-teal font-black text-[13px] uppercase mb-4 tracking-widest">${i.name}</h4><p class="text-[13px] text-slate-500 italic">${currentLang === 'en' ? i.desc : i.gu}</p></div>`);
+        }
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid'); grid.innerHTML = '';
+            const filtered = filter === 'all' ? products : products.filter(p => p.type === filter);
+            filtered.forEach(p => {
+                const isM = (p.name === currentKit);
+                grid.innerHTML += `<div class="luxury-card p-12 flex flex-col items-center text-center">
+                    ${isM ? '<div class="absolute top-8 right-8 bg-teal text-white text-[7px] px-3.5 py-1.5 rounded-full font-black uppercase animate-pulse shadow-lg">AI Match</div>' : ''}
+                    <div class="absolute top-8 left-8 bg-red-500 text-white text-[7px] px-3.5 py-1.5 rounded-xl font-black uppercase shadow-lg">SAVE ₹${p.op - p.fp}</div>
+                    <img src="${p.img}" class="w-full h-44 object-cover rounded-[40px] mb-8 shadow-sm"><div class="text-[10px] font-black text-slate-300 uppercase mb-3">${p.purpose}</div>
+                    <h4 class="text-2xl font-black mb-4 tracking-tighter">${p.name}</h4><div class="flex items-center gap-5 mb-8"><span class="text-slate-200 line-through text-sm font-bold">₹${p.op}</span><span class="text-teal font-black text-3xl">₹${p.fp}</span></div>
+                    <button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-5 rounded-[40px] text-[11px] font-black uppercase tracking-widest shadow-xl hover:bg-teal">Add to Bag</button>
+                </div>`;
+            });
+        }
+
+        // Core Functions
         function togglePanel(id) { document.getElementById(id).classList.toggle('panel-open'); }
         function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); document.getElementById('info-modal').classList.add('flex'); }
-        function submitInfo() { userData = { name: document.getElementById('user-name').value, age: document.getElementById('user-age-input').value }; document.getElementById('info-modal').classList.add('hidden'); document.getElementById('quiz-modal').classList.remove('hidden').classList.add('flex'); }
-        function submitQuiz() { quizData = { problem: document.getElementById('q-problem').value }; document.getElementById('quiz-modal').classList.add('hidden'); document.getElementById('scan-screen').classList.remove('hidden').classList.add('flex'); initCam(); }
+        function submitInfo() { userData = { name: document.getElementById('user-name').value, age: document.getElementById('user-age-input').value }; document.getElementById('info-modal').classList.add('hidden'); document.getElementById('quiz-modal').classList.remove('hidden'); document.getElementById('quiz-modal').classList.add('flex'); }
+        function submitQuiz() { quizData = { problem: document.getElementById('q-problem').value }; document.getElementById('quiz-modal').classList.add('hidden'); document.getElementById('scan-screen').classList.remove('hidden'); document.getElementById('scan-screen').classList.add('flex'); initCam(); }
         async function initCam() { const s = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}}); video.srcObject = s; }
-        async function runAnalysis() { overlay.classList.remove('hidden'); status.innerText = "Mapping Matrix..."; const btn = document.getElementById('capture-btn'); btn.disabled = true; const canvas = document.createElement('canvas'); canvas.width = video.videoWidth; canvas.height = video.videoHeight; canvas.getContext('2d').drawImage(video, 0, 0); try { const response = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: canvas.toDataURL('image/jpeg'), quiz: quizData}) }); const data = await response.json(); setTimeout(() => showDashboard(data), 2500); } catch (err) { alert("Scan failed."); overlay.classList.add('hidden'); btn.disabled = false; } }
+
+        async function runAnalysis() {
+            overlay.classList.remove('hidden');
+            const btn = document.getElementById('capture-btn'); btn.disabled = true;
+            const canvas = document.createElement('canvas'); canvas.width = video.videoWidth; canvas.height = video.videoHeight; canvas.getContext('2d').drawImage(video, 0, 0);
+            try {
+                const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: canvas.toDataURL('image/jpeg'), quiz: quizData}) });
+                const d = await r.json(); setTimeout(() => showDashboard(d), 2500);
+            } catch (err) { alert("Scan failed."); overlay.classList.add('hidden'); btn.disabled = false; }
+        }
 
         function showDashboard(d) {
             document.getElementById('scan-screen').classList.add('hidden'); document.getElementById('result-modal').classList.remove('hidden');
@@ -323,38 +353,25 @@
             setTimeout(() => { document.getElementById('score-bar').style.width = d.score + "%"; }, 500);
             document.getElementById('res-acne').innerText = d.acne_grade; document.getElementById('res-kit-name').innerText = d.rec_kit;
             document.getElementById('res-skin-age').innerText = (parseInt(userData.age || 18) + (d.score > 80 ? -1 : 2)) + " Yrs";
-            document.getElementById('rep-date').innerText = "CLINICAL ID: 2026-X | " + new Date().toLocaleDateString();
-            const setB = (id, sc) => { const el = document.getElementById(id); const isL = sc < 40; el.innerText = isL ? "Optimized" : "Moderate"; el.style.background = isL ? "#dcfce7" : "#fef9c3"; el.style.color = isL ? "#166534" : "#854d0e"; };
-            setB('badge-acne', 100-d.score); setB('badge-pore', d.score/1.2); setB('badge-pig', (100-d.score)+15);
+            document.getElementById('rep-date').innerText = new Date().toLocaleDateString();
             if(localStorage.getItem('cureAI_session')) {
                 let s = JSON.parse(localStorage.getItem('cureAI_session')); s.reports.push({ date: new Date().toLocaleDateString(), score: d.score, status: d.acne_grade });
-                localStorage.setItem('cureAI_session', JSON.stringify(s)); let u = JSON.parse(localStorage.getItem('cureAI_users')); u[s.phone] = s; localStorage.setItem('cureAI_users', JSON.stringify(u)); loadJourneyUI();
+                localStorage.setItem('cureAI_session', JSON.stringify(s)); let u = JSON.parse(localStorage.getItem('cureAI_users')); u[s.phone] = s; localStorage.setItem('cureAI_users', JSON.stringify(u));
+                loadJourneyUI();
             }
             renderProducts(); initSlider();
         }
 
-        // TOOLS & SHOP
-        function checkIngredients() {
-            const res = document.getElementById('check-result'); res.classList.remove('hidden'); res.innerHTML = "Processing Neural Core Data...";
-            setTimeout(() => { res.innerHTML = document.getElementById('ing-input').value.toLowerCase().includes('paraben') ? "<span class='text-red-500 font-black uppercase'>❌ Harmful Chemicals Found</span>" : "<span class='text-teal font-black uppercase'>✅ Safe Clinical Formula</span>"; }, 1500);
-        }
-        function renderLibrary() { const grid = document.getElementById('lib-grid'); grid.innerHTML = ''; library.forEach(i => grid.innerHTML += `<div class="luxury-card p-14"><h4 class="text-teal font-black text-[13px] uppercase mb-4 tracking-widest">${i.name}</h4><p class="text-[13px] text-slate-500 italic">${currentLang === 'en' ? i.desc : i.gu}</p></div>`); }
-        function renderProducts(filter = 'all') {
-            const grid = document.getElementById('product-grid'); grid.innerHTML = ''; const filtered = filter === 'all' ? products : products.filter(p => p.type === filter);
-            filtered.forEach(p => { const isM = (p.name === currentKit); grid.innerHTML += `<div class="luxury-card p-12 flex flex-col items-center text-center">${isM ? '<div class="absolute top-8 right-8 bg-teal text-white text-[7px] px-3.5 py-1.5 rounded-full font-black uppercase animate-pulse shadow-lg">AI Match</div>' : ''}<div class="absolute top-8 left-8 bg-red-500 text-white text-[7px] px-3.5 py-1.5 rounded-xl font-black uppercase">SAVE ₹${p.op - p.fp}</div><img src="${p.img}" class="w-full h-44 object-cover rounded-[40px] mb-10 shadow-sm"><div class="text-[10px] font-black text-slate-300 uppercase mb-3">Clinical Strength</div><h4 class="text-2xl font-black mb-4">${p.name}</h4><div class="flex items-center gap-5 mb-8"><span class="text-slate-200 line-through text-sm font-bold">₹${p.op}</span><span class="text-teal font-black text-3xl tracking-tighter">₹${p.fp}</span></div><button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-5 rounded-[40px] text-[11px] font-black uppercase shadow-xl hover:bg-teal transition-all">Add to Bag</button></div>`; });
-        }
-        function changeLanguage(lang) {
-            currentLang = lang; const trans = { en: { hero: "Analyze<br><span class='text-teal'>Correct</span>", shop: "OUR COLLECTIONS" }, hi: { hero: "विश्लेषण<br><span class='text-teal'>सही उपचार</span>", shop: "हमारा संग्रह" }, gu: { hero: "પૃથ્થકરણ<br><span class='text-teal'>સાચી સારવાર</span>", shop: "અમારું કલેક્શન" } };
-            document.getElementById('hero-text').innerHTML = trans[lang].hero; document.getElementById('shop-title').innerText = trans[lang].shop; renderLibrary();
-        }
         function filterShop(type) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); renderProducts(type); }
         function addToCart(id) { cart.push(products.find(p => p.id === id)); updateCartUI(); togglePanel('cart-panel'); }
         function addToCartKit() { const kit = products.find(p => p.name === currentKit); if(kit) addToCart(kit.id); }
-        function updateCartUI() { document.getElementById('cart-count').innerText = cart.length; let t = 0; document.getElementById('cart-items').innerHTML = cart.map((p, i) => { t += p.fp; return `<div class="bg-slate-50 p-6 rounded-[35px] flex items-center gap-6 border border-slate-100 shadow-sm"><img src="${p.img}" class="w-16 h-16 rounded-2xl object-cover shadow-inner"><div class="flex-1 font-black text-[11px] uppercase">${p.name}<br><span class="text-teal">₹${p.fp}</span></div><button onclick="cart.splice(${i},1);updateCartUI()" class="p-3 bg-white rounded-full text-red-400 shadow-sm">X</button></div>`; }).join(''); document.getElementById('cart-total').innerText = '₹' + t; }
-        function checkoutCart() { window.open(`https://wa.me/919099764589?text=CureAI%20Prescription%20Order:%20${cart.map(p=>p.name).join(', ')}%20Total:₹${document.getElementById('cart-total').innerText}`, '_blank'); }
-        function downloadPDF() { const e = document.getElementById('pdf-content'); html2pdf().set({ margin: 0.1, filename: 'Report.pdf', html2canvas: { scale: 3 } }).from(e).save(); }
-        function shareReferral() { window.open(`https://wa.me/?text=Check%20your%20skin%20free%20on%20CureAI!%20🩺`, '_blank'); }
-        function loadJourneyUI() { const list = document.getElementById('journey-list'), h = JSON.parse(localStorage.getItem('cureAI_session')).reports || []; if(h.length === 0) { list.innerHTML = '<p class="text-slate-300 text-xs italic text-center pt-10">No diagnostic data</p>'; return; } list.innerHTML = h.map(j => `<div class="journey-item flex gap-10 relative"><div class="flex flex-col items-center"><div class="journey-dot shadow-2xl"></div></div><div class="pb-10"><p class="text-[10px] font-black text-slate-300 uppercase tracking-widest">${j.date}</p><h5 class="font-black text-2xl">Score: ${j.score}/100</h5><span class="text-[9px] font-black px-4 py-1.5 bg-teal/5 text-teal border border-teal/10 rounded-full uppercase mt-4 inline-block">${j.status}</span></div></div>`).join(''); }
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length; let t = 0;
+            document.getElementById('cart-items').innerHTML = cart.map((p, i) => { t += p.fp; return `<div class="bg-slate-50 p-6 rounded-[35px] flex items-center gap-6 border border-slate-100 shadow-sm"><img src="${p.img}" class="w-16 h-16 rounded-2xl object-cover shadow-inner"><div class="flex-1 font-black text-[11px] uppercase">${p.name}<br><span class="text-teal">₹${p.fp}</span></div><button onclick="cart.splice(${i},1);updateCartUI()" class="p-3 bg-white rounded-full text-red-400">X</button></div>`; }).join('');
+            document.getElementById('cart-total').innerText = '₹' + t;
+        }
+        function checkoutCart() { window.open(`https://wa.me/919099764589?text=CureAI%20Prescription%20Order:%20${cart.map(p=>p.name).join(', ')}%20Total:%20₹${document.getElementById('cart-total').innerText}`, '_blank'); }
+        function downloadPDF() { const e = document.getElementById('pdf-content'); html2pdf().from(e).save('Report.pdf'); }
         function initSlider() { const s = document.getElementById('slider-line'), a = document.getElementById('after-img'), c = s.parentElement; const move = (e) => { let x = (e.pageX || e.touches[0].pageX) - c.getBoundingClientRect().left; let w = c.offsetWidth; if (x < 0) x = 0; if (x > w) x = w; let p = (x / w) * 100; s.style.left = p + '%'; a.style.clipPath = `inset(0 0 0 ${p}%)`; }; s.addEventListener('mousedown', () => window.addEventListener('mousemove', move)); window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move)); s.addEventListener('touchstart', () => window.addEventListener('touchmove', move)); }
     </script>
 </body>
