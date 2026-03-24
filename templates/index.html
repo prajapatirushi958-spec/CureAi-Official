@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cure AI | Advanced Clinical Skincare</title>
+    <title>Cure AI | Clinical Skin Intelligence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -14,281 +14,220 @@
         .text-teal { color: #008080; }
         .bg-teal { background-color: #008080; }
         
-        button { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        button:active { transform: scale(0.95); }
+        /* Mobile Scaling Fix (Screenshot based) */
+        @media (max-width: 768px) {
+            #hero-text { font-size: 4rem !important; line-height: 0.9 !important; }
+            .side-panel { width: 100% !important; max-width: 100% !important; }
+            .comparison-slider { height: 300px !important; }
+        }
 
-        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 128, 128, 0.05); position: fixed; width: 100%; top: 0; z-index: 1000; height: 90px; display: flex; align-items: center; }
-        
-        .side-panel { position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 440px; background: white; z-index: 2000; box-shadow: -30px 0 60px rgba(0,0,0,0.08); transform: translateX(105%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+        /* Premium Nav */
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid #f1f5f9; position: fixed; width: 100%; top: 0; z-index: 1000; height: 80px; display: flex; align-items: center; }
+        .side-panel { position: fixed; top: 0; right: 0; height: 100%; width: 440px; background: white; z-index: 2000; box-shadow: -20px 0 50px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
         .panel-open { transform: translateX(0) !important; }
 
         /* THE MONOPOLY: SCANNER UI */
-        .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65%; height: 75%; border: 2px dashed rgba(0, 128, 128, 0.3); border-radius: 50% 50% 45% 45%; pointer-events: none; z-index: 20; animation: breathe 3s infinite ease-in-out; }
-        @keyframes breathe { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 50% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; } }
-        @keyframes scan { 0% { top: 15%; opacity: 0; } 50% { opacity: 1; } 100% { top: 85%; opacity: 0; } }
-        .scan-line { position: absolute; left: 0; width: 100%; height: 3px; background: #008080; box-shadow: 0 0 25px #008080, 0 0 50px #008080; animation: scan 2.5s infinite linear; z-index: 30; }
+        .scanner-frame { width: 100%; max-width: 320px; aspect-ratio: 1/1; position: relative; border-radius: 50%; overflow: hidden; border: 12px solid #f8fafc; box-shadow: 0 20px 50px rgba(0,0,0,0.1); background: #000; margin: 0 auto; }
+        .silhouette { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; height: 80%; border: 2px dashed rgba(0, 128, 128, 0.3); border-radius: 50% 50% 45% 45%; pointer-events: none; z-index: 20; animation: breathe 3s infinite ease-in-out; }
+        @keyframes breathe { 0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.98); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); } }
+        .scan-line { position: absolute; left: 0; width: 100%; height: 3px; background: #008080; box-shadow: 0 0 20px #008080; z-index: 30; top: 0; }
+        @keyframes scanning { 0% { top: 10%; opacity: 0; } 50% { opacity: 1; } 100% { top: 90%; opacity: 0; } }
 
-        .luxury-card { border-radius: 45px; border: 1px solid #f1f5f9; background: #fff; transition: 0.5s ease; overflow: hidden; position: relative; }
-        .luxury-card:hover { transform: translateY(-12px); border-color: #008080; box-shadow: 0 30px 60px rgba(0,128,128,0.08); }
-        .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 14px 0; outline: none; font-size: 16px; background: transparent; transition: 0.3s; }
-        
-        .comparison-slider { position: relative; width: 100%; height: 380px; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 4px solid #fff; }
-        .after-img { clip-path: inset(0 0 0 50%); }
-        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+        .luxury-card { border-radius: 35px; border: 1px solid #f1f5f9; background: #fff; transition: 0.4s; overflow: hidden; position: relative; }
+        .comparison-slider { position: relative; width: 100%; height: 400px; border-radius: 35px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 4px solid #fff; }
+        .after-img { clip-path: inset(0 0 0 50%); position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; }
 
-        .wa-float { position: fixed; bottom: 35px; right: 35px; z-index: 999; display: flex; align-items: center; gap: 12px; background: #25D366; color: white; padding: 16px 26px; border-radius: 50px; font-weight: 800; font-size: 10px; text-transform: uppercase; box-shadow: 0 15px 35px rgba(37,211,102,0.3); text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
-        .journey-dot { width: 12px; height: 12px; border-radius: 50%; background: #008080; position: relative; z-index: 5; }
-        .journey-line { position: absolute; top: 0; bottom: 0; left: 5px; width: 2px; background: #f1f5f9; z-index: 1; }
+        .wa-float { position: fixed; bottom: 25px; right: 25px; z-index: 999; background: #25D366; color: white; padding: 14px 22px; border-radius: 50px; font-weight: 800; font-size: 10px; text-transform: uppercase; box-shadow: 0 10px 25px rgba(37,211,102,0.3); text-decoration: none; }
     </style>
 </head>
 <body>
 
     <a href="https://wa.me/919099764589?text=Hi%20CureAI,%20I%20need%20expert%20help." target="_blank" class="wa-float no-print">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.481 5.229 3.481 8.406c0 6.555-5.332 11.887-11.888 11.887-2.01 0-3.988-.507-5.741-1.465l-6.243 1.639zm6.105-3.515c1.616.96 3.232 1.461 4.981 1.461 5.42 0 9.831-4.411 9.831-9.831 0-5.42-4.411-9.832-9.831-9.832-5.42 0-9.831 4.412-9.831 9.832 0 1.936.569 3.814 1.64 5.43l-.969 3.542 3.636-.96c.43.27.43.27.524.33z"/></svg>
         <span>Expert Support</span>
     </a>
 
-    <nav class="glass-nav px-8 md:px-16">
+    <nav class="glass-nav px-4 md:px-16">
         <div class="flex justify-between items-center w-full">
-            <div class="flex items-center gap-4">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-10 w-auto hover:scale-110 transition-transform">
-                <div class="text-2xl font-black uppercase italic tracking-tighter">Cure <span class="text-teal">AI</span></div>
+            <div class="flex items-center gap-2">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="h-8 md:h-10">
+                <div class="text-xl md:text-2xl font-black uppercase italic tracking-tighter">Cure <span class="text-teal">AI</span></div>
             </div>
-
-            <div class="hidden lg:flex space-x-12 text-[11px] font-bold uppercase tracking-widest text-slate-400">
+            <div class="hidden lg:flex space-x-8 text-[10px] font-bold uppercase tracking-widest text-slate-400">
                 <a href="#home">Home</a> <a href="#library">Library</a> <a href="#checker">Checker</a> <a href="#refer" onclick="scrollToRefer()">Refer</a> <a href="#shop">Shop</a>
             </div>
-
-            <div class="flex items-center gap-6">
-                <select onchange="changeLanguage(this.value)" class="bg-transparent text-[11px] font-black uppercase outline-none text-slate-500 cursor-pointer hover:text-teal">
+            <div class="flex items-center gap-3 md:gap-6">
+                <select onchange="changeLanguage(this.value)" class="bg-transparent text-[10px] font-bold uppercase outline-none text-slate-500 cursor-pointer">
                     <option value="en">EN</option><option value="gu">GUJ</option><option value="hi">HIN</option>
                 </select>
-                <button onclick="togglePanel('account-panel')" class="text-slate-600 hover:text-teal flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    <span id="user-display-name" class="text-[10px] font-black uppercase hidden ml-1">Profile</span>
+                <button onclick="togglePanel('account-panel')" class="text-slate-600 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2"/></svg>
+                    <span id="user-display-name" class="text-[9px] font-black uppercase hidden md:inline">Profile</span>
                 </button>
-                <button onclick="togglePanel('cart-panel')" class="relative text-slate-600 hover:text-teal"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2"/></svg><span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full shadow-lg">0</span></button>
-                <button onclick="togglePanel('mobile-menu')" class="lg:hidden p-1 text-slate-900"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg></button>
-                <button onclick="openInfoModal()" id="btn-top-scan" class="hidden md:block bg-black text-white px-10 py-3.5 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-xl">Free Scan</button>
+                <button onclick="togglePanel('cart-panel')" class="relative text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-width="2"/></svg><span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] px-1 py-0.5 rounded-full">0</span></button>
+                <button onclick="togglePanel('mobile-menu')" class="lg:hidden text-slate-900"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M4 6h16M4 12h16m-7 6h7" stroke-width="2"/></svg></button>
+                <button onclick="openInfoModal()" class="hidden md:block bg-black text-white px-8 py-2.5 rounded-full text-[10px] font-bold uppercase shadow-lg">Free Scan</button>
             </div>
         </div>
     </nav>
 
     <div id="account-panel" class="side-panel">
-        <div class="p-10 border-b flex justify-between items-center"><h3 class="font-black uppercase italic text-2xl">Account.</h3><button onclick="togglePanel('account-panel')" class="text-xs font-bold text-slate-300 uppercase">Close</button></div>
-        <div id="login-view" class="flex-1 flex flex-col justify-center p-12 space-y-10 text-center">
-            <div class="space-y-3"><h4 class="font-black text-3xl uppercase italic leading-none" id="login-label">Login.</h4><p class="text-xs text-slate-400 font-medium" id="login-desc">Start your skincare journey today.</p></div>
+        <div class="p-8 border-b flex justify-between items-center"><h3 class="font-black uppercase italic">Account.</h3><button onclick="togglePanel('account-panel')" class="text-xs font-bold text-slate-400">Close</button></div>
+        <div id="login-view" class="flex-1 flex flex-col justify-center p-8 space-y-8 text-center">
+            <h4 class="font-black text-2xl uppercase italic" id="login-label">Login.</h4>
             <div class="space-y-6">
-                <input type="tel" id="user-mobile" placeholder="+91 00000 00000" class="info-input text-center text-2xl tracking-widest">
-                <div id="password-container" class="hidden space-y-4">
-                    <input type="password" id="user-password" placeholder="Password" class="info-input text-center text-2xl">
-                    <button onclick="triggerResetMode()" id="btn-forget" class="text-[10px] font-black text-slate-300 uppercase tracking-widest hover:text-teal">Forgot Password?</button>
-                </div>
-                <button onclick="handleAuthFlow()" id="btn-auth-main" class="w-full bg-black text-white py-6 rounded-[30px] text-[12px] font-bold uppercase shadow-2xl tracking-[0.2em]">Continue</button>
+                <input type="tel" id="user-mobile" placeholder="+91 Mobile" class="info-input text-center text-xl tracking-widest">
+                <div id="password-container" class="hidden space-y-4"><input type="password" id="user-password" placeholder="Password" class="info-input text-center text-xl"><button onclick="triggerResetMode()" id="btn-forget" class="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Forgot Password?</button></div>
+                <button onclick="handleAuthFlow()" id="btn-auth-main" class="w-full bg-black text-white py-5 rounded-2xl text-[11px] font-bold uppercase tracking-widest shadow-xl">Continue</button>
             </div>
         </div>
         <div id="profile-view" class="hidden flex-1 overflow-y-auto">
-            <div class="p-10 bg-slate-50 border-b relative text-center space-y-6">
-                <button onclick="openEditProfile()" class="absolute top-6 right-6 p-3 bg-white rounded-full shadow-lg hover:scale-110"><svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
-                <div class="w-28 h-28 bg-teal rounded-full mx-auto flex items-center justify-center text-white font-black text-5xl shadow-2xl" id="profile-initial">U</div>
-                <div><h4 id="profile-name-display" class="font-black text-3xl uppercase italic tracking-tighter">Name</h4><p id="profile-phone-display" class="text-xs text-slate-400 font-bold mt-2">+91</p></div>
+            <div class="p-8 bg-slate-50 border-b relative text-center">
+                <button onclick="openEditProfile()" class="absolute top-4 right-4 p-2 bg-white rounded-full shadow"><svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-width="2"/></svg></button>
+                <div class="w-20 h-20 bg-teal rounded-full mx-auto flex items-center justify-center text-white font-black text-3xl mb-4" id="profile-initial">U</div>
+                <h4 id="profile-name-display" class="font-black text-xl uppercase italic">User Name</h4>
+                <p id="profile-phone-display" class="text-xs text-slate-400 font-bold">+91 00000 00000</p>
             </div>
-            <div class="p-10 space-y-10"><h4 class="font-black text-xs uppercase tracking-[0.3em] text-slate-300 border-b pb-4">Diagnostic Journey</h4><div id="journey-list" class="space-y-12 relative"><div class="journey-line" style="height: 100%; top: 0; left: 5px; position: absolute; width: 2px; background: #f1f5f9;"></div></div></div>
-            <div class="p-10 mt-auto"><button onclick="handleLogout()" class="w-full py-5 border-2 border-slate-100 rounded-[30px] text-[10px] font-black text-red-400 uppercase tracking-widest">Logout Account</button></div>
+            <div class="p-8 space-y-8"><h4 class="font-black text-[10px] uppercase text-slate-300 border-b pb-4">My Skin Journey</h4><div id="journey-list" class="space-y-10 relative"><div class="journey-line" style="height:100%; top:0; left:5px; position:absolute; width:2px; background:#f1f5f9;"></div></div></div>
+            <div class="p-8 mt-auto"><button onclick="handleLogout()" class="w-full py-4 border-2 border-slate-100 rounded-2xl text-[9px] font-black text-red-400 uppercase tracking-widest">Sign Out</button></div>
         </div>
-        <div id="edit-profile-view" class="hidden flex-1 p-12 space-y-10">
+        <div id="edit-profile-view" class="hidden flex-1 p-10 space-y-10">
             <h4 class="font-black text-2xl uppercase italic">Edit Profile.</h4>
             <div class="space-y-8">
-                <div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Full Name</label><input type="text" id="edit-name" class="info-input text-lg font-black"></div>
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Age</label><input type="number" id="edit-age" class="info-input text-lg font-black"></div>
-                    <div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Gender</label><select id="edit-gender" class="info-input"><option>Male</option><option>Female</option></select></div>
-                </div>
-                <div class="space-y-2 pt-6 border-t"><label class="text-[9px] font-black text-teal uppercase tracking-widest">Update Password</label><input type="password" id="edit-pass" placeholder="New Password" class="info-input"></div>
+                <input type="text" id="edit-name" placeholder="Full Name" class="info-input text-lg font-black"><input type="number" id="edit-age" placeholder="Age" class="info-input text-lg font-black">
+                <select id="edit-gender" class="info-input"><option>Male</option><option>Female</option></select>
+                <div class="space-y-2 pt-6 border-t"><label class="text-[9px] font-black text-teal uppercase">Update Password</label><input type="password" id="edit-pass" class="info-input"></div>
             </div>
-            <div class="flex flex-col gap-4 pt-6"><button onclick="saveProfileEdits()" class="w-full bg-black text-white py-5 rounded-[30px] font-bold uppercase shadow-2xl">Save Changes</button><button onclick="closeEditProfile()" class="w-full text-slate-300 text-[10px] font-black uppercase">Cancel</button></div>
+            <button onclick="saveProfileEdits()" class="w-full bg-black text-white py-5 rounded-3xl font-bold uppercase shadow-xl">Save Changes</button>
+            <button onclick="closeEditProfile()" class="w-full text-slate-300 text-[10px] font-black uppercase">Cancel</button>
+        </div>
+    </div>
+
+    <main class="pt-20">
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6">
+            <div class="inline-block px-4 py-1.5 bg-teal/5 text-teal text-[10px] font-black uppercase tracking-[0.3em] rounded-full mb-10">Clinical Intelligence 2026</div>
+            <h1 class="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.8] italic uppercase mb-10" id="hero-text">Analyze<br><span class="text-teal">Correct</span></h1>
+            <p class="text-slate-400 text-lg md:text-xl font-light max-w-2xl mx-auto mb-12" id="hero-p">Hyper-personalized AI clinical protocols for oily and acne-prone skin.</p>
+            <button onclick="openInfoModal()" class="bg-teal text-white px-12 py-5 rounded-full text-[12px] font-bold uppercase tracking-widest shadow-xl hover:scale-105">Launch Diagnosis</button>
+        </section>
+
+        <section id="library" class="py-32 bg-slate-50/50 px-6"><div class="max-w-7xl mx-auto"><h2 class="text-4xl font-black italic uppercase text-center mb-20">Ingredient Library.</h2><div id="lib-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10"></div></div></section>
+        <section id="shop" class="py-32 px-6"><div class="max-w-7xl mx-auto text-center mb-20"><h2 class="text-6xl font-black text-teal italic uppercase leading-none mb-10" id="shop-title">OUR COLLECTIONS</h2><div class="flex flex-wrap justify-center gap-4"><button onclick="filterShop('all')" class="filter-btn active px-8 py-3 rounded-full border border-slate-200 text-[10px] font-bold uppercase">All Products</button><button onclick="filterShop('kit')" class="filter-btn px-8 py-3 rounded-full border border-slate-200 text-[10px] font-bold uppercase">Kits</button></div></div><div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center max-w-7xl mx-auto"></div></section>
+        
+        <section id="refer" class="py-24 bg-slate-900 text-white text-center mx-4 rounded-[50px] my-20">
+            <h2 class="text-3xl font-black italic uppercase mb-4">Refer & Earn.</h2>
+            <p class="text-slate-400 text-xs mb-10 uppercase font-bold tracking-widest">Invite a friend to get 20% OFF.</p>
+            <button onclick="shareReferral()" class="bg-teal text-white px-12 py-5 rounded-full text-[11px] font-bold uppercase shadow-xl">Share on WhatsApp</button>
+        </section>
+    </main>
+
+    <div id="info-modal" class="fixed inset-0 z-[4000] bg-white flex hidden flex-col items-center justify-center p-6 text-center">
+        <h2 class="text-5xl font-black italic uppercase mb-12">Profile.</h2>
+        <div class="max-w-md w-full space-y-10"><input type="text" id="user-name" placeholder="Full Name" class="info-input"><input type="number" id="user-age-input" placeholder="Age" class="info-input"></div>
+        <button onclick="submitInfo()" class="mt-12 bg-black text-white px-14 py-6 rounded-full text-[13px] font-bold uppercase shadow-xl">Confirm Profile</button>
+    </div>
+
+    <div id="quiz-modal" class="fixed inset-0 z-[4100] bg-white flex hidden flex-col items-center justify-center p-6 text-center overflow-y-auto">
+        <h2 class="text-5xl font-black italic uppercase mb-12">History.</h2>
+        <div class="max-w-md w-full space-y-8 text-left">
+            <div class="space-y-2"><label class="text-[10px] font-black uppercase text-slate-300">Skin Problem</label><select id="q-problem" class="info-input"><option>Active Acne</option><option>Dark Spots</option></select></div>
+            <div class="space-y-2"><label class="text-[10px] font-black uppercase text-slate-300">Associated Symptoms</label><select id="q-symptoms" class="info-input"><option>None</option><option>Itching</option><option>Pain/Burning</option></select></div>
+        </div>
+        <button onclick="submitQuiz()" class="mt-12 bg-black text-white px-14 py-6 rounded-full text-[13px] font-bold uppercase shadow-xl">Initialize Scan</button>
+    </div>
+
+    <div id="scan-screen" class="fixed inset-0 z-[4200] bg-white flex hidden flex-col items-center justify-center p-6 text-center">
+        <div class="scanner-frame"><video id="video" autoplay playsinline muted class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video><div class="silhouette"></div><div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line" id="laser"></div></div></div>
+        <div class="mt-16 space-y-4">
+            <p id="status" class="text-[11px] font-bold uppercase tracking-[0.5em] text-teal animate-pulse">Initializing Skin Matrix</p>
+            <button onclick="runAnalysis()" id="capture-btn" class="bg-black text-white px-16 py-6 rounded-full text-[11px] font-bold uppercase shadow-xl">Capture & Analyze</button>
+        </div>
+    </div>
+
+    <div id="result-modal" class="fixed inset-0 z-[5000] hidden bg-white overflow-y-auto">
+        <div id="pdf-content" class="max-w-4xl mx-auto px-8 py-20 space-y-16 text-left">
+            <header class="border-b-8 border-teal pb-10 flex justify-between items-start">
+                <div><h4 class="text-teal font-black text-[11px] uppercase tracking-widest mb-3">clinical diagnostic 2.0</h4><h2 class="text-6xl font-black italic uppercase leading-[0.85]">Diagnostic<br>Report.</h2><p id="rep-date" class="text-slate-400 font-bold text-[10px] mt-8"></p></div>
+                <div class="flex flex-col gap-4 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-8 py-4 rounded-2xl text-[10px] font-bold uppercase">Download PDF</button><button onclick="location.reload()" class="bg-slate-100 text-slate-400 px-8 py-4 rounded-2xl text-[10px] font-bold uppercase">Done</button></div>
+            </header>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="p-10 bg-slate-50 rounded-[40px] border-l-[12px] border-teal shadow-inner">
+                    <div class="flex justify-between items-center mb-6 font-black uppercase text-[12px]"><span class="text-slate-400">Health Score</span><span id="score-val" class="text-teal text-2xl tracking-tighter">...</span></div>
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden"><div id="score-bar" class="bg-teal h-full transition-all duration-[2s]"></div></div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 text-center">
+                    <div class="p-8 bg-slate-50 rounded-[40px] flex flex-col"><span class="text-[10px] font-bold uppercase">Acne Grade</span><span id="res-acne" class="font-black text-teal text-2xl mt-2">...</span></div>
+                    <div class="p-8 bg-slate-50 rounded-[40px] flex flex-col"><span class="text-[10px] font-bold uppercase">Skin Age</span><span id="res-skin-age" class="font-black text-teal text-2xl mt-2">...</span></div>
+                </div>
+            </div>
+            <div class="space-y-12 text-center">
+                <h3 class="text-4xl font-black italic uppercase">4-Week Projection</h3>
+                <div class="max-w-3xl mx-auto comparison-slider"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&w=800" alt="Now"><img src="https://images.unsplash.com/photo-1596462502278-27bf8d53e164?auto=format&w=800" class="after-img" id="after-img"><div class="slider-line" id="slider-line"></div></div>
+            </div>
+            <div class="p-14 bg-teal text-white rounded-[70px] text-center space-y-8 shadow-2xl">
+                <h4 class="text-[11px] font-bold uppercase tracking-[0.4em] opacity-80">Recommended Protocol</h4>
+                <h2 id="res-kit-name" class="text-4xl md:text-7xl font-black italic uppercase leading-none tracking-tighter">...</h2>
+                <button onclick="addToCartKit()" class="bg-white text-teal px-16 py-7 rounded-[45px] text-[13px] font-bold uppercase shadow-xl hover:scale-105 mt-4">Add to Bag</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="side-panel">
+        <div class="flex flex-col items-center justify-center flex-1 space-y-10 p-12 text-center">
+            <a href="#home" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic">Home</a>
+            <a href="#library" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic">Library</a>
+            <a href="#checker" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic">Checker</a>
+            <a href="#shop" onclick="togglePanel('mobile-menu')" class="text-4xl font-black uppercase italic text-teal">Shop</a>
+            <button onclick="togglePanel('mobile-menu'); openInfoModal();" class="bg-black text-white px-12 py-5 rounded-full font-bold uppercase text-[12px] shadow-2xl">Start Scan</button>
         </div>
     </div>
 
     <div id="cart-panel" class="side-panel">
         <div class="p-8 border-b flex justify-between items-center"><h3 class="font-black uppercase italic text-xl">My Bag.</h3><button onclick="togglePanel('cart-panel')" class="text-xs font-bold text-slate-300 uppercase">Close</button></div>
-        <div id="cart-items" class="flex-1 overflow-y-auto p-10 space-y-6"></div>
-        <div class="p-10 border-t bg-slate-50/50"><div class="flex justify-between items-center mb-10 uppercase text-xs font-black"><span>Subtotal</span><span id="cart-total" class="text-teal text-3xl tracking-tighter">₹0</span></div><button onclick="checkoutCart()" class="w-full bg-black text-white py-6 rounded-[35px] text-[12px] font-bold uppercase tracking-widest shadow-xl">WhatsApp Checkout</button></div>
-    </div>
-
-    <div id="mobile-menu" class="side-panel">
-        <div class="flex flex-col items-start justify-center flex-1 space-y-12 p-16">
-            <a href="#home" onclick="togglePanel('mobile-menu')" class="text-5xl font-black uppercase italic hover:text-teal transition-all">Home</a>
-            <a href="#library" onclick="togglePanel('mobile-menu')" class="text-5xl font-black uppercase italic hover:text-teal transition-all">Library</a>
-            <a href="#checker" onclick="togglePanel('mobile-menu')" class="text-5xl font-black uppercase italic hover:text-teal transition-all">Checker</a>
-            <a href="#refer" onclick="togglePanel('mobile-menu'); scrollToRefer();" class="text-5xl font-black uppercase italic hover:text-teal transition-all">Refer</a>
-            <a href="#shop" onclick="togglePanel('mobile-menu')" class="text-5xl font-black uppercase italic text-teal">Our Collections</a>
-            <button onclick="togglePanel('mobile-menu'); openInfoModal();" class="mt-6 bg-black text-white px-14 py-6 rounded-full font-bold uppercase text-[13px] shadow-2xl">Launch Scan</button>
-        </div>
-    </div>
-
-    <main class="pt-24">
-        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
-            <img src="{{ url_for('static', filename='logo.png') }}" class="w-52 md:w-72 mb-14 drop-shadow-2xl">
-            <div class="max-w-5xl space-y-10">
-                <div class="inline-block px-6 py-2 bg-teal/5 text-teal text-[11px] font-black uppercase tracking-[0.4em] rounded-full border border-teal/10">Clinical Intelligence 2026</div>
-                <h1 class="text-8xl md:text-[11rem] font-black tracking-tighter leading-[0.75] italic uppercase" id="hero-text">Analyze<br><span class="text-teal">Correct</span></h1>
-                <p class="text-slate-400 text-lg md:text-2xl font-light max-w-2xl mx-auto leading-relaxed" id="hero-p">Hyper-personalized AI clinical protocols for acne-prone skin.</p>
-                <button onclick="openInfoModal()" id="btn-launch" class="bg-teal text-white px-16 py-7 rounded-[45px] text-[14px] font-bold uppercase tracking-widest shadow-2xl hover:scale-110">Launch Diagnosis</button>
-            </div>
-        </section>
-
-        <section id="library" class="py-40 px-6 bg-slate-50/50">
-            <div class="max-w-7xl mx-auto space-y-24 text-center">
-                <h2 class="text-6xl font-black italic uppercase tracking-tighter" id="lib-title">Ingredient Library.</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12" id="lib-grid"></div>
-            </div>
-        </section>
-
-        <section id="checker" class="py-40 px-6 bg-white border-y text-center">
-            <div class="max-w-4xl mx-auto space-y-12">
-                <h2 class="text-7xl font-black italic uppercase tracking-tighter" id="check-title">Formula Checker</h2>
-                <textarea id="ing-input" placeholder="Paste ingredients list here..." class="w-full h-56 p-12 rounded-[65px] border-2 border-slate-100 outline-none focus:border-teal text-base leading-relaxed shadow-inner"></textarea>
-                <button onclick="checkIngredients()" id="btn-check" class="bg-black text-white px-24 py-7 rounded-full text-[12px] font-bold uppercase tracking-widest shadow-2xl">Analyze Formula Safety</button>
-                <div id="check-result" class="hidden mt-12 p-12 rounded-[45px] bg-slate-50 text-left border border-slate-100"></div>
-            </div>
-        </section>
-
-        <section id="refer" class="py-24 px-6 bg-slate-900 text-white text-center mx-4 my-20 rounded-[80px]">
-            <h2 class="text-4xl font-black italic uppercase mb-4 tracking-tighter">Refer & Earn.</h2>
-            <p class="text-slate-400 text-sm mb-12 uppercase font-bold tracking-widest">Invite a friend to get a scan and get 20% OFF.</p>
-            <button onclick="shareReferral()" class="bg-teal text-white px-16 py-6 rounded-full text-[11px] font-bold uppercase tracking-widest shadow-xl hover:scale-105">Invite on WhatsApp</button>
-        </section>
-
-        <section id="shop" class="py-40 px-6 bg-white">
-            <div class="max-w-7xl mx-auto space-y-28">
-                <div class="text-center space-y-10">
-                    <h2 class="text-8xl font-black italic text-teal uppercase tracking-tighter leading-none" id="shop-title">OUR COLLECTIONS</h2>
-                    <div class="flex flex-wrap justify-center gap-5">
-                        <button onclick="filterShop('all')" class="filter-btn active px-12 py-5 rounded-full border border-slate-200 text-[10px] font-bold uppercase tracking-widest">Discover All</button>
-                        <button onclick="filterShop('kit')" class="filter-btn px-12 py-5 rounded-full border border-slate-200 text-[11px] font-black uppercase tracking-widest">Treatment Kits</button>
-                    </div>
-                </div>
-                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 text-center"></div>
-            </div>
-        </section>
-    </main>
-
-    <div id="info-modal" class="fixed inset-0 z-[4000] bg-white/95 backdrop-blur-2xl hidden flex-col items-center justify-center p-6">
-        <div class="max-w-md w-full space-y-14">
-            <div class="text-center space-y-3"><div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[9px] font-black uppercase tracking-widest border border-teal/10 rounded-full">Phase 01</div><h2 class="text-6xl font-black italic uppercase tracking-tighter">Profile.</h2></div>
-            <div class="space-y-12"><input type="text" id="user-name" placeholder="Full Name" class="info-input"><input type="number" id="user-age-input" placeholder="Age" class="info-input"></div>
-            <button onclick="submitInfo()" class="w-full bg-black text-white py-7 rounded-[45px] text-[14px] font-bold uppercase tracking-widest shadow-2xl">Next: History</button>
-        </div>
-    </div>
-
-    <div id="quiz-modal" class="fixed inset-0 z-[4100] bg-white hidden flex-col items-center justify-center p-6 overflow-y-auto">
-        <div class="max-w-md w-full space-y-14 py-16 text-center">
-            <div class="text-center space-y-3"><div class="inline-block px-4 py-1 bg-teal/5 text-teal text-[9px] font-black uppercase tracking-widest border border-teal/10 rounded-full">Phase 02</div><h2 class="text-5xl font-black italic uppercase tracking-tighter">History.</h2></div>
-            <div class="space-y-10 text-left"><div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Skin Problem</label><select id="q-problem" class="info-input"><option>Active Acne</option><option>Dark Spots</option><option>Oiliness</option></select></div><div class="space-y-2"><label class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Problem Since?</label><input type="text" id="q-start" placeholder="e.g. 2 months" class="info-input"></div></div>
-            <button onclick="submitQuiz()" class="w-full bg-black text-white py-7 rounded-[45px] text-[14px] font-bold uppercase">Initialize Neural Scan</button>
-        </div>
-    </div>
-
-    <div id="scan-screen" class="fixed inset-0 z-[4200] bg-white hidden flex-col items-center justify-center p-6 text-center">
-        <div class="w-full max-w-sm aspect-square relative rounded-[90px] overflow-hidden border-[15px] border-slate-50 shadow-2xl"><video id="video" autoplay playsinline class="absolute inset-0 object-cover w-full h-full scale-x-[-1]"></video><div class="silhouette"></div><div id="overlay" class="absolute inset-0 z-10 hidden"><div class="scan-line"></div></div></div>
-        <div class="mt-16 space-y-6">
-            <p id="status" class="text-[11px] font-bold uppercase tracking-[0.5em] text-teal animate-pulse">Initializing Skin Matrix</p>
-            <button onclick="runAnalysis()" id="capture-btn" class="bg-black text-white px-24 py-7 rounded-full text-[13px] font-bold uppercase shadow-2xl">Capture & Analyze</button>
-        </div>
-    </div>
-
-    <div id="result-modal" class="fixed inset-0 z-[5000] hidden bg-white overflow-y-auto">
-        <div id="pdf-content" class="max-w-4xl mx-auto px-10 py-24 space-y-20 text-left">
-            <header class="border-b-8 border-teal pb-12 flex justify-between items-start">
-                <div><h4 class="text-teal font-black text-[12px] uppercase tracking-widest mb-3">Official clinical diagnostic</h4><h2 class="text-7xl font-black italic uppercase leading-[0.85]">Diagnostic<br>Report.</h2><p class="text-slate-400 font-bold text-[10px] mt-10" id="rep-date"></p></div>
-                <div class="flex flex-col gap-5 no-print"><button onclick="downloadPDF()" class="bg-teal text-white px-10 py-5 rounded-3xl text-[11px] font-bold uppercase shadow-xl">Download PDF</button><button onclick="location.reload()" class="bg-slate-100 text-slate-400 px-12 py-4 rounded-3xl text-[12px] font-black uppercase">Close</button></div>
-            </header>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="space-y-12">
-                    <div class="p-12 bg-slate-50 rounded-[60px] border-l-[12px] border-teal shadow-inner">
-                        <div class="flex justify-between items-center mb-8"><span class="text-[13px] font-black uppercase text-slate-400">Health Score</span><span id="score-val" class="font-black text-teal text-3xl tracking-tighter">...</span></div>
-                        <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden shadow-inner"><div id="score-bar" class="bg-teal h-full transition-all duration-[2s] ease-out"></div></div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-8 text-center"><div class="p-12 bg-slate-50 rounded-[60px] flex flex-col"><span class="text-[11px] font-bold uppercase">Acne Grade</span><span id="res-acne" class="font-black text-teal text-2xl mt-4 tracking-tighter">...</span></div><div class="p-12 bg-slate-50 rounded-[60px] flex flex-col"><span class="text-[11px] font-bold uppercase">Relative Age</span><span id="res-skin-age" class="font-black text-teal text-2xl mt-4 tracking-tighter">...</span></div></div>
-            </div>
-            <div class="space-y-16 text-center"><h3 class="text-5xl font-black italic uppercase tracking-tighter">Clinical Projection</h3><div class="max-w-3xl mx-auto comparison-slider"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&w=800" alt="Current"><img src="https://images.unsplash.com/photo-1596462502278-27bf8d53e164?auto=format&w=800" class="after-img" id="after-img"><div class="slider-line" id="slider-line"></div></div><p class="text-[11px] font-black uppercase tracking-widest italic text-slate-300">*Neural simulation based on AI regimens</p></div>
-            <div class="p-16 bg-teal text-white rounded-[90px] text-center space-y-10 shadow-2xl transform hover:scale-[1.01] transition-all"><h4 class="text-[12px] font-bold uppercase tracking-[0.6em] opacity-80">Recommended Protocol</h4><h2 id="res-kit-name" class="text-5xl md:text-8xl font-black italic uppercase leading-none">...</h2><button onclick="addToCartKit()" class="bg-white text-teal px-20 py-8 rounded-[50px] text-[14px] font-black uppercase shadow-2xl hover:bg-slate-50 mt-8">Add Protocol to Bag</button></div>
-        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-4"></div>
+        <div class="p-8 border-t bg-slate-50"><div class="flex justify-between font-bold mb-8 uppercase text-xs"><span>Total</span><span id="cart-total" class="text-teal text-3xl tracking-tighter">₹0</span></div><button onclick="checkoutCart()" class="w-full bg-black text-white py-6 rounded-[35px] text-[11px] font-bold uppercase shadow-xl">WhatsApp Checkout</button></div>
     </div>
 
     <script>
-        // LOGIC RECOVERY MASTER
-        let userData = {}, quizData = {}, currentKit = "", cart = [], isLoggedIn = false, currentLang = 'en', isResetMode = false;
-        const video = document.getElementById('video'), status = document.getElementById('status'), overlay = document.getElementById('overlay');
+        let userData = {}, quizData = {}, currentKit = "", cart = [], isLoggedIn = false, currentLang = 'en', isResetMode = false, stream = null;
+        const video = document.getElementById('video'), statusTxt = document.getElementById('status'), overlay = document.getElementById('overlay');
 
-        // Verify Products & Library
-        const products = [
-            { id: 1, name: "Active Acne Kit", type: "kit", op: 2999, fp: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 2, name: "Pore Control Kit", type: "kit", op: 2499, fp: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
-            { id: 3, name: "Scar Repair Kit", type: "kit", op: 2799, fp: 2199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
-            { id: 4, name: "Advanced Healing Kit", type: "kit", op: 3299, fp: 2599, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" },
-            { id: 5, name: "Oil Control Kit", type: "kit", op: 2199, fp: 1699, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 6, name: "Salicylic Cleanser", type: "individual", op: 899, fp: 599, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
-            { id: 7, name: "Niacinamide Serum", type: "individual", op: 1299, fp: 899, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
-            { id: 8, name: "Clinical Sunscreen", type: "individual", op: 999, fp: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
-            { id: 9, name: "Retinol Therapy", type: "individual", op: 1899, fp: 1449, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
-            { id: 10, name: "Vitamin C Glow", type: "individual", op: 1499, fp: 1099, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
-            { id: 11, name: "Barrier Cream", type: "individual", op: 1199, fp: 849, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
-            { id: 12, name: "Gel Moisturizer", type: "individual", op: 799, fp: 499, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
-            { id: 13, name: "Azelaic Treatment", type: "individual", op: 1599, fp: 1199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
-            { id: 14, name: "Zinc Face Mist", type: "individual", op: 699, fp: 449, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
-            { id: 15, name: "Detox Night Gel", type: "individual", op: 1399, fp: 999, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" }
-        ];
+        // MONOPOLY STEP FLOW LOGIC
+        function togglePanel(id) { document.getElementById(id).classList.toggle('panel-open'); }
+        function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); }
+        function submitInfo() { userData = { name: document.getElementById('user-name').value, age: document.getElementById('user-age-input').value }; document.getElementById('info-modal').classList.add('hidden'); document.getElementById('quiz-modal').classList.remove('hidden'); }
+        function submitQuiz() { quizData = { problem: document.getElementById('q-problem').value, symptoms: document.getElementById('q-symptoms').value }; document.getElementById('quiz-modal').classList.add('hidden'); document.getElementById('scan-screen').classList.remove('hidden'); initCamera(); }
 
-        const library = [
-            { name: "Salicylic Acid", desc: "BHA that dissolves pore debris.", hi: "सलिसीलिक एसिड", gu: "સેલિસિલિક એસિડ" },
-            { name: "Niacinamide", desc: "Vitamin B3 balances oil.", hi: "नियासिनमाइड", gu: "નિયાસિનામાઇડ" },
-            { name: "Retinol", desc: "Speeds up cell turnover.", hi: "रेटिनॉल", gu: "રેટિનોલ" },
-            { name: "Vitamin C", desc: "Potent antioxidant for glow.", hi: "विटामिन सी", gu: "વિટામિન સી" },
-            { name: "Ceramides", desc: "Repairs skin barrier.", hi: "सेरामाइड्स", gu: "સેરામાઇડ્સ" },
-            { name: "Hyaluronic Acid", desc: "Ultimate hydration molecule.", hi: "हयालूरोनिक एसिड", gu: "હાયલ્યુરોનિક એસિડ" },
-            { name: "Azelaic Acid", desc: "Fights acne bacteria.", hi: "एज़ेलिक एसिड", gu: "એઝેલિક એસિડ" },
-            { name: "Zinc PCA", desc: "Targets greasiness.", hi: "जिंक पीसीए", gu: "ઝિંક પીસીએ" },
-            { name: "Panthenol", desc: "Soothes irritated skin.", hi: "पेंथेनॉल", gu: "પેન્થેનોલ" }
-        ];
-
-        window.onload = () => { const s = JSON.parse(localStorage.getItem('cureAI_session')); if(s) activateLoggedInState(s); renderLibrary(); renderProducts(); };
-
-        // AUTH & PROFILE
-        function handleAuthFlow() {
-            const phone = document.getElementById('user-mobile').value, pass = document.getElementById('user-password').value;
-            const btn = document.getElementById('btn-auth-main'), pc = document.getElementById('password-container'), fl = document.getElementById('login-label'), fd = document.getElementById('login-desc'), fb = document.getElementById('btn-forget');
-            if (phone.length < 10) return alert("Enter 10-digit number!");
-            let users = JSON.parse(localStorage.getItem('cureAI_users') || '{}');
-            if(pc.classList.contains('hidden')) {
-                pc.classList.remove('hidden');
-                if(users[phone]) { fl.innerText = "Welcome Back."; fd.innerText = "Enter password to login."; btn.innerText = "VERIFY LOGIN"; fb.classList.remove('hidden'); }
-                else { fl.innerText = "Set Password."; fd.innerText = "Create secure access."; btn.innerText = "REGISTER"; fb.classList.add('hidden'); }
-            } else {
-                if(pass.length < 4) return alert("Min 4 chars.");
-                if(isResetMode) { users[phone].password = pass; localStorage.setItem('cureAI_users', JSON.stringify(users)); alert("Reset Success!"); isResetMode = false; finalizeAuth(users[phone]); }
-                else if(users[phone]) { if(users[phone].password === pass) finalizeAuth(users[phone]); else alert("Access Denied."); }
-                else { const newUser = { phone, password: pass, name: "User "+phone.slice(-4), age: 18, gender: 'Male', reports: [] }; users[phone] = newUser; localStorage.setItem('cureAI_users', JSON.stringify(users)); finalizeAuth(newUser); }
+        // CAMERA FIX (MOBILE-READY)
+        async function initCamera() {
+            try {
+                const constraints = { video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } } };
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+                statusTxt.innerText = "Align Face in Center";
+            } catch (err) {
+                alert("Camera Error: Please allow camera permissions in browser settings.");
+                console.error(err);
             }
         }
-        function triggerResetMode() { isResetMode = true; document.getElementById('login-label').innerText = "Reset Password."; document.getElementById('btn-auth-main').innerText = "UPDATE & LOGIN"; document.getElementById('btn-forget').classList.add('hidden'); }
-        function finalizeAuth(user) { localStorage.setItem('cureAI_session', JSON.stringify(user)); activateLoggedInState(user); }
-        function activateLoggedInState(user) { document.getElementById('login-view').classList.add('hidden'); document.getElementById('profile-view').classList.remove('hidden'); document.getElementById('user-display-name').innerText = user.name.split(' ')[0]; document.getElementById('user-display-name').classList.remove('hidden'); document.getElementById('profile-name-display').innerText = user.name; document.getElementById('profile-phone-display').innerText = user.phone; document.getElementById('profile-initial').innerText = user.name.charAt(0); document.getElementById('user-name').value = user.name; loadJourneyUI(); }
-        function openEditProfile() { const s = JSON.parse(localStorage.getItem('cureAI_session')); document.getElementById('profile-view').classList.add('hidden'); document.getElementById('edit-profile-view').classList.remove('hidden'); document.getElementById('edit-name').value = s.name; document.getElementById('edit-age').value = s.age; document.getElementById('edit-gender').value = s.gender; }
-        function closeEditProfile() { document.getElementById('edit-profile-view').classList.add('hidden'); document.getElementById('profile-view').classList.remove('hidden'); }
-        function saveProfileEdits() { let s = JSON.parse(localStorage.getItem('cureAI_session')), u = JSON.parse(localStorage.getItem('cureAI_users')); s.name = document.getElementById('edit-name').value; s.age = document.getElementById('edit-age').value; s.gender = document.getElementById('edit-gender').value; if(document.getElementById('edit-pass').value) s.password = document.getElementById('edit-pass').value; localStorage.setItem('cureAI_session', JSON.stringify(s)); u[s.phone] = s; localStorage.setItem('cureAI_users', JSON.stringify(u)); alert("Updated!"); closeEditProfile(); activateLoggedInState(s); }
-        function handleLogout() { localStorage.removeItem('cureAI_session'); location.reload(); }
-        function loadJourneyUI() { const list = document.getElementById('journey-list'), h = JSON.parse(localStorage.getItem('cureAI_session')).reports || []; if(h.length === 0) { list.innerHTML = '<p class="text-slate-300 text-xs italic text-center pt-10">No diagnostic data found.</p>'; return; } list.innerHTML = h.map(j => `<div class="journey-item flex gap-10 relative"><div class="flex flex-col items-center"><div class="journey-dot shadow-2xl"></div></div><div class="pb-10"><p class="text-[10px] font-black text-slate-300 uppercase tracking-widest">${j.date}</p><h5 class="font-black text-2xl">Score: ${j.score}/100</h5><span class="text-[9px] font-black px-4 py-1.5 bg-teal/5 text-teal border border-teal/10 rounded-full uppercase mt-4 inline-block">${j.status}</span></div></div>`).join(''); }
 
-        // MONOPOLY STEP FLOW
-        function togglePanel(id) { document.getElementById(id).classList.toggle('panel-open'); }
-        function openInfoModal() { document.getElementById('info-modal').classList.remove('hidden'); document.getElementById('info-modal').classList.add('flex'); }
-        function submitInfo() { userData = { name: document.getElementById('user-name').value, age: document.getElementById('user-age-input').value }; document.getElementById('info-modal').classList.add('hidden'); document.getElementById('quiz-modal').classList.remove('hidden').classList.add('flex'); }
-        function submitQuiz() { quizData = { problem: document.getElementById('q-problem').value }; document.getElementById('quiz-modal').classList.add('hidden'); document.getElementById('scan-screen').classList.remove('hidden').classList.add('flex'); initCam(); }
-        async function initCam() { const s = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}}); video.srcObject = s; }
-        async function runAnalysis() { overlay.classList.remove('hidden'); status.innerText = "Analyzing Neural Core..."; const btn = document.getElementById('capture-btn'); btn.disabled = true; const canvas = document.createElement('canvas'); canvas.width = video.videoWidth; canvas.height = video.videoHeight; canvas.getContext('2d').drawImage(video, 0, 0); try { const response = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: canvas.toDataURL('image/jpeg'), quiz: quizData}) }); const data = await response.json(); setTimeout(() => showDashboard(data), 2500); } catch (err) { alert("Scan failed."); overlay.classList.add('hidden'); btn.disabled = false; } }
+        async function runAnalysis() {
+            overlay.classList.remove('hidden');
+            document.getElementById('laser').style.display = 'block';
+            document.getElementById('laser').style.animation = 'scanning 2s infinite linear';
+            statusTxt.innerText = "Analyzing Skin Matrix...";
+            const btn = document.getElementById('capture-btn'); btn.disabled = true; btn.style.opacity = 0.5;
+
+            const canvas = document.createElement('canvas'); canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            try {
+                const r = await fetch('/analyze', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({image: canvas.toDataURL('image/jpeg'), quiz: quizData}) });
+                const d = await r.json();
+                if (stream) stream.getTracks().forEach(track => track.stop());
+                setTimeout(() => showDashboard(d), 2500);
+            } catch (e) { alert("Analysis failed."); overlay.classList.add('hidden'); btn.disabled = false; }
+        }
 
         function showDashboard(d) {
             document.getElementById('scan-screen').classList.add('hidden'); document.getElementById('result-modal').classList.remove('hidden');
@@ -296,38 +235,30 @@
             setTimeout(() => { document.getElementById('score-bar').style.width = d.score + "%"; }, 500);
             document.getElementById('res-acne').innerText = d.acne_grade; document.getElementById('res-kit-name').innerText = d.rec_kit;
             document.getElementById('res-skin-age').innerText = (parseInt(userData.age || 18) + (d.score > 80 ? -1 : 2)) + " Yrs";
-            document.getElementById('rep-date').innerText = "VERIFIED SESSION: " + new Date().toLocaleDateString();
-            if(localStorage.getItem('cureAI_session')) {
-                let s = JSON.parse(localStorage.getItem('cureAI_session')); s.reports.push({ date: new Date().toLocaleDateString(), score: d.score, status: d.acne_grade });
-                localStorage.setItem('cureAI_session', JSON.stringify(s)); let u = JSON.parse(localStorage.getItem('cureAI_users')); u[s.phone] = s; localStorage.setItem('cureAI_users', JSON.stringify(u)); loadJourneyUI();
-            }
+            document.getElementById('rep-date').innerText = "CLINICAL PASS: " + new Date().toLocaleDateString();
             renderProducts(); initSlider();
         }
 
-        // REFER & OTHER BUTTONS
+        // REMAINING CORE LOGIC (Products, Auth, Lang)
+        const products = [{ id: 1, name: "Active Acne Kit", type: "kit", op: 2999, fp: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },{ id: 2, name: "Pore Control Kit", type: "kit", op: 2499, fp: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },{ id: 3, name: "Scar Repair Kit", type: "kit", op: 2799, fp: 2199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },{ id: 4, name: "Advanced Healing Kit", type: "kit", op: 3299, fp: 2599, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" },{ id: 5, name: "Oil Control Kit", type: "kit", op: 2199, fp: 1699, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },{ id: 6, name: "Salicylic Cleanser", type: "individual", op: 899, fp: 599, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },{ id: 7, name: "Niacinamide Serum", type: "individual", op: 1299, fp: 899, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },{ id: 8, name: "Clinical Sunscreen", type: "individual", op: 999, fp: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },{ id: 9, name: "Retinol Therapy", type: "individual", op: 1899, fp: 1449, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },{ id: 10, name: "Vitamin C Glow", type: "individual", op: 1499, fp: 1099, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },{ id: 11, name: "Barrier Cream", type: "individual", op: 1199, fp: 849, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },{ id: 12, name: "Gel Moisturizer", type: "individual", op: 799, fp: 499, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },{ id: 13, name: "Azelaic Treatment", type: "individual", op: 1599, fp: 1199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },{ id: 14, name: "Zinc Face Mist", type: "individual", op: 699, fp: 449, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },{ id: 15, name: "Detox Night Gel", type: "individual", op: 1399, fp: 999, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" }];
+        const library = [{ name: "Salicylic Acid", desc: "BHA that dissolves pore debris." },{ name: "Niacinamide", desc: "Balances oil." },{ name: "Retinol", desc: "Speeds turnover." },{ name: "Vitamin C", desc: "Antioxidant glow." },{ name: "Ceramides", desc: "Repairs barrier." },{ name: "Hyaluronic Acid", desc: "Deep hydration." },{ name: "Azelaic Acid", desc: "Anti-bacterial." },{ name: "Zinc PCA", desc: "Oil reduction." },{ name: "Panthenol", desc: "Soothing B5." }];
+
+        window.onload = () => { const s = JSON.parse(localStorage.getItem('cureAI_session')); if(s) activateLoggedInState(s); renderLibrary(); renderProducts(); };
+        function handleAuthFlow() { const phone = document.getElementById('user-mobile').value, pass = document.getElementById('user-password').value; const pc = document.getElementById('password-container'), btn = document.getElementById('btn-auth-main'); if(phone.length < 10) return; let users = JSON.parse(localStorage.getItem('cureAI_users') || '{}'); if(pc.classList.contains('hidden')) { pc.classList.remove('hidden'); if(users[phone]) { btn.innerText = "LOGIN"; document.getElementById('btn-forget').classList.remove('hidden'); } else { btn.innerText = "REGISTER"; } } else { if(isResetMode) { users[phone].password = pass; localStorage.setItem('cureAI_users', JSON.stringify(users)); alert("Reset!"); isResetMode = false; finalizeAuth(users[phone]); } else if(users[phone]) { if(users[phone].password === pass) finalizeAuth(users[phone]); else alert("Wrong!"); } else { const newUser = { phone, password: pass, name: "User "+phone.slice(-4), reports: [] }; users[phone] = newUser; localStorage.setItem('cureAI_users', JSON.stringify(users)); finalizeAuth(newUser); } } }
+        function triggerResetMode() { isResetMode = true; document.getElementById('login-label').innerText = "Reset Password."; document.getElementById('btn-auth-main').innerText = "UPDATE PASSWORD"; }
+        function finalizeAuth(u) { localStorage.setItem('cureAI_session', JSON.stringify(u)); activateLoggedInState(u); }
+        function activateLoggedInState(u) { document.getElementById('login-view').classList.add('hidden'); document.getElementById('profile-view').classList.remove('hidden'); document.getElementById('user-display-name').innerText = u.name.split(' ')[0]; document.getElementById('user-display-name').classList.remove('hidden'); document.getElementById('profile-name-display').innerText = u.name; document.getElementById('user-name').value = u.name; }
+        function handleLogout() { localStorage.removeItem('cureAI_session'); location.reload(); }
         function scrollToRefer() { document.getElementById('refer').scrollIntoView({ behavior: 'smooth' }); }
-        function shareReferral() { window.open(`https://wa.me/?text=Check%20your%20skin%20free%20on%20CureAI!%20🩺%20Visit%20here:%20${window.location.href}`, '_blank'); }
-        function checkoutCart() { window.open(`https://wa.me/919099764589?text=CureAI%20Prescription:%20${cart.map(p=>p.name).join(', ')}%20Total:₹${document.getElementById('cart-total').innerText}`, '_blank'); }
-        function downloadPDF() { const e = document.getElementById('pdf-content'); html2pdf().from(e).save('Report.pdf'); }
-        
-        // SHOP & LIBRARY RENDER
-        function renderLibrary() { const grid = document.getElementById('lib-grid'); grid.innerHTML = ''; library.forEach(i => grid.innerHTML += `<div class="luxury-card p-14 hover:scale-[1.02]"><h4 class="text-teal font-black text-[13px] uppercase mb-4 tracking-widest">${i.name}</h4><p class="text-[13px] text-slate-500 italic leading-relaxed">${currentLang === 'en' ? i.desc : i.gu}</p></div>`); }
-        function renderProducts(filter = 'all') {
-            const grid = document.getElementById('product-grid'); grid.innerHTML = ''; const filtered = filter === 'all' ? products : products.filter(p => p.type === filter);
-            filtered.forEach(p => { const isM = (p.name === currentKit); grid.innerHTML += `<div class="luxury-card p-12 flex flex-col items-center text-center">${isM ? '<div class="absolute top-8 right-8 bg-teal text-white text-[7px] px-3.5 py-1.5 rounded-full font-black uppercase animate-pulse shadow-lg">AI Match</div>' : ''}<div class="absolute top-8 left-8 bg-red-500 text-white text-[7px] px-3.5 py-1.5 rounded-xl font-black uppercase shadow-lg">SAVE ₹${p.op - p.fp}</div><img src="${p.img}" class="w-full h-44 object-cover rounded-[40px] mb-10 shadow-sm"><div class="text-[10px] font-black text-slate-300 uppercase mb-3">Protocol Unit</div><h4 class="text-2xl font-black mb-4 tracking-tighter">${p.name}</h4><div class="flex items-center gap-5 mb-8"><span class="text-slate-200 line-through text-sm font-bold">₹${p.op}</span><span class="text-teal font-black text-3xl tracking-tighter">₹${p.fp}</span></div><button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-5 rounded-[40px] text-[11px] font-black uppercase shadow-xl hover:bg-teal transition-all">Add to Bag</button></div>`; });
-        }
-        function changeLanguage(lang) {
-            currentLang = lang; const trans = { en: { hero: "Analyze<br><span class='text-teal'>Correct</span>", shop: "OUR COLLECTIONS" }, hi: { hero: "विश्लेषण<br><span class='text-teal'>सही उपचार</span>", shop: "हमारा संग्रह" }, gu: { hero: "પૃથ્થકરણ<br><span class='text-teal'>સાચી સારવાર</span>", shop: "અમારું કલેક્શન" } };
-            document.getElementById('hero-text').innerHTML = trans[lang].hero; document.getElementById('shop-title').innerText = trans[lang].shop; renderLibrary();
-        }
+        function shareReferral() { window.open(`https://wa.me/?text=Check%20your%20skin%20free%20on%20CureAI!%20🩺%20${window.location.href}`, '_blank'); }
+        function renderLibrary() { const grid = document.getElementById('lib-grid'); grid.innerHTML = ''; library.forEach(i => grid.innerHTML += `<div class="luxury-card p-10"><h4 class="text-teal font-black uppercase mb-4">${i.name}</h4><p class="text-xs text-slate-500 italic">${i.desc}</p></div>`); }
+        function renderProducts(f = 'all') { const grid = document.getElementById('product-grid'); grid.innerHTML = ''; const filtered = f === 'all' ? products : products.filter(p => p.type === f); filtered.forEach(p => { const isM = (p.name === currentKit); grid.innerHTML += `<div class="luxury-card p-10 flex flex-col items-center">${isM ? '<div class="bg-teal text-white text-[7px] px-2 py-1 rounded-full mb-4">AI Match</div>' : ''}<img src="${p.img}" class="w-full h-40 object-cover rounded-3xl mb-6"><h4 class="font-bold text-lg mb-4">${p.name}</h4><span class="text-teal font-black text-2xl">₹${p.fp}</span><button onclick="addToCart(${p.id})" class="mt-6 bg-black text-white px-8 py-3 rounded-full text-[10px] uppercase">Add</button></div>`; }); }
         function filterShop(type) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); event.target.classList.add('active'); renderProducts(type); }
         function addToCart(id) { cart.push(products.find(p => p.id === id)); updateCartUI(); togglePanel('cart-panel'); }
-        function addToCartKit() { const kit = products.find(p => p.name === currentKit); if(kit) addToCart(kit.id); }
-        function updateCartUI() {
-            document.getElementById('cart-count').innerText = cart.length; let t = 0; document.getElementById('cart-items').innerHTML = cart.map((p, i) => { t += p.fp; return `<div class="bg-slate-50 p-6 rounded-[35px] flex items-center gap-6 border border-slate-100 shadow-sm"><img src="${p.img}" class="w-16 h-16 rounded-2xl object-cover shadow-inner"><div class="flex-1 font-black text-[11px] uppercase">${p.name}<br><span class="text-teal">₹${p.fp}</span></div><button onclick="cart.splice(${i},1);updateCartUI()" class="p-3 bg-white rounded-full text-red-400 font-bold">X</button></div>`; }).join('');
-            document.getElementById('cart-total').innerText = '₹' + t;
-        }
-        function checkIngredients() { const res = document.getElementById('check-result'); res.classList.remove('hidden'); res.innerHTML = "Processing Neural Core Data..."; setTimeout(() => { res.innerHTML = document.getElementById('ing-input').value.toLowerCase().includes('paraben') ? "<span class='text-red-500 font-black uppercase'>❌ Harmful Chemicals Found</span>" : "<span class='text-teal font-black uppercase'>✅ Safe Clinical Formula</span>"; }, 1500); }
+        function addToCartKit() { const k = products.find(p => p.name === currentKit); if(k) addToCart(k.id); }
+        function updateCartUI() { document.getElementById('cart-count').innerText = cart.length; let t = 0; document.getElementById('cart-items').innerHTML = cart.map((p, i) => { t += p.fp; return `<div class="bg-slate-50 p-4 rounded-2xl flex items-center gap-4"><img src="${p.img}" class="w-12 h-12 rounded-xl object-cover"><div class="flex-1 font-bold text-[10px] uppercase">${p.name}<br>₹${p.fp}</div><button onclick="cart.splice(${i},1);updateCartUI()" class="text-red-400">X</button></div>`; }).join(''); document.getElementById('cart-total').innerText = '₹' + t; }
+        function checkoutCart() { window.open(`https://wa.me/919099764589?text=Order:${cart.map(p=>p.name).join(',')}%20Total:₹${document.getElementById('cart-total').innerText}`, '_blank'); }
+        function downloadPDF() { html2pdf().from(document.getElementById('pdf-content')).save('Report.pdf'); }
         function initSlider() { const s = document.getElementById('slider-line'), a = document.getElementById('after-img'), c = s.parentElement; const move = (e) => { let x = (e.pageX || e.touches[0].pageX) - c.getBoundingClientRect().left; let w = c.offsetWidth; if (x < 0) x = 0; if (x > w) x = w; let p = (x / w) * 100; s.style.left = p + '%'; a.style.clipPath = `inset(0 0 0 ${p}%)`; }; s.addEventListener('mousedown', () => window.addEventListener('mousemove', move)); window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move)); s.addEventListener('touchstart', () => window.addEventListener('touchmove', move)); }
     </script>
 </body>
