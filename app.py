@@ -6,18 +6,10 @@ import random
 import os
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime, timedelta
-
-# Try importing YOLO for the Deep Learning Upgrade (Update 2)
-try:
-    from ultralytics import YOLO
-    # Initialize model (Requires a trained weights file like 'best.pt' in your folder)
-    yolo_model = YOLO('cureai_acne_v1.pt') 
-    DEEP_LEARNING_ACTIVE = True
-except:
-    DEEP_LEARNING_ACTIVE = False
+from datetime import datetime
 
 app = Flask(__name__)
+# Secure session key
 app.secret_key = os.environ.get("SECRET_KEY", "cureai_secure_session_key_2026")
 DATABASE = 'cureai.db'
 
@@ -38,26 +30,22 @@ def close_connection(exception):
 def init_db():
     with app.app_context():
         db = get_db()
+        # Users Table
         db.execute('''CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT, email TEXT UNIQUE, password TEXT, age INTEGER, water_intake TEXT, language TEXT DEFAULT 'EN'
+            name TEXT, email TEXT UNIQUE, password TEXT, age INTEGER, water_intake TEXT
         )''')
+        # Persistent History Table
         db.execute('''CREATE TABLE IF NOT EXISTS history (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER, date TEXT, score INTEGER, acne_grade TEXT, kit TEXT,
-            FOREIGN KEY(user_id) REFERENCES users(id)
-        )''')
-        # New table for WhatsApp Routine Retention (Update 1)
-        db.execute('''CREATE TABLE IF NOT EXISTS routine_schedules (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER, day_number INTEGER, time_slot TEXT, message TEXT, is_sent BOOLEAN DEFAULT 0,
             FOREIGN KEY(user_id) REFERENCES users(id)
         )''')
         db.commit()
 
 init_db()
 
-# --- DIAGNOSTIC ENGINE (HYBRID YOLOv8 + OpenCV) ---
+# --- DIAGNOSTIC ENGINE ---
 def cureskin_diagnostic_engine(image_data):
     try:
         encoded_data = image_data.split(',')[1]
@@ -66,66 +54,44 @@ def cureskin_diagnostic_engine(image_data):
 
         h, w = img.shape[:2]
         roi = img[h//2-180:h//2+180, w//2-180:w//2+180] 
-        
-        comedones, pustules, cysts = 0, 0, 0
 
-        # UPDATE 2: Deep Learning AI Execution
-        if DEEP_LEARNING_ACTIVE:
-            results = yolo_model(roi)
-            # Assuming YOLO classes: 0=Blackhead, 1=Pustule, 2=Cyst
-            for box in results[0].boxes:
-                cls_id = int(box.cls[0])
-                if cls_id == 0: comedones += 1
-                elif cls_id == 1: pustules += 1
-                elif cls_id == 2: cysts += 1
-        else:
-            # Fallback to OpenCV if weights aren't trained yet
-            gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-            blurred = cv2.GaussianBlur(gray, (7, 7), 0)
-            circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, 1.2, 20, param1=50, param2=30, minRadius=2, maxRadius=10)
-            comedones = len(circles[0]) if circles is not None else 0
+        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        blurred = cv2.GaussianBlur(gray, (7, 7), 0)
+        circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, 1.2, 20, param1=50, param2=30, minRadius=2, maxRadius=10)
+        comedones = len(circles[0]) if circles is not None else 0
 
-        # High-Accuracy Classification Logic
-        total_lesions = comedones + pustules + (cysts * 3) # Cysts weighted heavier
-        
-        if total_lesions == 0: acne_grade = "Clear"
-        elif total_lesions < 8 and cysts == 0: acne_grade = "Grade 1 (Mild)"
-        elif total_lesions < 18 and cysts < 2: acne_grade = "Grade 2 (Moderate)"
-        else: acne_grade = "Grade 3 (Active/Cystic)"
+        if comedones == 0: acne_grade = "Clear"
+        elif comedones < 8: acne_grade = "Grade 1 (Mild)"
+        elif comedones < 18: acne_grade = "Grade 2 (Moderate)"
+        else: acne_grade = "Grade 3 (Active)"
 
-        gray_fallback = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-        variance = np.var(gray_fallback)
+        variance = np.var(gray)
         pigmentation = "Minimal" if variance < 1100 else "Moderate"
-        dark_circles = "Not Detected" if np.mean(gray_fallback) > 125 else "Mild Visibility"
+        dark_circles = "Not Detected" if np.mean(gray) > 125 else "Mild Visibility"
 
-        score = max(40, 100 - (total_lesions * 3))
+        score = max(40, 100 - (comedones * 3))
         moisture = random.randint(68, 92)
         skin_age = 18 + random.randint(-1, 2)
         
-        rec_kit = "Active Acne Kit" if total_lesions > 10 else ("Pore Control Kit" if comedones > 5 else "Barrier Cream")
+        # Recommended kit logic added to ensure frontend Match works smoothly
+        rec_kit = "Active Acne Kit" if comedones > 10 else ("Pore Control Kit" if comedones > 5 else "Barrier Cream")
 
         return {
-            "score": int(score), "age": skin_age, "moisture": moisture, "acne_grade": acne_grade,
-            "pigmentation": pigmentation, "dark_circles": dark_circles, "pores": "Visible" if comedones > 10 else "Refined",
-            "oil": "Oily (High Sebum)" if np.mean(gray_fallback) > 175 else "Balanced",
-            "condition": acne_grade + " Concerns", "rec_kit": rec_kit,
-            "dl_metrics": {"comedones": comedones, "pustules": pustules, "cysts": cysts} # Sent to frontend for advanced UI
+            "score": int(score),
+            "age": skin_age,
+            "moisture": moisture,
+            "acne_grade": acne_grade,
+            "pigmentation": pigmentation,
+            "dark_circles": dark_circles,
+            "pores": "Visible" if comedones > 10 else "Refined",
+            "oil": "Oily (High Sebum)" if np.mean(gray) > 175 else "Balanced",
+            "condition": acne_grade + " Concerns",
+            "diet": "Reduce dairy and refined sugar for 14 days.",
+            "lifestyle": "Maintain 7.5 hours of sleep. Use a clean pillowcase.",
+            "rec_kit": rec_kit
         }
-    except Exception as e:
-        print("Diagnostic Error:", e)
-        return {"score": 85, "age": 18, "moisture": 80, "acne_grade": "Clear", "pigmentation": "Minimal", "dark_circles": "None", "pores": "Refined", "oil": "Balanced", "condition": "Healthy Barrier", "rec_kit": "Gel Moisturizer"}
-
-# --- UPDATE 1: WHATSAPP RETENTION AUTOMATION LOGIC ---
-def generate_whatsapp_routine(user_id, user_name, kit_name):
-    db = get_db()
-    # Generate a 4-week (28 day) routine schedule in the database
-    for day in range(1, 29):
-        am_msg = f"Good Morning {user_name}! Aaj aapka Day {day} hai. Abhi {kit_name} ka Cleanser use kijiye aur Sunscreen mat bhulna! ☀️"
-        pm_msg = f"Good Night {user_name}! Day {day} complete karne ka time aa gaya hai. Skin ko repair hone de, apna PM routine follow karein. 🌙"
-        
-        db.execute('INSERT INTO routine_schedules (user_id, day_number, time_slot, message) VALUES (?, ?, ?, ?)', (user_id, day, 'AM', am_msg))
-        db.execute('INSERT INTO routine_schedules (user_id, day_number, time_slot, message) VALUES (?, ?, ?, ?)', (user_id, day, 'PM', pm_msg))
-    db.commit()
+    except:
+        return {"score": 85, "age": 18, "moisture": 80, "acne_grade": "Clear", "pigmentation": "Minimal", "dark_circles": "None", "pores": "Refined", "oil": "Balanced", "condition": "Healthy Barrier", "diet": "Drink 3L water.", "lifestyle": "Regular sleep.", "rec_kit": "Gel Moisturizer"}
 
 # --- ROUTES ---
 @app.route('/')
@@ -137,6 +103,7 @@ def analyze():
     data = request.json
     result = cureskin_diagnostic_engine(data.get('image'))
     
+    # Save to history automatically if logged in
     if 'user_id' in session:
         db = get_db()
         db.execute('INSERT INTO history (user_id, date, score, acne_grade, kit) VALUES (?, ?, ?, ?, ?)',
@@ -145,17 +112,7 @@ def analyze():
         
     return jsonify(result)
 
-@app.route('/api/activate_routine', methods=['POST'])
-def activate_routine():
-    # Hook this endpoint to your checkout success to trigger the WhatsApp calendar
-    if 'user_id' not in session: return jsonify({"success": False}), 401
-    data = request.json
-    db = get_db()
-    user = db.execute('SELECT name FROM users WHERE id = ?', (session['user_id'],)).fetchone()
-    generate_whatsapp_routine(session['user_id'], user['name'], data['kit_name'])
-    return jsonify({"success": True, "message": "WhatsApp AI Routine Scheduled!"})
-
-# --- ACCOUNT & AUTHENTICATION ENDPOINTS (Maintained exactly as specified) ---
+# --- ACCOUNT & AUTHENTICATION ENDPOINTS ---
 @app.route('/auth/signup', methods=['POST'])
 def signup():
     data = request.json
@@ -219,8 +176,10 @@ def check_session():
     if 'user_id' in session:
         db = get_db()
         user = db.execute('SELECT name, age, water_intake FROM users WHERE id = ?', (session['user_id'],)).fetchone()
-        if user: return jsonify({"logged_in": True, "user": dict(user)})
-        else: session.pop('user_id', None)
+        if user:
+            return jsonify({"logged_in": True, "user": dict(user)})
+        else:
+            session.pop('user_id', None)
     return jsonify({"logged_in": False})
 
 if __name__ == '__main__':
