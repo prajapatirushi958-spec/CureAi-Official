@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 app = Flask(__name__)
-# Crucial for secure sessions
+# Secure session key
 app.secret_key = os.environ.get("SECRET_KEY", "cureai_secure_session_key_2026")
 DATABASE = 'cureai.db'
 
@@ -73,7 +73,7 @@ def cureskin_diagnostic_engine(image_data):
         moisture = random.randint(68, 92)
         skin_age = 18 + random.randint(-1, 2)
         
-        # Determine recommended kit based on analysis (Ensures frontend match works)
+        # Recommended kit logic added to ensure frontend Match works smoothly
         rec_kit = "Active Acne Kit" if comedones > 10 else ("Pore Control Kit" if comedones > 5 else "Barrier Cream")
 
         return {
@@ -179,7 +179,7 @@ def check_session():
         if user:
             return jsonify({"logged_in": True, "user": dict(user)})
         else:
-            session.pop('user_id', None) # Clear invalid session
+            session.pop('user_id', None)
     return jsonify({"logged_in": False})
 
 if __name__ == '__main__':
