@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "super_secret_cureai_key_2026")
+app.secret_key = os.environ.get("SECRET_KEY", "cureai_secure_session_key")
 DATABASE = 'cureai.db'
 
 # --- DATABASE SETUP ---
@@ -42,20 +42,24 @@ def init_db():
 
 init_db()
 
-# --- DIAGNOSTIC ENGINE (Unchanged core logic) ---
+# --- DIAGNOSTIC ENGINE ---
 def cureskin_diagnostic_engine(image_data):
     try:
         encoded_data = image_data.split(',')[1]
         nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
+        # ROI - Face Detection Focus
         h, w = img.shape[:2]
         roi = img[h//2-180:h//2+180, w//2-180:w//2+180] 
+
+        # CV Analysis
         gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (7, 7), 0)
         circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, 1.2, 20, param1=50, param2=30, minRadius=2, maxRadius=10)
         comedones = len(circles[0]) if circles is not None else 0
 
+        # --- CLINICAL PRECISION LOGIC ---
         if comedones == 0: acne_grade = "Clear"
         elif comedones < 8: acne_grade = "Grade 1 (Mild)"
         elif comedones < 18: acne_grade = "Grade 2 (Moderate)"
@@ -64,18 +68,26 @@ def cureskin_diagnostic_engine(image_data):
         variance = np.var(gray)
         pigmentation = "Minimal" if variance < 1100 else "Moderate"
         dark_circles = "Not Detected" if np.mean(gray) > 125 else "Mild Visibility"
+
         score = max(40, 100 - (comedones * 3))
         moisture = random.randint(68, 92)
         skin_age = 18 + random.randint(-1, 2)
         
-        # Determine recommended kit based on score
+        # Determine kit recommendation logic matching frontend expectation
         rec_kit = "Active Acne Kit" if comedones > 10 else ("Pore Control Kit" if comedones > 5 else "Barrier Cream")
 
         return {
-            "score": int(score), "age": skin_age, "moisture": moisture, "acne_grade": acne_grade,
-            "pigmentation": pigmentation, "dark_circles": dark_circles, "pores": "Visible" if comedones > 10 else "Refined",
-            "oil": "Oily (High Sebum)" if np.mean(gray) > 175 else "Balanced", "condition": acne_grade + " Concerns",
-            "diet": "Reduce dairy and refined sugar for 14 days.", "lifestyle": "Maintain 7.5 hours of sleep. Use a clean pillowcase.",
+            "score": int(score),
+            "age": skin_age,
+            "moisture": moisture,
+            "acne_grade": acne_grade,
+            "pigmentation": pigmentation,
+            "dark_circles": dark_circles,
+            "pores": "Visible" if comedones > 10 else "Refined",
+            "oil": "Oily (High Sebum)" if np.mean(gray) > 175 else "Balanced",
+            "condition": acne_grade + " Concerns",
+            "diet": "Reduce dairy and refined sugar for 14 days.",
+            "lifestyle": "Maintain 7.5 hours of sleep. Use a clean pillowcase.",
             "rec_kit": rec_kit
         }
     except:
@@ -91,7 +103,7 @@ def analyze():
     data = request.json
     result = cureskin_diagnostic_engine(data.get('image'))
     
-    # Save to history if logged in
+    # Save to persistent history if the user is authenticated
     if 'user_id' in session:
         db = get_db()
         db.execute('INSERT INTO history (user_id, date, score, acne_grade, kit) VALUES (?, ?, ?, ?, ?)',
@@ -113,7 +125,7 @@ def signup():
         session['user_id'] = cursor.lastrowid
         return jsonify({"success": True, "name": data['name']})
     except sqlite3.IntegrityError:
-        return jsonify({"success": False, "message": "Email already exists"}), 400
+        return jsonify({"success": False, "message": "Account with this email already exists"}), 400
 
 @app.route('/auth/login', methods=['POST'])
 def login():
@@ -123,7 +135,7 @@ def login():
     if user and check_password_hash(user['password'], data['password']):
         session['user_id'] = user['id']
         return jsonify({"success": True, "name": user['name'], "age": user['age'], "water_intake": user['water_intake']})
-    return jsonify({"success": False, "message": "Invalid credentials"}), 401
+    return jsonify({"success": False, "message": "Invalid email or password"}), 401
 
 @app.route('/auth/logout', methods=['POST'])
 def logout():
@@ -139,7 +151,7 @@ def forgot_password():
         new_pw = generate_password_hash(data['new_password'])
         db.execute('UPDATE users SET password = ? WHERE email = ?', (new_pw, data['email']))
         db.commit()
-        return jsonify({"success": True, "message": "Password reset successful"})
+        return jsonify({"success": True, "message": "Password updated successfully"})
     return jsonify({"success": False, "message": "Email not found"}), 404
 
 @app.route('/profile/update', methods=['POST'])
