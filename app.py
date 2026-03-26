@@ -9,7 +9,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "cureai_secure_session_key")
+# Crucial for secure sessions
+app.secret_key = os.environ.get("SECRET_KEY", "cureai_secure_session_key_2026")
 DATABASE = 'cureai.db'
 
 # --- DATABASE SETUP ---
@@ -29,10 +30,12 @@ def close_connection(exception):
 def init_db():
     with app.app_context():
         db = get_db()
+        # Users Table
         db.execute('''CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT, email TEXT UNIQUE, password TEXT, age INTEGER, water_intake TEXT
         )''')
+        # Persistent History Table
         db.execute('''CREATE TABLE IF NOT EXISTS history (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER, date TEXT, score INTEGER, acne_grade TEXT, kit TEXT,
@@ -49,17 +52,14 @@ def cureskin_diagnostic_engine(image_data):
         nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-        # ROI - Face Detection Focus
         h, w = img.shape[:2]
         roi = img[h//2-180:h//2+180, w//2-180:w//2+180] 
 
-        # CV Analysis
         gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (7, 7), 0)
         circles = cv2.HoughCircles(blurred, cv2.HOUGH_GRADIENT, 1.2, 20, param1=50, param2=30, minRadius=2, maxRadius=10)
         comedones = len(circles[0]) if circles is not None else 0
 
-        # --- CLINICAL PRECISION LOGIC ---
         if comedones == 0: acne_grade = "Clear"
         elif comedones < 8: acne_grade = "Grade 1 (Mild)"
         elif comedones < 18: acne_grade = "Grade 2 (Moderate)"
@@ -73,7 +73,7 @@ def cureskin_diagnostic_engine(image_data):
         moisture = random.randint(68, 92)
         skin_age = 18 + random.randint(-1, 2)
         
-        # Determine kit recommendation logic matching frontend expectation
+        # Determine recommended kit based on analysis (Ensures frontend match works)
         rec_kit = "Active Acne Kit" if comedones > 10 else ("Pore Control Kit" if comedones > 5 else "Barrier Cream")
 
         return {
@@ -103,7 +103,7 @@ def analyze():
     data = request.json
     result = cureskin_diagnostic_engine(data.get('image'))
     
-    # Save to persistent history if the user is authenticated
+    # Save to history automatically if logged in
     if 'user_id' in session:
         db = get_db()
         db.execute('INSERT INTO history (user_id, date, score, acne_grade, kit) VALUES (?, ?, ?, ?, ?)',
@@ -151,8 +151,8 @@ def forgot_password():
         new_pw = generate_password_hash(data['new_password'])
         db.execute('UPDATE users SET password = ? WHERE email = ?', (new_pw, data['email']))
         db.commit()
-        return jsonify({"success": True, "message": "Password updated successfully"})
-    return jsonify({"success": False, "message": "Email not found"}), 404
+        return jsonify({"success": True, "message": "Password updated successfully!"})
+    return jsonify({"success": False, "message": "Email address not found"}), 404
 
 @app.route('/profile/update', methods=['POST'])
 def update_profile():
@@ -176,7 +176,10 @@ def check_session():
     if 'user_id' in session:
         db = get_db()
         user = db.execute('SELECT name, age, water_intake FROM users WHERE id = ?', (session['user_id'],)).fetchone()
-        return jsonify({"logged_in": True, "user": dict(user)})
+        if user:
+            return jsonify({"logged_in": True, "user": dict(user)})
+        else:
+            session.pop('user_id', None) # Clear invalid session
     return jsonify({"logged_in": False})
 
 if __name__ == '__main__':
