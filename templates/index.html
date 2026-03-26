@@ -26,14 +26,13 @@
         .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: #fff; transform: translateX(-50%); cursor: ew-resize; z-index: 10; }
         .info-input { width: 100%; border-bottom: 2px solid #f1f5f9; padding: 12px 0; outline: none; font-size: 16px; background: transparent; }
         .filter-btn.active { background: #008080; color: white; border-color: #008080; }
-        
         .report-metric { background: #f8fafc; border-radius: 20px; padding: 15px; border-left: 4px solid #008080; }
         .severity-badge { font-size: 8px; font-weight: 800; padding: 2px 8px; border-radius: 9999px; text-transform: uppercase; }
         .badge-low { background: #dcfce7; color: #166534; }
         .badge-mid { background: #fef9c3; color: #854d0e; }
         .badge-high { background: #fee2e2; color: #991b1b; }
         
-        /* Auth Toggles */
+        /* New Custom Auth Toggles */
         .auth-toggle { display: none; }
         .auth-toggle.active { display: block; }
     </style>
@@ -76,10 +75,10 @@
                 <h4 class="font-bold text-xl">Welcome Back</h4>
                 <input type="email" id="login-email" placeholder="Email Address" class="info-input">
                 <input type="password" id="login-pw" placeholder="Password" class="info-input">
-                <button onclick="handleLogin()" class="w-full bg-black text-white py-4 rounded-3xl text-[10px] font-bold uppercase">Login</button>
+                <button onclick="handleLogin()" class="w-full bg-black text-white py-4 rounded-3xl text-[10px] font-bold uppercase shadow-xl hover:scale-[1.02] transition-transform">Login</button>
                 <div class="flex justify-between text-[10px] font-bold text-slate-400 mt-4 cursor-pointer">
-                    <span onclick="switchAuth('auth-forgot')">Forgot Password?</span>
-                    <span onclick="switchAuth('auth-signup')">Create Account</span>
+                    <span onclick="switchAuth('auth-forgot')" class="hover:text-teal">Forgot Password?</span>
+                    <span onclick="switchAuth('auth-signup')" class="hover:text-teal">Create Account</span>
                 </div>
             </div>
 
@@ -88,34 +87,34 @@
                 <input type="text" id="signup-name" placeholder="Full Name" class="info-input">
                 <input type="email" id="signup-email" placeholder="Email Address" class="info-input">
                 <input type="password" id="signup-pw" placeholder="Password" class="info-input">
-                <button onclick="handleSignup()" class="w-full bg-teal text-white py-4 rounded-3xl text-[10px] font-bold uppercase">Sign Up</button>
-                <div class="text-[10px] font-bold text-slate-400 mt-4 text-center cursor-pointer" onclick="switchAuth('auth-login')">Back to Login</div>
+                <button onclick="handleSignup()" class="w-full bg-teal text-white py-4 rounded-3xl text-[10px] font-bold uppercase shadow-xl hover:scale-[1.02] transition-transform">Sign Up</button>
+                <div class="text-[10px] font-bold text-slate-400 mt-4 text-center cursor-pointer hover:text-teal" onclick="switchAuth('auth-login')">Back to Login</div>
             </div>
 
             <div id="auth-forgot" class="auth-toggle space-y-6">
                 <h4 class="font-bold text-xl">Reset Password</h4>
                 <input type="email" id="forgot-email" placeholder="Email Address" class="info-input">
                 <input type="password" id="forgot-new-pw" placeholder="New Password" class="info-input">
-                <button onclick="handleForgotPw()" class="w-full bg-black text-white py-4 rounded-3xl text-[10px] font-bold uppercase">Reset</button>
-                <div class="text-[10px] font-bold text-slate-400 mt-4 text-center cursor-pointer" onclick="switchAuth('auth-login')">Back to Login</div>
+                <button onclick="handleForgotPw()" class="w-full bg-black text-white py-4 rounded-3xl text-[10px] font-bold uppercase shadow-xl hover:scale-[1.02] transition-transform">Reset Password</button>
+                <div class="text-[10px] font-bold text-slate-400 mt-4 text-center cursor-pointer hover:text-teal" onclick="switchAuth('auth-login')">Back to Login</div>
             </div>
 
             <div id="auth-profile" class="auth-toggle space-y-8">
                 <div>
-                    <h4 class="font-bold text-xl mb-4">Edit Profile</h4>
+                    <h4 class="font-bold text-xl mb-4 text-teal">Profile Settings</h4>
                     <input type="text" id="prof-name" placeholder="Full Name" class="info-input mb-2">
                     <input type="number" id="prof-age" placeholder="Age" class="info-input mb-2">
                     <select id="prof-water" class="info-input mb-4"><option value="Good">3L+ Water</option><option value="Low">Low Intake</option></select>
-                    <button onclick="updateProfile()" class="w-full bg-teal text-white py-3 rounded-2xl text-[10px] font-bold uppercase">Save Changes</button>
+                    <button onclick="updateProfile()" class="w-full bg-teal text-white py-3 rounded-2xl text-[10px] font-bold uppercase hover:scale-[1.02] transition-transform">Save Changes</button>
                 </div>
                 
                 <div class="border-t pt-6">
-                    <h4 class="font-bold text-xl mb-4">Scan History</h4>
+                    <h4 class="font-bold text-xl mb-4 text-teal">Persistent History</h4>
                     <div id="history-container" class="space-y-3 max-h-48 overflow-y-auto pr-2">
                         </div>
                 </div>
 
-                <button onclick="handleLogout()" class="w-full border border-red-500 text-red-500 py-3 rounded-2xl text-[10px] font-bold uppercase mt-4">Logout</button>
+                <button onclick="handleLogout()" class="w-full border-2 border-slate-200 text-slate-400 py-3 rounded-2xl text-[10px] font-bold uppercase mt-4 hover:border-red-500 hover:text-red-500 transition-colors">Log Out</button>
             </div>
 
         </div>
@@ -301,10 +300,11 @@
         </div>
     </div>
 
-
     <script>
         let userData = {}, quizData = {}, currentKit = "", cart = [];
         const video = document.getElementById('video'), status = document.getElementById('status'), overlay = document.getElementById('overlay');
+        
+        // Fully Restored 15 Product Array
         const products = [
             { id: 1, name: "Active Acne Kit", type: "kit", purpose: "Severe Acne Control", op: 2999, fp: 2499, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
             { id: 2, name: "Pore Control Kit", type: "kit", purpose: "Open Pores & Texture", op: 2499, fp: 1899, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
@@ -316,4 +316,315 @@
             { id: 8, name: "Clinical Sunscreen", type: "individual", purpose: "Zero-Whitecast SPF", op: 999, fp: 749, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
             { id: 9, name: "Retinol Therapy", type: "individual", purpose: "Anti-Aging Serum", op: 1899, fp: 1449, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&w=500" },
             { id: 10, name: "Vitamin C Glow", type: "individual", purpose: "Brightening Therapy", op: 1499, fp: 1099, img: "https://images.unsplash.com/photo-1620917670397-dc711fc811be?auto=format&w=500" },
-            { id: 11, name: "Barrier Cream", type: "individual", purpose: "Ceramide Support", op: 1199, fp: 849, img
+            { id: 11, name: "Barrier Cream", type: "individual", purpose: "Ceramide Support", op: 1199, fp: 849, img: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&w=500" },
+            { id: 12, name: "Gel Moisturizer", type: "individual", purpose: "Water-Based Hydration", op: 799, fp: 499, img: "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&w=500" },
+            { id: 13, name: "Azelaic Treatment", type: "individual", purpose: "Bacterial Control", op: 1599, fp: 1199, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&w=500" },
+            { id: 14, name: "Zinc Face Mist", type: "individual", purpose: "Instant Matte Look", op: 699, fp: 449, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&w=500" },
+            { id: 15, name: "Detox Night Gel", type: "individual", purpose: "Overnight Repair", op: 1399, fp: 999, img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&w=500" }
+        ];
+
+        // --- ACCOUNT & AUTHENTICATION LOGIC ---
+        function switchAuth(id) {
+            document.querySelectorAll('.auth-toggle').forEach(el => el.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        async function checkSessionStatus() {
+            try {
+                const res = await fetch('/auth/session');
+                const data = await res.json();
+                if(data.logged_in) {
+                    switchAuth('auth-profile');
+                    document.getElementById('prof-name').value = data.user.name;
+                    document.getElementById('prof-age').value = data.user.age;
+                    document.getElementById('prof-water').value = data.user.water_intake;
+                    
+                    // Pre-fill diagnostic info if logged in
+                    document.getElementById('user-name').value = data.user.name;
+                    document.getElementById('user-age-input').value = data.user.age;
+                    document.getElementById('user-water').value = data.user.water_intake;
+                    
+                    loadHistory();
+                } else {
+                    switchAuth('auth-login');
+                }
+            } catch (e) {
+                console.error("Session check failed");
+            }
+        }
+
+        async function handleSignup() {
+            try {
+                const res = await fetch('/auth/signup', {
+                    method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        name: document.getElementById('signup-name').value,
+                        email: document.getElementById('signup-email').value,
+                        password: document.getElementById('signup-pw').value
+                    })
+                });
+                const data = await res.json();
+                if(data.success) { 
+                    alert("Welcome " + data.name + "!"); 
+                    checkSessionStatus(); 
+                } else { 
+                    alert(data.message); 
+                }
+            } catch(e) { alert("Signup error. Check your connection."); }
+        }
+
+        async function handleLogin() {
+            try {
+                const res = await fetch('/auth/login', {
+                    method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        email: document.getElementById('login-email').value,
+                        password: document.getElementById('login-pw').value
+                    })
+                });
+                const data = await res.json();
+                if(data.success) { checkSessionStatus(); }
+                else { alert(data.message); }
+            } catch(e) { alert("Login failed. Check your connection."); }
+        }
+
+        async function handleLogout() {
+            await fetch('/auth/logout', { method: 'POST' });
+            checkSessionStatus();
+        }
+
+        async function handleForgotPw() {
+            try {
+                const res = await fetch('/auth/forgot-password', {
+                    method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        email: document.getElementById('forgot-email').value,
+                        new_password: document.getElementById('forgot-new-pw').value
+                    })
+                });
+                const data = await res.json();
+                alert(data.message);
+                if(data.success) switchAuth('auth-login');
+            } catch (e) { alert("Reset failed."); }
+        }
+
+        async function updateProfile() {
+            try {
+                const res = await fetch('/profile/update', {
+                    method: 'POST', headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        name: document.getElementById('prof-name').value,
+                        age: document.getElementById('prof-age').value,
+                        water_intake: document.getElementById('prof-water').value
+                    })
+                });
+                const data = await res.json();
+                if(data.success) { 
+                    alert("Profile updated successfully!"); 
+                    checkSessionStatus(); 
+                }
+            } catch(e) { alert("Update failed."); }
+        }
+
+        async function loadHistory() {
+            const res = await fetch('/profile/history');
+            const data = await res.json();
+            const container = document.getElementById('history-container');
+            container.innerHTML = '';
+            if(data.success && data.history.length > 0) {
+                data.history.forEach(h => {
+                    container.innerHTML += `
+                    <div class="p-4 bg-slate-50 rounded-xl text-xs flex justify-between items-center border border-slate-100 mb-2">
+                        <div><span class="font-bold text-sm">${h.date.split(' ')[0]}</span><br><span class="text-teal font-black uppercase mt-1 inline-block">${h.acne_grade}</span></div>
+                        <div class="text-right"><span class="font-black text-xl text-slate-800">${h.score}<span class="text-[10px] text-slate-400">/100</span></span><br><span class="text-slate-400 text-[8px] font-bold uppercase">${h.kit}</span></div>
+                    </div>`;
+                });
+            } else {
+                container.innerHTML = '<p class="text-xs text-slate-400 p-4 text-center border-2 border-dashed rounded-xl">No previous scans found.</p>';
+            }
+        }
+
+        // --- ORIGINAL DIAGNOSTICS & UI LOGIC (Fully Restored) ---
+        function togglePanel(id) { document.getElementById(id).classList.toggle('panel-open'); }
+        
+        function openInfoModal() { 
+            document.getElementById('info-modal').classList.remove('hidden'); 
+            document.getElementById('info-modal').classList.add('flex');
+            checkSessionStatus(); // Prep user details if logged in
+        }
+        function closeInfoModal() { document.getElementById('info-modal').classList.add('hidden'); }
+
+        function submitInfo() {
+            userData = { name: document.getElementById('user-name').value || "User", age: document.getElementById('user-age-input').value || 18 };
+            document.getElementById('info-modal').classList.add('hidden');
+            document.getElementById('quiz-modal').classList.remove('hidden');
+            document.getElementById('quiz-modal').classList.add('flex');
+        }
+
+        function submitQuiz() {
+            quizData = { problem: document.getElementById('q-problem').value, symptoms: document.getElementById('q-symptoms').value, meds: document.getElementById('q-meds').value, start: document.getElementById('q-start').value };
+            document.getElementById('quiz-modal').classList.add('hidden');
+            document.getElementById('scan-screen').classList.remove('hidden');
+            document.getElementById('scan-screen').classList.add('flex');
+            initCam();
+        }
+
+        async function initCam() { 
+            const s = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'user'}}); 
+            video.srcObject = s; 
+        }
+
+        async function runAnalysis() {
+            overlay.classList.remove('hidden');
+            status.innerText = "Analyzing Skin Matrix...";
+            const btn = document.getElementById('capture-btn');
+            btn.disabled = true; btn.style.opacity = "0.5";
+
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({image: canvas.toDataURL('image/jpeg'), quiz: quizData})
+                });
+                const data = await response.json();
+                setTimeout(() => showDashboard(data), 3000);
+            } catch (err) {
+                alert("Scan failed. Check connection.");
+                overlay.classList.add('hidden');
+                btn.disabled = false; btn.style.opacity = "1";
+            }
+        }
+
+        function showDashboard(d) {
+            document.getElementById('scan-screen').classList.add('hidden');
+            document.getElementById('result-modal').classList.remove('hidden');
+            currentKit = d.rec_kit;
+            
+            document.getElementById('rep-name-header').innerHTML = userData.name.split(' ')[0] + "'s<br>Report.";
+            document.getElementById('score-val').innerText = d.score + "/100";
+            document.getElementById('score-bar').style.width = d.score + "%";
+            document.getElementById('res-acne').innerText = d.acne_grade;
+            
+            if (document.getElementById('res-kit-name')) {
+                document.getElementById('res-kit-name').innerText = d.rec_kit || "Custom Routine";
+            }
+            
+            document.getElementById('res-skin-age').innerText = (parseInt(userData.age) + (d.score > 80 ? -1 : 2)) + " Yrs";
+            document.getElementById('rep-date').innerText = "ISSUED ON: " + new Date().toLocaleDateString() + " | CLINICAL REF: " + Math.random().toString(36).substr(2, 9).toUpperCase();
+            
+            const setBadge = (id, score) => {
+                const el = document.getElementById(id);
+                el.className = "severity-badge " + (score < 40 ? "badge-low" : (score < 70 ? "badge-mid" : "badge-high"));
+                el.innerText = score < 40 ? "Low" : (score < 70 ? "Medium" : "High");
+            };
+            setBadge('badge-acne', 100 - d.score);
+            setBadge('badge-pore', d.score / 1.5);
+            setBadge('badge-pig', (100 - d.score) + 10);
+
+            renderProducts();
+            initSlider();
+            checkSessionStatus(); // Trigger history update silently
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('pdf-content');
+            const opt = { margin: 0, filename: 'CureAI-Clinical-Report.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        function checkIngredients() {
+            const input = document.getElementById('ing-input').value.toLowerCase(), res = document.getElementById('check-result');
+            res.classList.remove('hidden');
+            const cloggers = ["isopropyl myristate", "coconut oil", "palm oil"];
+            const harsh = ["sls", "sles", "paraben"];
+            let foundC = cloggers.filter(i => input.includes(i));
+            let foundH = harsh.filter(i => input.includes(i));
+            if(foundC.length || foundH.length) {
+                res.innerHTML = `<span class="text-red-500 font-black">WARNING!</span><br>❌ Found: ${[...foundC, ...foundH].join(", ")}`;
+            } else { 
+                res.innerHTML = `<span class="text-teal font-black">✅ CLINICALLY SAFE!</span>`;
+            }
+        }
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? products : products.filter(p => p.type === filter);
+            filtered.forEach(p => {
+                const isMatch = (p.name === currentKit);
+                grid.innerHTML += `<div class="luxury-card p-10 flex flex-col items-center text-center">
+                    ${isMatch ? '<div class="absolute top-5 right-5 bg-teal text-white text-[7px] px-3 py-1 rounded-full font-bold uppercase animate-pulse shadow-lg">AI Match</div>' : ''}
+                    <img src="${p.img}" class="w-full h-44 object-cover rounded-[35px] mb-8">
+                    <div class="text-[8px] font-bold text-slate-400 uppercase mb-2 tracking-widest">${p.purpose}</div>
+                    <h4 class="text-lg font-bold mb-2">${p.name}</h4>
+                    <div class="flex items-center gap-3 mb-8"><span class="text-slate-300 line-through text-sm">₹${p.op}</span><span class="text-teal font-black text-xl">₹${p.fp}</span></div>
+                    <button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-4 rounded-2xl text-[9px] font-bold uppercase hover:scale-[1.02] transition-transform">Add to Cart</button>
+                </div>`;
+            });
+        }
+
+        function filterShop(type) { 
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active')); 
+            event.target.classList.add('active'); 
+            renderProducts(type);
+        }
+        
+        function addToCart(id) { 
+            cart.push(products.find(p => p.id === id)); 
+            updateCartUI(); 
+            togglePanel('cart-panel');
+        }
+        
+        function addToCartKit() { 
+            const kit = products.find(p => p.name === currentKit);
+            if(kit) addToCart(kit.id); 
+        }
+        
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            let total = 0;
+            document.getElementById('cart-items').innerHTML = cart.map((p, i) => { 
+                total += p.fp; 
+                return `<div class="bg-slate-50 p-4 rounded-2xl flex items-center gap-4"><img src="${p.img}" class="w-12 h-12 rounded-xl object-cover"><div class="flex-1 font-bold text-[10px] uppercase">${p.name}<br><span class="text-teal">₹${p.fp}</span></div><button onclick="cart.splice(${i},1);updateCartUI()" class="text-red-400 font-bold text-[8px] p-2">X</button></div>`; 
+            }).join('');
+            document.getElementById('cart-total').innerText = '₹' + total;
+        }
+        
+        function checkoutCart() { 
+            window.open(`https://wa.me/919099764589?text=CureAI%20Order:%20${cart.map(p=>p.name).join(',')}%20Total:%20${document.getElementById('cart-total').innerText}`, '_blank');
+        }
+        
+        function shareReferral() { 
+            window.open(`https://wa.me/?text=Get%20a%20free%20skin%20scan%20on%20CureAI!%20${window.location.href}`, '_blank');
+        }
+
+        function initSlider() {
+            const slider = document.getElementById('slider-line'), afterImg = document.getElementById('after-img'), container = slider.parentElement;
+            const move = (e) => {
+                let x = (e.pageX || (e.touches ? e.touches[0].pageX : 0)) - container.getBoundingClientRect().left;
+                let w = container.offsetWidth;
+                if (x < 0) x = 0; if (x > w) x = w;
+                let percent = (x / w) * 100;
+                slider.style.left = percent + '%';
+                afterImg.style.clipPath = `inset(0 0 0 ${percent}%)`;
+            };
+            slider.addEventListener('mousedown', () => window.addEventListener('mousemove', move));
+            window.addEventListener('mouseup', () => window.removeEventListener('mousemove', move));
+            slider.addEventListener('touchstart', () => window.addEventListener('touchmove', move));
+            window.addEventListener('touchend', () => window.removeEventListener('touchmove', move));
+        }
+
+        // Initialize application on load
+        window.onload = () => {
+            renderProducts();
+            initSlider();
+            checkSessionStatus();
+        }
+    </script>
+</body>
+</html>
